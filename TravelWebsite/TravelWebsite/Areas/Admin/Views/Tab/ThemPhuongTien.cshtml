@@ -1,0 +1,71 @@
+﻿@model Model.Model.TravelModel
+
+
+<div class="">
+    @using (Html.BeginForm("themPhuongTien", "Insert", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        @Html.DisplayNameFor(model => model.phuongTien.phuongTienModel.MaPhuongTien)
+        <br />
+        @Html.TextBoxFor(model => model.phuongTien.phuongTienModel.MaPhuongTien, new { @class = "form-control" }) 
+        <br />
+        @Html.DisplayNameFor(model => model.phuongTien.phuongTienModel.ThoiGianDi)<br />
+        <div class="container">
+            <div class="row">
+                <div class='col-sm-6'>
+                    <input type='text' class="form-control" id='datetimepicker4' name="thoigiandi" />
+                </div>
+
+            </div>
+        </div>
+
+        @Html.DisplayNameFor(model => model.phuongTien.phuongTienModel.ThoiGianDen)<br />
+        <div class="container">
+            <div class="row">
+                <div class='col-sm-6'>
+                    <input type='text' class="form-control" id='datetimepicker5' name="thoigianden" />
+                </div>
+
+            </div>
+        </div>
+        @Html.DisplayNameFor(model => model.phuongTien.phuongTienModel.TenSanBay)<br />
+        @Html.TextBoxFor(model => model.phuongTien.phuongTienModel.TenSanBay, new { @class = "form-control" })<br />
+
+        <input type="submit" value="Thêm" class="form-control btn-success" />
+    }
+        <br />
+        <div class="container" style="width:100%" >
+            <table border="1" style="width:100%" width="100%" class="table table-striped">
+                <thead style="width:auto">
+                    <tr>
+                        <th>Mã phương tiện</th>
+                        <th>Thời gian đi</th>
+                        <th>Thời gian đến</th>
+                        <th>Sân bay/Bến xe</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var item in Model.phuongTien.danhSach)
+                        {
+                            <tr>
+                                <td>@item.MaPhuongTien</td>
+                                <td>@item.ThoiGianDi</td>
+                                <td>@item.ThoiGianDen</td>
+                                <td>@item.TenSanBay</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+      
+    
+</div>
+
+
+
+
+

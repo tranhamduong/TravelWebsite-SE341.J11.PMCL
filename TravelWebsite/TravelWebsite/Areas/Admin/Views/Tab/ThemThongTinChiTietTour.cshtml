@@ -1,0 +1,41 @@
+﻿@model Model.Model.TravelModel
+
+<div class="">
+
+
+
+    @Html.DisplayNameFor(model => model.tour.chiTietTour.NgayGioTapTrung)
+    <div class="container">
+        <div class="row">
+            <div class='col-sm-6'>
+                <input type='text' class="form-control" id='datetimepicker1' name="ngaygiotaptrung" />
+            </div>
+
+        </div>
+    </div>
+    <br />
+    @Html.DisplayNameFor(model => model.tour.chiTietTour.NoiTapTrung)<br />
+    @Html.TextBoxFor(model => model.tour.chiTietTour.NoiTapTrung, new { @class = "form-control" })
+    <br />
+    @Html.DisplayNameFor(model => model.tour.chiTietTour.CoBaoHiem)<br />
+    <select class="form-control" name="baohiem">
+        <option>Có</option>
+        <option>Không</option>
+    </select>
+    <br />
+    @Html.DisplayNameFor(model => model.tour.chiTietTour.QuaTang)
+    <div class="">
+        Nước suối: @Html.CheckBox("nuocsuoi", new { @class = "form-control" })    <br />
+        Nón: @Html.CheckBox("non", new { @class = "form-control" })<br />
+        Áo thun: @Html.CheckBox("aothun", new { @class = "form-control" })<br />
+        Dù: @Html.CheckBox("du", new { @class = "form-control" })
+    </div>
+    <br />
+    <br />
+
+    @Html.DisplayNameFor(model => model.tour.chiTietTour.LichTrinh)<br />
+    @Html.TextAreaFor(model => model.tour.chiTietTour.LichTrinh, new { @class = "form-control" })
+    <br />
+</div>
+
+

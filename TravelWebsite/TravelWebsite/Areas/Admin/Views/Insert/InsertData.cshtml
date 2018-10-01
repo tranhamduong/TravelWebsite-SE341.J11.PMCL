@@ -1,0 +1,82 @@
+﻿@model TravelModel
+
+@using Model.Model
+
+<html>
+<head>
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+    <h2>InsertData</h2>
+
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+            <li><a data-toggle="tab" href="#ThemTour">Thêm Tour mới</a></li>
+            <li><a data-toggle="tab" href="#ThemDiaDanh">Thêm Địa danh mới</a></li>
+            <li><a data-toggle="tab" href="#ThemHuongDanVien">Thêm Hướng dẫn viên mới</a></li>
+            <li><a data-toggle="tab" href="#ThemPhuongTien">Thêm Phương tiện mới</a></li>
+            <li><a data-toggle="tab" href="#ThemKhachHang">Thêm Khách hàng</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="home" class="tab-pane fade in active">
+                THIS IS ADMIN SECTION
+            </div>
+            <div class="tab-pane fade" id="ThemTour">
+
+                    @Html.Partial( "~/Areas/Admin/Views/Tab/ThemTour.cshtml", Model)
+
+            </div>
+            <div class="tab-pane fade" id="ThemDiaDanh">
+                <div class="container">
+                    @Html.Partial("~/Areas/Admin/Views/Tab/ThemDiaDanh.cshtml", Model)
+                </div>
+            </div>
+            <div class="tab-pane fade" id="ThemHuongDanVien">
+                <div class="container">
+                    @Html.Partial("~/Areas/Admin/Views/Tab/ThemHuongDanVien.cshtml",Model)
+                </div>
+            </div>
+            <div class="tab-pane fade" id="ThemPhuongTien">
+                <div class="container">
+                    @Html.Partial("~/Areas/Admin/Views/Tab/ThemPhuongTien.cshtml", Model)
+                </div>
+            </div>
+            <div class="tab-pane fade" id="ThemKhachHang">
+                <div class="container">
+                    @Html.Partial("~/Areas/Admin/Views/Tab/ThemKhachHang.cshtml", Model)
+                </div>
+            </div>
+        </div>
+        </div>
+    <script type="text/javascript">
+        $(function () {
+        });
+        $("#datetimepicker4").datetimepicker();
+        $("#datetimepicker5").datetimepicker();
+        $("#datetimepicker1").datetimepicker();
+        $(function () {
+            $('#datetimepicker3').datetimepicker({
+                format: 'DD/MM/YYYY'
+            });
+        });
+        $("#datetimepicker2").datetimepicker({
+            format: 'DD/MM/YYYY'
+});
+    </script>
+</body>
+</html>

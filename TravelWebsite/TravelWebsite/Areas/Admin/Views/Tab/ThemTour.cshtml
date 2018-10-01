@@ -1,0 +1,110 @@
+﻿@model Model.Model.TravelModel
+
+@using (Html.BeginForm("themTour", "Insert", FormMethod.Post))
+{
+
+    @Html.DisplayNameFor(model => model.tour.tour.MoTaTour)
+    @Html.TextAreaFor(model => model.tour.tour.MoTaTour, new { @class = "form-control" })
+    <br />
+    @Html.DisplayNameFor(model => model.tour.tour.SoNgay)
+    @Html.TextBoxFor(model => model.tour.tour.SoNgay, new { @class = "form-control" })
+    <br />
+    @Html.DisplayNameFor(model => model.tour.tour.SoChoConLai)
+    @Html.TextBoxFor(model => model.tour.tour.SoChoConLai, new { @class = "form-control" })
+    <br />
+    @Html.DisplayNameFor(model => model.tour.tour.NgayKhoiHanh)
+    <div class="container">
+        <div class="row">
+            <div class='col-sm-6'>
+                <div class="form-group">
+                    <div class='input-group date' id='datetimepicker3'>
+                        <input type='text' class="form-control" name="thoigiandi" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-time"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                $(function () {
+                    $('#datetimepicker3').datetimepicker({
+                        format: 'L'
+                    });
+                });
+            </script>
+        </div>
+    </div>
+    <br />
+    @Html.DisplayNameFor(model => model.tour.tour.NgayTroVe)
+    <div class="container">
+        <div class="row">
+            <div class='col-sm-6'>
+                <div class="form-group">
+                    <div class='input-group date' id='datetimepicker2'>
+                        <input type='text' class="form-control" name="thoigianden" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-time"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                $(function () {
+                    $('#datetimepicker2').datetimepicker({
+                        format: 'L'
+                    });
+                });
+            </script>
+        </div>
+    </div>
+    <br />
+    @Html.DisplayNameFor(model => model.tour.tour.GiaTien)
+    @Html.TextBoxFor(model => model.tour.tour.GiaTien, new { @class = "form-control" })
+    <br />
+    @Html.DisplayNameFor(model => model.tour.tour.GiaTienTreEm)
+    @Html.TextBoxFor(model => model.tour.tour.GiaTienTreEm, new { @class = "form-control" })
+    <br />
+    @Html.DisplayNameFor(model => model.tour.tour.GiamGia)
+    <select class="form-control" name="giamgia">
+        <option>0%</option>
+        <option>10%</option>
+        <option>20%</option>
+        <option>33%</option>
+        <option>40%</option>
+        <option>50%</option>
+    </select>
+    <br />
+    @Html.DisplayNameFor(model => model.tour.tour.NoiKhoiHanh)
+    @Html.DropDownListFor(model => model.tour.tour.NoiKhoiHanh, new SelectList(Model.diadanh.dsDiaDanh), "Chọn điểm đi", new { @class = "form-control", @name = "diadanh" })
+    <br />
+    @Html.DisplayNameFor(model => model.tour.tour.TinhTrang)
+    @Html.DropDownListFor(model => model.tour.tour.TinhTrang, new SelectList(Enum.GetValues(typeof(Model.Entity.Tour.Tinh_Trang))), "Chọn tình trạng", new { @class = "form-control" })
+    <br />
+    @Html.DisplayNameFor(model => model.tour.tour.MaHuongDanVien)
+    @Html.DropDownListFor(model => model.tour.tour.MaHuongDanVien, new SelectList(Model.huongDanVien.dsHuongDanVien), "Chọn Hướng dẫn viên", new { @class = "form-control", @name = "hdv" })
+    <br />
+    @Html.DisplayNameFor(model => model.tour.tour.PhuongTien)
+    @Html.DropDownListFor(model => model.tour.chiTietTour.MaPhuongTien, new SelectList(Model.phuongTien.dsPhuongTien), "Chọn Phương tiện", new { @class = "form-control", @name = "phuongtien" })
+    <br />
+    @Html.DisplayNameFor(model => model.tour.tour.MaDiaDanh)
+    @Html.DropDownListFor(model => model.tour.tour.MaDiaDanh, new SelectList(Model.diadanh.dsDiaDanh), "Chọn điểm đến", new { @class = "form-control", @name = "diadanh" })
+    <br />
+
+    @Html.Partial("~/Areas/Admin/Views/Tab/ThemThongTinChiTietTour.cshtml", Model)
+
+    <input type="submit" class="form-control btn-success" value="Thêm" />
+}
+
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker3').datetimepicker({
+            format: 'DD/MM/YYYY'
+        });
+    });
+    $("#datetimepicker2").datetimepicker({
+        format: 'DD/MM/YYYY'
+    });
+
+</script>
+
+

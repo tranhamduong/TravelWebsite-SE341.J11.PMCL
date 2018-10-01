@@ -1,0 +1,43 @@
+﻿@model Model.Model.TravelModel
+
+<div class="">
+    @using (Html.BeginForm("themDiaDanh", "Insert", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        @Html.DisplayNameFor(model => model.diadanh.diaDanhModel.TenDiaDanh) <br />
+        @Html.TextBoxFor(model => model.diadanh.diaDanhModel.TenDiaDanh, new { @class = "form-control" }) <br />
+        @Html.DisplayNameFor(model => model.diadanh.diaDanhModel.MoTaDiaDanh)<br />
+        @Html.TextAreaFor(model => model.diadanh.diaDanhModel.MoTaDiaDanh, new { @class = "form-control" })<br />
+        @Html.DisplayNameFor(model => model.diadanh.diaDanhModel.MaVungMien)<br />
+        @Html.DropDownListFor(model => model.diadanh.diaDanhModel.MaVungMien, new SelectList(Enum.GetValues(typeof(Model.Entity.DiaDanh.Vung_Mien))), "Chọn vùng miền", new { @class = "form-control" })
+        @Html.DisplayNameFor(model => model.diadanh.diaDanhModel.DiaDanhConTieuBieu) <br />
+        @Html.TextAreaFor(model => model.diadanh.diaDanhModel.DiaDanhConTieuBieu, new { @class = "form-control" })<br />
+        <input type="submit" value="Thêm" class="form-control btn-success" />
+    }
+
+    <div class="container" style="width:100%">
+        <table border="1" style="width:100%" width="100%" class="table table-striped">
+            <thead style="width:auto">
+                <tr>
+                    <th>Mã Địa danh</th>
+                    <th>Tên địa danh</th>
+                    <th>Số khách đã tham quan</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in Model.diadanh.danhSach)
+                    {
+                        <tr>
+                            <td>@item.MaDiaDanh</td>
+                            <td>@item.TenDiaDanh</td>
+                            <td>@item.SoKhachDaThamQuan</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

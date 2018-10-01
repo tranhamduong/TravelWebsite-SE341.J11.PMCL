@@ -1,0 +1,40 @@
+﻿@model Model.Model.TravelModel
+    
+<div class="">
+    @using (Html.BeginForm("themHuongDanVien", "Insert", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        @Html.DisplayNameFor(model => model.huongDanVien.huongDanVienModel.HoTenHDV) <br />
+        @Html.TextBoxFor(model => model.huongDanVien.huongDanVienModel.HoTenHDV, new { @class = "form-control" }) <br />
+        @Html.DisplayNameFor(model => model.huongDanVien.huongDanVienModel.SoDienThoaiHDV)<br />
+        @Html.TextBoxFor(model => model.huongDanVien.huongDanVienModel.SoDienThoaiHDV, new { @class = "form-control" })<br />
+
+        <input type="submit" value="Thêm" class="form-control btn-success" />
+    }
+
+    <div class="container" style="width:100%" >
+        <table border="1" style="width:100%" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Mã Hướng dẫn viên</th>
+                    <th>Họ tên Hướng dẫn viên</th>
+                    <th>Số điện thoại Hướng dẫn viên</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in Model.huongDanVien.danhSach)
+                    {
+                        <tr>
+                            <td>@item.MaHuongDanVien</td>
+                            <td>@item.HoTenHDV</td>
+                            <td>@item.SoDienThoaiHDV</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

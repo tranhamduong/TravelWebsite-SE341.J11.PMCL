@@ -1,0 +1,59 @@
+﻿@model Model.Model.TravelModel
+
+
+<div class="">
+    @using (Html.BeginForm("themKhachHang", "Insert", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        @Html.DisplayNameFor(model => model.khachHang.khachHangModel.HoTenKhachHang) <br />
+        @Html.TextBoxFor(model => model.khachHang.khachHangModel.HoTenKhachHang, new { @class = "form-control" })
+        <br />
+        @Html.DisplayNameFor(model => model.khachHang.khachHangModel.Email)<br />
+        @Html.TextBoxFor(model => model.khachHang.khachHangModel.Email, new { @class = "form-control", @type = "email" })
+        <br />
+        @Html.DisplayNameFor(model => model.khachHang.khachHangModel.SoDienThoaiKH)<br />
+        @Html.TextBoxFor(model => model.khachHang.khachHangModel.SoDienThoaiKH, new { @class = "form-control" })
+        <br />
+        @Html.DisplayNameFor(model => model.khachHang.khachHangModel.SoHoChieuCMND)<br />
+        @Html.TextBoxFor(model => model.khachHang.khachHangModel.SoHoChieuCMND, new { @class = "form-control" })
+        <br />
+        @Html.DisplayNameFor(model => model.khachHang.khachHangModel.TenDangNhap)<br />
+        @Html.TextBoxFor(model => model.khachHang.khachHangModel.TenDangNhap, new { @class = "form-control" })<br />
+
+
+        <input type="submit" value="Thêm" class="form-control btn-success" />
+    }
+    <div class="container" style="width:100%">
+        <table border="1" style="width:100%" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.khachHang.khachHangModel.MaKhachHang)</th>
+                    <th>@Html.DisplayNameFor(model => model.khachHang.khachHangModel.HoTenKhachHang)</th>
+                    <th>@Html.DisplayNameFor(model => model.khachHang.khachHangModel.Email)</th>
+                    <th>@Html.DisplayNameFor(model => model.khachHang.khachHangModel.SoDienThoaiKH)</th>
+                    <th>@Html.DisplayNameFor(model => model.khachHang.khachHangModel.SoHoChieuCMND)</th>
+                    <th>@Html.DisplayNameFor(model => model.khachHang.khachHangModel.TenDangNhap)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in Model.khachHang.danhSach)
+                    {
+                        <tr>
+                            <td>@item.MaKhachHang</td>
+                            <td>@item.HoTenKhachHang</td>
+                            <td>@item.Email</td>
+                            <td>@item.SoDienThoaiKH</td>
+                            <td>@item.SoHoChieuCMND</td>
+                            <td>@item.TenDangNhap</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
