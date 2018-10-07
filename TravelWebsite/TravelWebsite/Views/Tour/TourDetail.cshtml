@@ -1,0 +1,39 @@
+﻿@model Model.Entity.Tour
+
+
+<div class="card" style="width:400px">
+    <img class="card-img-top" src="~/Assets/1024px-No_image_3x4.svg.png" alt="Card image" style="width:100%">
+    <div class="card-body">
+        <h2>
+            @Html.DisplayFor(model => model.MoTaTour)
+        </h2>
+        <div class="card-text">
+            <div class="col-sm-6 text-left">
+                Khởi hành: @Html.DisplayFor(model => model.NgayKhoiHanh)
+                <br />
+                Số chỗ còn nhận: @Html.DisplayFor(model => model.SoChoConLai)
+                
+            </div>
+            <div class="col-sm-6 text-right">
+                Số ngày: @Html.DisplayFor(model => model.SoNgay)
+            </div>
+            <div class="col-sm-12 text-center">
+                <br />
+                <br />
+                @{
+                    var GiamGia = Model.GiamGia;
+                    if (GiamGia != 0)
+                    {
+                        <p class="text-danger">Giảm giá: @Html.DisplayFor(model => model.GiamGia) %   <strike>@Html.DisplayFor(model => model.GiaTien)</strike></p>
+                    }
+                }
+                @{
+                    var money = Model.price;
+                }
+                <a href="#" class="btn btn-warning">Người lớn: @money</a>
+                <button type="button" class="btn btn-outline-primary">Trẻ em: @Html.DisplayFor(model => model.GiaTienTreEm)</button>
+            </div>
+        </div>
+
+    </div>
+</div>

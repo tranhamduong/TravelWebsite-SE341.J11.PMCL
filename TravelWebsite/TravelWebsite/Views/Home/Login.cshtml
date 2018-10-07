@@ -1,0 +1,43 @@
+﻿@model Model.Model.KhachHangModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div>
+        <h1>LOGIN</h1>
+    </div>
+    <div class="container form-group">
+        @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+        {
+            @Html.DisplayNameFor(model => model.khachHangModel.Email)
+            @Html.TextBoxFor(model => model.khachHangModel.Email, new { @class="form-control"})
+            <br/>
+            @Html.DisplayNameFor(model=>model.khachHangModel.Password)
+            @Html.TextBoxFor(model=>model.khachHangModel.Password, new { @class="form-control", @type="password"})
+            <br/>
+            <div class="col-sm-6">
+                <input type="submit" value="Login" class="btn-success form-control" />
+            </div>
+            <div class="col-sm-6">
+                <input type="reset" value="Reset" class="btn-info form-control" />
+            </div>
+        }
+        
+        
+    </div>
+</body>
+</html>

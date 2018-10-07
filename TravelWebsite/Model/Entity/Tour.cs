@@ -48,7 +48,7 @@
         public string NoiKhoiHanh { get; set; }
 
         [Display(Name = "Giảm giá: ")]
-        public double? GiamGia { get; set; }
+        public double GiamGia { get; set; }
 
         [StringLength(10)]
         public string MaChiTietTour { get; set; }
@@ -74,6 +74,15 @@
         {
            Mở,
            Đóng
+        }
+
+        public double price
+        {
+            get
+            {
+                double giaTien = (double)GiaTien;
+                return giaTien - giaTien / 100 * GiamGia;
+            }
         }
     }
 }

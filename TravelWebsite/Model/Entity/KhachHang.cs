@@ -26,7 +26,7 @@
         public string SoHoChieuCMND { get; set; }
 
         [EmailAddress]
-        [Display(Name = "Email khách hàng: ")]
+        [Display(Name = "Email: ")]
         [StringLength(30)]
         public string Email { get; set; }
 
@@ -34,7 +34,7 @@
         [StringLength(30)]
         public string TenDangNhap { get; set; }
 
-        [Display(Name = "Password")]
+        [Display(Name = "Password: ")]
         [StringLength(30)]
         public string Password { get; set; }
 

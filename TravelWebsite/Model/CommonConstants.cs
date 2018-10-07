@@ -19,13 +19,7 @@ namespace Model
             not_correct_password = -5,
             not_found_username = -4
         }
-        //public const int success = 1;
-        //public const int already_exists = -1;
-        //public const int maximum_reach = -2;
-        //public const int unknow_error = -99;
-        //public const int unreadable_data = -3;
-        //public const int default_error = 0;
-        //public const int not_correct_password = -5;
-        //public const int not_found_username = -4;
+
+        public const string USER = "CURRENT_USER";
     }
 }

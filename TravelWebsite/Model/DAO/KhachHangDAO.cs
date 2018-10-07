@@ -33,6 +33,20 @@ namespace Model.DAO
             }
         }
 
+        public static KhachHang checkLogin(string email, string password)
+        {
+            db = new TravelDatabase();
+            try
+            {
+                var result = db.KhachHangs.SingleOrDefault(x => x.Email == email && x.Password == password);
+                if (result != null)
+                {
+                    return result;
+                }
+            }catch(Exception e) { }
+            return null;
+        }
+
         public CommonConstants.error_code login(KhachHang entity)
         {
             try

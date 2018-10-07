@@ -9,7 +9,7 @@ namespace Model.DAO
 {
     public abstract class BaseDAO
     {
-        public TravelDatabase db = null;
+        public static TravelDatabase db = null;
         public BaseDAO() { }
 
         public virtual bool Delete(string key) { return false; }

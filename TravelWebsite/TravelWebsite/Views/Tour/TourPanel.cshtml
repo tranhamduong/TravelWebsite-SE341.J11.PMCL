@@ -1,0 +1,27 @@
+﻿@model Model.Model.TourModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TourPanel</title>
+</head>
+<body>
+    <div class="container"> 
+                @{
+                    foreach (var item in Model.danhSach)
+                    {
+        <div class="col-sm-6">
+            @Html.Partial("~/Views/Tour/TourDetail.cshtml", item)
+        </div>
+        <br/>
+                    }
+                }
+    </div>
+</body>
+</html>
