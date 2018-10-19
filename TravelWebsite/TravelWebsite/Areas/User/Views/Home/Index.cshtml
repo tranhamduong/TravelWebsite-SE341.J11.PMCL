@@ -1,0 +1,126 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+    <div class="col-xs-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-color">
+                <li><a class="white-text" href="#">Home</a></li>
+                <li class="active">Tour Đà Lạt</></li>
+            </ol>
+        </nav>
+    </div>
+    <div class="col-md-3">
+        <!--Thanh tim kiem-->
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Tìm kiếm Tour</h3>
+            </div>
+            <div class="box-body">
+                <div class="search-form">
+                    <div class="form-row">
+                        <input type="text" class="form-control" placeholder="Bạn muốn du lịch nơi nào ?" />
+                    </div>
+
+                    <div class="form-row">
+                        <input type="text" class="form-control" placeholder="Cái combobox !" />
+                    </div>
+
+                    <div class="form-row row">
+                        <div class="col-xs-12">
+                            <button type="submit" class="btn btn-block btn-search">Tìm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Bo loc-->
+        <div class="box">
+            <div class="box-header" style="cursor: pointer;">
+                <h3 class="box-title">
+                    Bộ lọc tìm kiếm
+                    <i class="fa fa-caret-down" style="float: right"></i>
+                </h3>
+            </div>
+            <div class="box-body">
+                <div class="toggle-title white-text">
+                    Theo mức giá
+                    <i class="fa fa-angle-up" style="float: right"></i>
+                </div>
+                <div class="toggle-body">
+                    <label class="custome-checkbox-container">
+                        Dưới 2.000.000
+                        <input type="checkbox" />
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="custome-checkbox-container">
+                        2.000.000 - 4.000.000
+                        <input type="checkbox" />
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="custome-checkbox-container">
+                        4.000.000 - 6.000.000
+                        <input type="checkbox" />
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-9">
+        <div class="page-header">
+            <h1 class="title-lg" title="Đặt tour đi Đà Lạt">Tour đi Đà Lạt</h1>
+        </div>
+        <div class="group-filter">
+            <!--Cac option cho viec sort ket qua tim kiem-->
+            <ul class="nav nav-border-bottom">
+                <li class="active"><a href="#" class="">Phổ biến nhất</a></li>
+                <li><a href="#">Sắp khởi hành</a></li>
+                <li><a href="#">Đánh giá cao</a></li>
+                <li><a href="#">Khuyến mãi</a></li>
+            </ul>
+        </div>
+        <!--Danh sach tour-->
+        <div class="product-tour">
+            <!--Duong dua code chay cai nay thu nha-->
+            <div class="item-tour">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <h3 class="title-sm">
+                            <a href="#">Tour du lịch tham quan ngoại thành Đà Lạt trong 2 ngày</a>
+                        </h3>
+                    </div>
+                    <div class="col-sm-9 left-content">
+                        <div class="product-info">
+                            <div class="product-image">
+                                <a href="#">
+                                    <img src="../../../../Images/DL.jpg" />
+                                </a>
+                            </div>
+                            <div class="product-content">
+                                <ul class="nav list-unstyled" style="display: block;">
+                                    <li><strong>Ngày khởi hành:</strong> Hàng ngày</li>
+                                    <li><strong>Thời gian:</strong> 2 ngày 1 đêm</li>
+                                    <li><strong>Địa điểm khởi hành:</strong> Sài Gòn</li>
+                                    <li><strong>Phương tiện:</strong> Xe ba gác</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-content col-sm-3">
+                        <div class="box-review">4.5 <i class="fa fa-star"></i></div>
+                        <div class="box-price">
+                            <br />
+                            <strong class="price">250.000<small>đ</small></strong>
+                            <a class="btn" style="background-color: #EEECE8; color: #5f5531" href="#">Xem tour</a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
