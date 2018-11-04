@@ -1,5 +1,5 @@
 ﻿@model Model.Model.TravelModel
-    
+
 <div class="">
     @using (Html.BeginForm("themHuongDanVien", "Insert", FormMethod.Post))
     {
@@ -7,20 +7,21 @@
         @Html.ValidationSummary(true)
 
         @Html.DisplayNameFor(model => model.huongDanVien.huongDanVienModel.HoTenHDV) <br />
-        @Html.TextBoxFor(model => model.huongDanVien.huongDanVienModel.HoTenHDV, new { @class = "form-control" }) <br />
+        @Html.TextBoxFor(model => model.huongDanVien.huongDanVienModel.HoTenHDV, new { @class = "form-control", @required = "true" }) <br />
         @Html.DisplayNameFor(model => model.huongDanVien.huongDanVienModel.SoDienThoaiHDV)<br />
-        @Html.TextBoxFor(model => model.huongDanVien.huongDanVienModel.SoDienThoaiHDV, new { @class = "form-control" })<br />
+        @Html.TextBoxFor(model => model.huongDanVien.huongDanVienModel.SoDienThoaiHDV, new { @class = "form-control", @required = "true", @type = "number" })<br />
 
         <input type="submit" value="Thêm" class="form-control btn-success" />
     }
 
-    <div class="container" style="width:100%" >
+    <div class="container" style="width:100%">
         <table border="1" style="width:100%" class="table table-striped">
             <thead>
                 <tr>
                     <th>Mã Hướng dẫn viên</th>
                     <th>Họ tên Hướng dẫn viên</th>
                     <th>Số điện thoại Hướng dẫn viên</th>
+                    <th colspan="2">#</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,8 +30,24 @@
                     {
                         <tr>
                             <td>@item.MaHuongDanVien</td>
-                            <td>@item.HoTenHDV</td>
-                            <td>@item.SoDienThoaiHDV</td>
+                            <td><p id="@item.MaHuongDanVien+ten" contenteditable="false">@item.HoTenHDV</p></td>
+                            <td><p id="@item.MaHuongDanVien+sdt" contenteditable="false">@item.SoDienThoaiHDV</p></td>
+                            <td>
+                                <p>
+                                    @using (Html.BeginForm("EditHDV", "Edit", FormMethod.Post, new { @name = "myForm", @id = "myForm2" }))
+                                    {
+                                        <input type="hidden" name="ma" value="@item.MaHuongDanVien" />
+                                        <input type="hidden" name="tenEdited" value="" />
+                                        <input type="hidden" name="sdtEdited" value="" />
+                                        <input type="button" id="@item.MaHuongDanVien+edit" class="btn-link hihi" value="Sửa" onclick="editFunc2('@item.MaHuongDanVien')" />
+                                    }
+                                    @using (Html.BeginForm("Delete", "Edit", FormMethod.Post))
+                                    {
+                                        <input type="hidden" value=@item.MaHuongDanVien name="ma" />
+                                        <input type="submit" id="@item.MaHuongDanVien+del" class="btn-link hihi" value="Xóa" />
+                                    }
+                                </p>
+                            </td>
                         </tr>
                     }
                 }
@@ -38,3 +55,26 @@
         </table>
     </div>
 </div>
+
+<script type="text/javascript">
+    var func = "hihi";
+    var form2 = document.getElementById("myForm2");
+    function editFunc2(id) {
+        var ma = id;
+        $(".hihi").prop('disabled', true);
+        if (func != "false") {
+            document.getElementById(ma + "+ten").contentEditable = true;
+            document.getElementById(ma + "+sdt").contentEditable = true;
+            document.getElementById(ma + "+edit").disabled = false;
+            document.getElementById(ma + "+del").disabled = false;
+            func = "false";
+        }
+        else {
+            document.getElementsByName("tenEdited")[0].value = document.getElementById(ma + "+ten").innerHTML;
+            document.getElementsByName("sdtEdited")[0].value = document.getElementById(ma + "+sdt").innerHTML;
+            form2.submit();
+        }
+    }
+</script>
+
+

@@ -10,7 +10,7 @@
     public partial class PhuongTien
     {
         [Key]
-        [StringLength(10)]
+        [StringLength(20)]
         [Display(Name = "Mã Phương tiện: ")]
         public string MaPhuongTien { get; set; }
 
@@ -24,5 +24,6 @@
         [StringLength(50)]
         public string TenSanBay { get; set; }
 
+        public bool? isDeleted { get; set; }
     }
 }

@@ -1,10 +1,10 @@
-﻿@model Model.Model.TravelModel
+﻿ @model Model.Model.TravelModel
 
 @using (Html.BeginForm("themTour", "Insert", FormMethod.Post))
 {
 
     @Html.DisplayNameFor(model => model.tour.tour.MoTaTour)
-    @Html.TextAreaFor(model => model.tour.tour.MoTaTour, new { @class = "form-control" })
+    @Html.TextAreaFor(model => model.tour.tour.MoTaTour, new { @class = "form-control", @required = "true" })
     <br />
     @Html.DisplayNameFor(model => model.tour.tour.SoNgay)
     @Html.TextBoxFor(model => model.tour.tour.SoNgay, new { @class = "form-control" })

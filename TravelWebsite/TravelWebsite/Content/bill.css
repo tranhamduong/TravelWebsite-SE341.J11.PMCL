@@ -1,0 +1,20 @@
+.mid{
+	text-align: center;
+}
+
+.right{
+	text-align: right;
+}
+
+.border{
+	border: 2px solid black;
+}
+
+.tborder{
+	border: 1px solid black;
+    border-top: 2px solid black;
+}
+
+p .note{
+   font-size:8px;
+}

@@ -21,7 +21,7 @@ namespace Model.DAO
                 if (result != null)
                     return CommonConstants.error_code.already_exists;
                 int code = generateCode() + 1;
-                entity.MaKhachHang = "KH" + code.ToString();
+                entity.MaKhachHang = "KHG" + code.ToString();
                 entity.Password = "Abc12345";
                 db.KhachHangs.Add(entity);
                 db.SaveChanges();
@@ -55,7 +55,7 @@ namespace Model.DAO
                 if (result == null)
                     return CommonConstants.error_code.not_found_username ;
                 else {
-                    if (entity.Password == result.Password.ToString().Trim())
+                    if (entity.Password == result.Password.ToString().Trim() && entity.isDeleted == true)
                     {
 
                         return CommonConstants.error_code.success;
@@ -84,13 +84,36 @@ namespace Model.DAO
 
         public IPagedList<KhachHang> ListAll(int page = 1, int pageSize = 10)
         {
-            var model = db.KhachHangs.OrderBy(x => x.MaKhachHang).ToPagedList(page, pageSize);
+            var model = db.KhachHangs.Where(x => x.isDeleted == null).OrderBy(x => x.MaKhachHang).ToPagedList(page, pageSize);
             return model;
         }
 
         public int generateCode()
         {
             return db.KhachHangs.Count();
+        }
+
+        public static bool delete(string key)
+        {
+            string temp = "PTN" + key;
+            db = new TravelDatabase();
+            var kh = db.KhachHangs.Where(x => x.MaKhachHang.Trim() == temp).FirstOrDefault();
+            kh.isDeleted = true;
+            db.SaveChanges();
+            return false;
+        }
+
+        public static bool edit (KhachHang entity)
+        {
+            db = new TravelDatabase();
+            var kh = db.KhachHangs.Where(x => x.MaKhachHang == entity.MaKhachHang).FirstOrDefault();
+            kh.HoTenKhachHang = entity.HoTenKhachHang;
+            kh.Email = entity.Email;
+            kh.SoDienThoaiKH = entity.Email;
+            kh.SoHoChieuCMND = entity.SoHoChieuCMND;
+            kh.TenDangNhap = entity.TenDangNhap;
+            db.SaveChanges();
+            return false;
         }
     }
 }

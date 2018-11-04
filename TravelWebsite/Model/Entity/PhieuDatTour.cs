@@ -24,5 +24,8 @@ namespace Model.Entity
         public bool? XacNhanThamGia { get; set; }
 
         public double? DanhGia { get; set; }
+
+        public bool? isDeleted { get; set; }
+
     }
 }

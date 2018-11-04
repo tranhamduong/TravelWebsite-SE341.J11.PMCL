@@ -19,7 +19,7 @@ namespace Model.DAO
             try
             {
                 int code = generateCode() + 1;
-                entity.MaChiTietTour = "CT" + code;
+                entity.MaChiTietTour = "CTT" + code;
                 db.ThongTinChiTietTours.Add(entity);
                 db.SaveChanges();
                 return CommonConstants.error_code.success;

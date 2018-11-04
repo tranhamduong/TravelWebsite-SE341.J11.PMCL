@@ -20,7 +20,7 @@ namespace Model.DAO
             int code = generateCode();
             try
             {
-                entity.MaTour = "TOUR" + code.ToString();
+                entity.MaTour = "TOR" + code.ToString();
                 db.Tours.Add(entity);
                 db.SaveChanges();
                 return CommonConstants.error_code.success;
@@ -45,6 +45,15 @@ namespace Model.DAO
         public int generateCode()
         {
             return db.Tours.Count();
+        }
+
+        public static bool delete(string key)
+        {
+            db = new TravelDatabase();
+            var tour = db.Tours.Where(x => x.MaTour.Trim() == key).FirstOrDefault();
+            tour.isDeleted = true;
+            db.SaveChanges();
+            return false;
         }
     }
 }

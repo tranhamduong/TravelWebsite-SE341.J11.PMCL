@@ -24,7 +24,7 @@ namespace Model.DAO
                 if (result != null)
                     return CommonConstants.error_code.already_exists;
                 int code = generateCode() + 1;
-                entity.MaDiaDanh = "DD" + code.ToString();
+                entity.MaDiaDanh = "DDD" + code.ToString();
                 entity.SoKhachDaThamQuan = 0;
                 db.DiaDanhs.Add(entity);
                 db.SaveChanges();
@@ -43,7 +43,7 @@ namespace Model.DAO
         }
         public IPagedList<DiaDanh> ListAll(int page = 1, int pageSize = 10)
         {
-            var model = db.DiaDanhs.OrderBy(x => x.TenDiaDanh).ToPagedList(page, pageSize);
+            var model = db.DiaDanhs.Where(x => x.isDeleted == null).OrderBy(x => x.TenDiaDanh).ToPagedList(page, pageSize);
             return model;
         }
 
@@ -53,7 +53,28 @@ namespace Model.DAO
         }
         public List<string> ListNameAll()
         {
-            return db.DiaDanhs.Select(x => x.TenDiaDanh).ToList();
+            return db.DiaDanhs.Where(x => x.isDeleted == null).Select(x => x.TenDiaDanh).ToList();
+        }
+
+        public static bool delete(string key)
+        {
+            db = new TravelDatabase();
+            var dd = db.DiaDanhs.Where(x => x.MaDiaDanh.Trim() == key).FirstOrDefault();
+            dd.isDeleted = true;
+            db.SaveChanges();
+            return false;
+        }
+
+        public static bool edit(DiaDanh entity)
+        {
+            db = new TravelDatabase();
+            var dd = db.DiaDanhs.Where(x => x.MaDiaDanh == entity.MaDiaDanh).FirstOrDefault();
+            dd.MoTaDiaDanh = entity.MoTaDiaDanh;
+            dd.SoKhachDaThamQuan = entity.SoKhachDaThamQuan;
+            dd.TenDiaDanh = entity.TenDiaDanh;
+            dd.MaVungMien = entity.MaVungMien;
+            db.SaveChanges();
+            return false;
         }
     }
 }

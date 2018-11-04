@@ -24,10 +24,10 @@
         @using (Html.BeginForm("Login", "Home", FormMethod.Post))
         {
             @Html.DisplayNameFor(model => model.khachHangModel.Email)
-            @Html.TextBoxFor(model => model.khachHangModel.Email, new { @class="form-control"})
+            @Html.TextBoxFor(model => model.khachHangModel.Email, new { @class="form-control", @required = "true" })
             <br/>
             @Html.DisplayNameFor(model=>model.khachHangModel.Password)
-            @Html.TextBoxFor(model=>model.khachHangModel.Password, new { @class="form-control", @type="password"})
+            @Html.TextBoxFor(model=>model.khachHangModel.Password, new { @class="form-control", @type="password", @required = "true" })
             <br/>
             <div class="col-sm-6">
                 <input type="submit" value="Login" class="btn-success form-control" />

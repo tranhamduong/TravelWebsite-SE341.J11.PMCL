@@ -44,5 +44,7 @@
             Miền_Nam,
             Nước_Ngoài
         }
+
+        public bool? isDeleted { get; set; }
     }
 }

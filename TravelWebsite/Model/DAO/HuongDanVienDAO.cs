@@ -34,15 +34,24 @@ namespace Model.DAO
             }
         }
 
-        public override bool Delete(string key)
+        public static bool delete(string key)
         {
-
-            return base.Delete(key);
+            db = new TravelDatabase();
+            var hdv = db.HuongDanViens.Where(x => x.MaHuongDanVien.Trim() == key).FirstOrDefault();
+            hdv.isDeleted = true;
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+            }
+            return false;
         }
 
         public IPagedList<HuongDanVien> ListAll(int page = 1, int pageSize = 10)
         {
-            var model = db.HuongDanViens.OrderBy(x => x.MaHuongDanVien).ToPagedList(page, pageSize);
+            var model = db.HuongDanViens.Where(x=>x.isDeleted == null).OrderBy(x => x.MaHuongDanVien).ToPagedList(page, pageSize);
             return model;
         }
 
@@ -53,7 +62,16 @@ namespace Model.DAO
 
         public List<string> ListNameAll()
         {
-            return db.HuongDanViens.Select(x => x.HoTenHDV).ToList();
+            return db.HuongDanViens.Where(x => x.isDeleted == null).Select(x => x.HoTenHDV).ToList();
+        }
+
+        public static bool edit(HuongDanVien entity)
+        {
+            db = new TravelDatabase();
+            var hdv = db.HuongDanViens.Where(x => x.MaHuongDanVien == entity.MaHuongDanVien).FirstOrDefault();
+            hdv.HoTenHDV = entity.HoTenHDV;
+            hdv.SoDienThoaiHDV = entity.SoDienThoaiHDV;
+            return false;
         }
     }
 }

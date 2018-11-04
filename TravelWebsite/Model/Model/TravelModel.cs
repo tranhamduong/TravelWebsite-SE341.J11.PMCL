@@ -27,6 +27,11 @@ namespace Model.Model
             dsHuongDanVien = huongDanVien.dsHuongDanVien;
             dsDiaDanh = diadanh.dsDiaDanh;
             dsPhuongTien = phuongTien.dsPhuongTien;
+
+            foreach (var item in phuongTien.danhSach)
+            {
+                item.MaPhuongTien = item.MaPhuongTien.Remove(0, 3);
+            }
         }
     }
 }

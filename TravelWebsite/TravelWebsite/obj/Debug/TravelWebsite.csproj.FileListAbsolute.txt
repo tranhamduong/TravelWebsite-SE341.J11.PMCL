@@ -102,3 +102,4 @@ D:\Homework\Cong nghe Web\Source Code\TravelWebsite-SE341.J11.PMCL\TravelWebsite
 D:\Homework\Cong nghe Web\Source Code\TravelWebsite-SE341.J11.PMCL\TravelWebsite\TravelWebsite\bin\PagedList.Mvc.dll
 D:\Homework\Cong nghe Web\Source Code\TravelWebsite-SE341.J11.PMCL\TravelWebsite\TravelWebsite\bin\PagedList.xml
 D:\Homework\Cong nghe Web\Source Code\TravelWebsite-SE341.J11.PMCL\TravelWebsite\TravelWebsite\bin\PagedList.Mvc.xml
+D:\Homework\Cong nghe Web\Source Code\TravelWebsite-SE341.J11.PMCL\TravelWebsite\TravelWebsite\bin\Rotativa.dll

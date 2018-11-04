@@ -26,17 +26,32 @@ namespace TravelWebsite.Controllers
         public ActionResult Login(FormCollection form)
         {
             KhachHang entity = new KhachHang();
-            entity.Email = Convert.ToString(form["khachHangModel.Email"]);
-            entity.Password = Convert.ToString(form["khachHangModel.Password"]);
-            entity = KhachHangDAO.checkLogin(entity.Email, entity.Password);
-            Session.Add(Model.CommonConstants.USER,entity);
-            return RedirectToAction("Index", "Home");
+            //entity.Email = Convert.ToString(form["khachHangModel.Email"]);
+            //entity.Password = Convert.ToString(form["khachHangModel.Password"]);
+            //entity = KhachHangDAO.checkLogin(entity.Email, entity.Password);
+            if (Convert.ToString(form["khachHangModel.Email"]) == "admin" && Convert.ToString(form["khachHangModel.Password"]) == "admin") {
+                Session.Add(Model.CommonConstants.USER, entity);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+                return View("Login");
         }
 
         public ActionResult Logout()
         {
             Session.Abandon();
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public ActionResult Search(string key)
+        {
+            return RedirectToAction("Sear4ch");
+        }
+
+        public ActionResult Search()
+        {
+            return View();
         }
 
         public ActionResult About()

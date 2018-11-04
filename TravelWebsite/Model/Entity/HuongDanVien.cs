@@ -14,10 +14,12 @@
         public string MaHuongDanVien { get; set; }
 
         [StringLength(50)]
+        [Required]
         [Display (Name = "Họ tên Hướng dẫn viên: ")]
         public string HoTenHDV { get; set; }
 
         [Display(Name = "Số điện thoại Hướng dẫn viên: ")]
+        [Required]
         [StringLength(12)]
         public string SoDienThoaiHDV { get; set; }
 

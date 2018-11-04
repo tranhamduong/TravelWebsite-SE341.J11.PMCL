@@ -6,16 +6,17 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Model.Model;
+using TravelWebsite.Areas.Admin.Controllers;
 
 namespace TravelWebsite.Areas.Admin
 {
-    public class InsertController : Controller
+    public class InsertController : BaseController
     {
         // GET: Admin/Insert
         public ActionResult InsertData()
         {
             TravelModel model = new TravelModel();
-            return View(model);
+            return View(model); 
         }
 
         [HttpPost]
@@ -26,7 +27,7 @@ namespace TravelWebsite.Areas.Admin
             dto.ThoiGianDi = time;
             time = DateTime.Parse(Convert.ToString(form["thoigianden"])) ;
             dto.ThoiGianDen = time;
-            dto.MaPhuongTien = Convert.ToString(form["phuongTien.phuongTienModel.MaPhuongTien"]);
+            dto.MaPhuongTien = Convert.ToString(form["phuongTien.phuongTienModel.MaPhusongTien"]);
             dto.TenSanBay = Convert.ToString(form["phuongTien.phuongTienModel.TenSanBay"]);
 
             try
@@ -42,16 +43,23 @@ namespace TravelWebsite.Areas.Admin
 
         public ActionResult themHuongDanVien(FormCollection form)
         {
-            HuongDanVien dto = new HuongDanVien();
-            dto.HoTenHDV = Convert.ToString(form["huongDanVien.huongDanVienModel.HoTenHDV"]);
-            dto.SoDienThoaiHDV = Convert.ToString(form["huongDanVien.huongDanVienModel.SoDienThoaiHDV"]);
-            try
+            if (ModelState.IsValid)
             {
-                HuongDanVienDAO dao = new HuongDanVienDAO();
-                dao.insert(dto);
-            }catch (Exception e){}
+                HuongDanVien dto = new HuongDanVien();
+                dto.HoTenHDV = Convert.ToString(form["huongDanVien.huongDanVienModel.HoTenHDV"]);
+                dto.SoDienThoaiHDV = Convert.ToString(form["huongDanVien.huongDanVienModel.SoDienThoaiHDV"]);
+                try
+                {
+                    HuongDanVienDAO dao = new HuongDanVienDAO();
+                    dao.insert(dto);
+                }
+                catch (Exception e) { }
 
-            return RedirectToAction("InsertData");
+                return RedirectToAction("InsertData");
+            }
+            else
+                return RedirectToAction("InsertData");
+
         }
         public ActionResult themKhachHang(FormCollection form)
         {
@@ -109,7 +117,7 @@ namespace TravelWebsite.Areas.Admin
                 TourDAO dao1 = new TourDAO();
                 ThongTinChiTietDAO dao2 = new ThongTinChiTietDAO();
                 dao2.insert(dto2);
-                dto1.MaChiTietTour = "CT" + dao2.generateCode();
+                dto1.MaChiTietTour = "CTT" + dao2.generateCode();
                 
                 dao1.insert(dto1);
                 

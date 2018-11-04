@@ -7,9 +7,9 @@
         @Html.ValidationSummary(true)
 
         @Html.DisplayNameFor(model => model.diadanh.diaDanhModel.TenDiaDanh) <br />
-        @Html.TextBoxFor(model => model.diadanh.diaDanhModel.TenDiaDanh, new { @class = "form-control" }) <br />
+        @Html.TextBoxFor(model => model.diadanh.diaDanhModel.TenDiaDanh, new { @class = "form-control", @required = "true" }) <br />
         @Html.DisplayNameFor(model => model.diadanh.diaDanhModel.MoTaDiaDanh)<br />
-        @Html.TextAreaFor(model => model.diadanh.diaDanhModel.MoTaDiaDanh, new { @class = "form-control" })<br />
+        @Html.TextAreaFor(model => model.diadanh.diaDanhModel.MoTaDiaDanh, new { @class = "form-control", @required = "true" })<br />
         @Html.DisplayNameFor(model => model.diadanh.diaDanhModel.MaVungMien)<br />
         @Html.DropDownListFor(model => model.diadanh.diaDanhModel.MaVungMien, new SelectList(Enum.GetValues(typeof(Model.Entity.DiaDanh.Vung_Mien))), "Chọn vùng miền", new { @class = "form-control" })
         @Html.DisplayNameFor(model => model.diadanh.diaDanhModel.DiaDanhConTieuBieu) <br />
@@ -24,20 +24,59 @@
                     <th>Mã Địa danh</th>
                     <th>Tên địa danh</th>
                     <th>Số khách đã tham quan</th>
+                    <th colspan="2">#</th>
                 </tr>
             </thead>
             <tbody>
                 @{
                     foreach (var item in Model.diadanh.danhSach)
                     {
-                        <tr>
-                            <td>@item.MaDiaDanh</td>
-                            <td>@item.TenDiaDanh</td>
-                            <td>@item.SoKhachDaThamQuan</td>
-                        </tr>
+                <tr>
+                    <td>@item.MaDiaDanh</td>
+                    <td><p id="@item.MaDiaDanh+ten" contenteditable="false">@item.TenDiaDanh</p></td>
+                    <td><p id ="@item.MaDiaDanh+sokhach"contenteditable="false">@item.SoKhachDaThamQuan</p></td>
+                    <td>
+                        <p>
+
+                            @using (Html.BeginForm("EditDD", "Edit", FormMethod.Post, new { @name = "myForm", @id="myForm"}))
+                            {
+                                <input type="hidden" name="ma" value="@item.MaDiaDanh" />
+                                <input type="hidden" name="tenEdited" value="" />
+                                <input type="hidden" name="soKhachEdited" value=""/>
+                                <input type="button" id="@item.MaDiaDanh+edit" class="btn-link hihi" value="Sửa" onclick="editFunc3('@item.MaDiaDanh')" />
+                            }
+                            @using (Html.BeginForm("Delete", "Edit", FormMethod.Post))
+                            {
+                                <input type="hidden" name="ma" value="@item.MaDiaDanh" />
+                                <input type="submit" id="@item.MaDiaDanh+del" class="btn-link hihi" value="Xóa" />
+                            }
+                        </p>
+                    </td>
+                </tr>
                     }
                 }
             </tbody>
         </table>
     </div>
 </div>
+
+<script type="text/javascript"> 
+    var form = document.getElementById("myForm");
+    var func = "hihi";
+    function editFunc3(id) {
+        var ma = id;
+        $(".hihi").prop('disabled', true);
+        if (func != "false") {
+            document.getElementById(ma + "+ten").contentEditable = true;
+            document.getElementById(ma + "+sokhach").contentEditable = true;
+            document.getElementById(ma + "+edit").disabled = false;
+            document.getElementById(ma + "+del").disabled = false;
+            func = "false";
+        }
+        else {
+            document.getElementsByName("tenEdited")[0].value = document.getElementById(ma + "+ten").innerHTML;
+            document.getElementsByName("soKhachEdited")[0].value = document.getElementById(ma + "+sokhach").innerHTML;
+            form.submit();
+        }
+    }
+</script>

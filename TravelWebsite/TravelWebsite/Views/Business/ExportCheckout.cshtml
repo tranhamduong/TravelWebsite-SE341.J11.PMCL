@@ -1,0 +1,43 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ExportCheckout</title>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="~/Content/bill.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="jumbotron" id="myDiv">
+        @RenderPage("~/Views/Business/Checkout.cshtml")
+        @using (Html.BeginForm("exportToPDF", "Business", FormMethod.Post))
+        {
+
+            <div class="container">
+                <input type="submit" value="PRINT" class="btn-success form-control" />
+            </div>
+            <div class="container">
+                <input type="button" id="btn" name="test" value="key"></input>
+            </div>
+        }
+    </div>
+    
+    <script type="text/javascript">
+        $(function () {
+            $('#btn').click(function () {
+                $("myDiv").printElement();
+            });
+        });
+    </script>
+    
+</body>
+</html>

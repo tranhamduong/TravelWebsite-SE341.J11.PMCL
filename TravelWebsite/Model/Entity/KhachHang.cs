@@ -25,7 +25,7 @@
         [StringLength(15)]
         public string SoHoChieuCMND { get; set; }
 
-        [EmailAddress]
+
         [Display(Name = "Email: ")]
         [StringLength(30)]
         public string Email { get; set; }

@@ -8,19 +8,19 @@
         @Html.ValidationSummary(true)
 
         @Html.DisplayNameFor(model => model.khachHang.khachHangModel.HoTenKhachHang) <br />
-        @Html.TextBoxFor(model => model.khachHang.khachHangModel.HoTenKhachHang, new { @class = "form-control" })
+        @Html.TextBoxFor(model => model.khachHang.khachHangModel.HoTenKhachHang, new { @class = "form-control", @required = "true" })
         <br />
         @Html.DisplayNameFor(model => model.khachHang.khachHangModel.Email)<br />
-        @Html.TextBoxFor(model => model.khachHang.khachHangModel.Email, new { @class = "form-control", @type = "email" })
+        @Html.TextBoxFor(model => model.khachHang.khachHangModel.Email, new { @class = "form-control", @type = "email", @required = "true" })
         <br />
         @Html.DisplayNameFor(model => model.khachHang.khachHangModel.SoDienThoaiKH)<br />
-        @Html.TextBoxFor(model => model.khachHang.khachHangModel.SoDienThoaiKH, new { @class = "form-control" })
+        @Html.TextBoxFor(model => model.khachHang.khachHangModel.SoDienThoaiKH, new { @class = "form-control", @required = "true" })
         <br />
         @Html.DisplayNameFor(model => model.khachHang.khachHangModel.SoHoChieuCMND)<br />
-        @Html.TextBoxFor(model => model.khachHang.khachHangModel.SoHoChieuCMND, new { @class = "form-control" })
+        @Html.TextBoxFor(model => model.khachHang.khachHangModel.SoHoChieuCMND, new { @class = "form-control", @required = "true" })
         <br />
         @Html.DisplayNameFor(model => model.khachHang.khachHangModel.TenDangNhap)<br />
-        @Html.TextBoxFor(model => model.khachHang.khachHangModel.TenDangNhap, new { @class = "form-control" })<br />
+        @Html.TextBoxFor(model => model.khachHang.khachHangModel.TenDangNhap, new { @class = "form-control", @required = "true" })<br />
 
 
         <input type="submit" value="Thêm" class="form-control btn-success" />
@@ -35,6 +35,7 @@
                     <th>@Html.DisplayNameFor(model => model.khachHang.khachHangModel.SoDienThoaiKH)</th>
                     <th>@Html.DisplayNameFor(model => model.khachHang.khachHangModel.SoHoChieuCMND)</th>
                     <th>@Html.DisplayNameFor(model => model.khachHang.khachHangModel.TenDangNhap)</th>
+                    <th colspan="2">#</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,17 +44,60 @@
                     {
                         <tr>
                             <td>@item.MaKhachHang</td>
-                            <td>@item.HoTenKhachHang</td>
-                            <td>@item.Email</td>
-                            <td>@item.SoDienThoaiKH</td>
-                            <td>@item.SoHoChieuCMND</td>
-                            <td>@item.TenDangNhap</td>
+                            <td><p id="@item.MaKhachHang+ten" contentEditable="false">@item.HoTenKhachHang</p></td>
+                            <td><p id="@item.MaKhachHang+email" contentEditable="false">@item.Email</p></td>
+                            <td><p id="@item.MaKhachHang+sdt" contentEditable="false">@item.SoDienThoaiKH</p></td>
+                            <td><p id="@item.MaKhachHang+cmnd" contentEditable="false">@item.SoHoChieuCMND</p></td>
+                            <td><p id="@item.MaKhachHang+tendangnhap" contentEditable="false">@item.TenDangNhap</p></td>
+                            <td>
+                                @using (Html.BeginForm("EditKHG", "Edit", FormMethod.Post, new { @name = "myForm4", @id = "myForm4" }))
+                                {
+                                    <input type="hidden" value=@item.MaKhachHang name="ma" />
+                                    <input type="hidden" name="emailEdited" />
+                                    <input type="hidden" name="tenEdited" />
+                                    <input type="hidden" name="sdtEdited" />
+                                    <input type="hidden" name="cmndEdited" />
+                                    <input type="hidden" name="tendangnhapEdited" />
+                                    <input type="button" id="@item.MaKhachHang+edit" class="btn-link hihi" value="Sửa" onclick="editFunc4('@item.MaKhachHang')"/>
+                                }
+                                @using (Html.BeginForm("Delete", "Edit", FormMethod.Post))
+                                {
+                                    <input type="hidden" value=@item.MaKhachHang name="ma" />
+                                    <input type="submit" id="@item.MaKhachHang+del" class="btn-link hihi" value="Xóa" />
+                                }
+                            </td>
                         </tr>
                     }
                 }
             </tbody>
         </table>
     </div>
-
-
 </div>
+
+<script type="text/javascript">
+
+    var form = document.getElementById("myForm4");
+    var func = "hihi";
+    function editFunc4(id) {
+        var ma = id;
+        $(".hihi").prop('disabled', true);
+        if (func != "false") {
+            document.getElementById(ma + "+ten").contentEditable = true;
+            document.getElementById(ma + "+email").contentEditable = true;
+            document.getElementById(ma + "+sdt").contentEditable = true;
+            document.getElementById(ma + "+cmnd").contentEditable = true;
+            document.getElementById(ma + "+tendangnhap").contentEditable = true;
+            document.getElementById(ma + "+edit").disabled = false;
+            document.getElementById(ma + "+del").disabled = false;
+            func = "false";
+        }
+        else {
+            document.getElementsByName("tenEdited")[0].value = document.getElementById(ma + "+ten").innerHTML;
+            document.getElementsByName("emailEdited")[0].value = document.getElementById(ma + "+email").innerHTML;
+            document.getElementsByName("sdtEdited")[0].value = document.getElementById(ma + "+sdt").innerHTML;
+            document.getElementsByName("cmndEdited")[0].value = document.getElementById(ma + "+cmnd").innerHTML;
+            document.getElementsByName("tendangnhapEdited")[0].value = document.getElementById(ma + "+tendangnhap").innerHTML;
+            form.submit();
+        }
+    }
+</script>

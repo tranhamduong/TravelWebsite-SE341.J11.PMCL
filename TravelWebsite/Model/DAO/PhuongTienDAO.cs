@@ -20,6 +20,7 @@ namespace Model.DAO
         {
             try
             {
+                entity.MaPhuongTien = "PTN" + entity.MaPhuongTien;
                 db.PhuongTiens.Add(entity);
                 db.SaveChanges();
                 return true;
@@ -40,13 +41,38 @@ namespace Model.DAO
 
         public IPagedList<PhuongTien> ListAll(int page = 1, int pageSize = 10)
         {
-            var model = db.PhuongTiens.OrderBy(x => x.MaPhuongTien).ToPagedList(page, pageSize);
+            var model = db.PhuongTiens.Where(x => x.isDeleted == null).OrderBy(x => x.MaPhuongTien).ToPagedList(page, pageSize);
             return model;
         }
 
         public List<string> ListNameAll()
         {
-            return db.PhuongTiens.Select(x => x.MaPhuongTien).ToList();
+            List<string> temp = db.PhuongTiens.Where(x => x.isDeleted == null).Select(x => x.MaPhuongTien).ToList();
+            for (int i = 0;i < temp.Count(); i++)
+            {
+                temp[i] = temp[i].Remove(0,3);
+            }
+            return temp;
+        }
+
+        public static bool delete(string key)
+        {
+            db = new TravelDatabase();
+            var pt = db.PhuongTiens.Where(x => x.MaPhuongTien.Trim() == key).FirstOrDefault();
+            pt.isDeleted = true;
+            db.SaveChanges();
+            return false;
+        }
+
+        public static bool edit (PhuongTien entity)
+        {
+            db = new TravelDatabase();
+            var pt = db.PhuongTiens.Where(x => x.MaPhuongTien.Trim() == entity.MaPhuongTien).FirstOrDefault();
+            pt.TenSanBay = entity.TenSanBay;
+            pt.ThoiGianDen = entity.ThoiGianDen;
+            pt.ThoiGianDi = entity.ThoiGianDi;
+            db.SaveChanges();
+            return false;
         }
     }
 }
