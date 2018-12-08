@@ -19,7 +19,7 @@ namespace Model.Model
             phuongTienModel = new PhuongTien();
             PhuongTienDAO dao = new PhuongTienDAO();
             danhSach = dao.ListAll(1,10);
-            dsPhuongTien = dao.ListNameAll();
+            dsPhuongTien = PhuongTienDAO.ListNameAll();
         }
     }
 }

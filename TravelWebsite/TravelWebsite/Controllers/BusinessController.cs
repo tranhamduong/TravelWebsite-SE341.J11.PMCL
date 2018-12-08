@@ -1,4 +1,6 @@
-﻿using Rotativa;
+﻿using Model.DAO;
+using Model.Model;
+using Rotativa;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,13 @@ namespace TravelWebsite.Controllers
         public ActionResult ExportCheckout()
         {
             return View();
+        }
+
+        public ActionResult ExportCheckout(string maKhachHang, string maTour)
+        {
+            
+            ExportModel model = new ExportModel(KhachHangDAO.getByCode(maKhachHang), TourDAO.getByCode(maTour));
+            return View(model);
         }
 
         [HttpPost]

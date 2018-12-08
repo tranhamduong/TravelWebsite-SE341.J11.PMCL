@@ -51,8 +51,9 @@ namespace Model.DAO
         {
             return db.DiaDanhs.Count();
         }
-        public List<string> ListNameAll()
+        public static List<string> ListNameAll()
         {
+            db = new TravelDatabase();
             return db.DiaDanhs.Where(x => x.isDeleted == null).Select(x => x.TenDiaDanh).ToList();
         }
 
@@ -75,6 +76,18 @@ namespace Model.DAO
             dd.MaVungMien = entity.MaVungMien;
             db.SaveChanges();
             return false;
+        }
+
+        public static DiaDanh getByName(string tenDiaDanh)
+        {
+            db = new TravelDatabase();
+            DiaDanh dd = db.DiaDanhs.Where(x => x.TenDiaDanh == tenDiaDanh).FirstOrDefault();
+            string code = "";
+            if (dd != null)
+                code = dd.MaDiaDanh;
+            if (code != "")
+                return db.DiaDanhs.Where(x => x.MaDiaDanh == code).FirstOrDefault();
+            return null;
         }
     }
 }

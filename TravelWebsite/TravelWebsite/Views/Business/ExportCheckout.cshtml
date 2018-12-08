@@ -3,6 +3,8 @@
     Layout = null;
 }
 
+@model Model.Model.ExportModel
+
 <!DOCTYPE html>
 
 <html>
@@ -18,7 +20,7 @@
 </head>
 <body>
     <div class="jumbotron" id="myDiv">
-        @RenderPage("~/Views/Business/Checkout.cshtml")
+        @RenderPage("~/Views/Business/Checkout.cshtml", Model)
         @using (Html.BeginForm("exportToPDF", "Business", FormMethod.Post))
         {
 

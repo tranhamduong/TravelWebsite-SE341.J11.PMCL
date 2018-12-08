@@ -1,0 +1,322 @@
+﻿<!--Phan head cua trang-->
+
+@model Model.Model.TravelModel
+
+<nav class="navbar navbar-expand-md bg-primary navbar-dark">
+    <!-- Brand -->
+    <a class="navbar-brand" href="#">Website du lịch</a>
+
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                @Html.ActionLink("Đăng nhập","Login","Home", new {@class="nav-link"})
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Dương 2</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Dương 3</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!--banner-->
+<div class="my-banner img-fluid">
+    <img src="~/Content/img/nhatrang.jpg" alt="">
+    <div class="search-bar">
+        <div class="search-item">
+            <div class="search-item-header">
+                Bạn đi đến đâu ?
+            </div>
+            <input class="search-item-input" type="text" style="width:500px;"></input>
+        </div>
+
+        <div class="search-item">
+            <div class="search-item-header">
+                Ngày khởi hành ?
+            </div>
+            <input class="search-item-input" type="date"></input>
+        </div>
+
+        <div class="search-item">
+            <div class="search-item-header">
+                Số khách ?
+            </div>
+            <input class="search-item-input" type="number"></input>
+        </div>
+
+        <div class="search-item" style="position: absolute; bottom:0px;">
+            <input type="button" value="Tìm kiếm">
+            <div class="search-item-bottom">
+                <a href="#">Tìm kếm nâng cao</a>
+            </div>
+        </div>
+    </div>
+</div>
+	</div>
+
+<!--jumbotron-->
+<div class="jumbotron myjumbotron">
+    <h1 class="text-primary">Vì sao chọn Travel..?</h1>
+    <div class="jumbotron-input-box">
+        <input class="btn btn-outline-primary" type="button" name="" value="Thông tin đảm bảo & uy tín">
+        <input class="btn btn-outline-primary" type="button" name="" value="Giá cả cạnh tranh & ưu đãi">
+        <input class="btn btn-outline-primary" type="button" name="" value="Thanh toán tiện lợi & an toàn">
+        <input class="btn btn-outline-primary" type="button" name="" value="Đội ngũ nhiệt tình & thấu hiểu">
+    </div>
+</div>
+	</div>
+
+<!--main-->
+<div class="container">
+    <!--row 1-->
+    <div class="row mb-3">
+        <div class="col-md-8 d-flex">
+            <div class="card my-card flex-fill">
+                <div class="row">
+                    <div class="col-md-4">
+                        <a href="#"><img class="card-img-top" src="https://placeholdit.imgix.net/~text?txtsize=38&txt=400%C3%97400&w=400&h=400" alt="Card image"></a>
+                    </div>
+                    <div class="col-md-8 px-3">
+                        <div class="card-block px-3">
+                            @{
+                                string internalTourCode = Session["InternalTourPR"].ToString();
+                                Model.Entity.Tour internalTourPR = null;
+                                foreach (var item in Model.tour.danhSach)
+                                {
+                                    if (item.MaTour == internalTourCode.Trim())
+                                    {
+                                        internalTourPR = item;
+                                    }
+                                }
+                                string ngayKhoiHanhInternalTourPR = internalTourPR.NgayKhoiHanh.ToShortDateString();
+
+                                <h4 class="card-title"> @internalTourPR.MoTaTour </h4>
+                                <p class="card-text">Khởi hành ngày: @ngayKhoiHanhInternalTourPR </p>
+                                <p class="card-text">Số chỗ: @internalTourPR.SoChoConLai </p>
+                                <p class="card-text">Số ngày: @internalTourPR.SoNgay </p>
+                            }
+                            @using (Html.BeginForm("Detail", "Tour", FormMethod.Get))
+                            {
+                                <input type="hidden" value="ABC" />
+                                <input type="submit" class="btn btn-primary" value="Xem thêm" />
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 d-flex">
+            <div class="card my-card-orange flex-fill">
+                <div class="row">
+                    <div class="col-md-12 px-3">
+                        <div class="card-block px-3">
+                            <h4 class="card-title text-center">Việt Nam tươi đẹp</h4>
+                            <p class="card-text">Khám phá ngay những tour du lịch trong nước hấp dẫn</p>
+                            <div class="row">
+                                <div class="col-md-6 d-flex">
+                                    <a href="#" class="btn btn-block flex-fill" style="padding: 10% 0;">
+                                        Tâm điểm tuần <br><span class="h1">
+                                            <<
+                                        </span>
+                                    </a>
+                                </div> <div class="col-md-6 d-flex">
+                                    <a href="#" class="btn btn-block flex-fill" style="padding: 10% 0;">Có <span class="h5">82</span> tour nội địa <br>chờ bạn tại đây</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--row 2-->
+    <div class="row mb-3">
+        <div class="col-md-4 d-flex">
+            <div class="card my-card-orange flex-fill">
+                <div class="row">
+                    <div class="col-md-12 px-3">
+                        <div class="card-block px-3">
+                            <h4 class="card-title text-center">Kháp phá 5 châu</h4>
+                            <p class="card-text">Thức dậy ở một đất nước xa xôi với tour quốc tế</p>
+                            <div class="row">
+                                <div class="col-md-6 d-flex">
+                                    <a href="#" class="btn btn-block flex-fill" style="padding: 10% 0;">Có <span class="h5">19</span> tour quốc tế <br>chờ bạn tại đây</a>
+                                </div>
+                                <div class="col-md-6 d-flex">
+                                    <a href="#" class="btn btn-block flex-fill" style="padding: 10% 0;">
+                                        Tâm điểm tuần <br><span class="h1">
+                                            >>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8 d-flex">
+            <div class="card my-card flex-fill">
+                <div class="row">
+                    <div class="col-md-4">
+                        <a href="#"><img class="card-img-top" src="https://placeholdit.imgix.net/~text?txtsize=38&txt=400%C3%97400&w=400&h=400" alt="Card image"></a>
+                    </div>
+                    <div class="col-md-8 px-3">
+                        <div class="card-block px-3">
+                            @{
+                                string externalTourCode = Session["ExternalTourPR"].ToString();
+                                Model.Entity.Tour externalTourPR = null;
+                                foreach (var item in Model.tour.danhSach)
+                                {
+                                    if (item.MaTour == externalTourCode.Trim())
+                                    {
+                                        externalTourPR = item;
+                                    }
+                                }
+                                string ngayKhoiHanhExternalTourPR = externalTourPR.NgayKhoiHanh.ToShortDateString();
+
+                                <h4 class="card-title"> @externalTourPR.MoTaTour </h4>
+                                <p class="card-text">Khởi hành ngày: @ngayKhoiHanhExternalTourPR </p>
+                                <p class="card-text">Số chỗ: @externalTourPR.SoChoConLai </p>
+                                <p class="card-text">Số ngày: @externalTourPR.SoNgay </p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--row 3-->
+    <h2 class="text-with-line text-primary">Ưu đãi</h2>
+
+    <div class="row mb-3">
+        <div class="col-md-4 d-flex">
+            <div class="card flex-fill">
+                <a href="#"><img class="card-img-top" src="https://placeholdit.imgix.net/~text?txtsize=38&txt=400%C3%97400&w=400&h=400" alt="Card image"></a>
+                <a href="#" class="btn btn-dark card-title h5 text-center m-0 p-100" style="height:50px;">Card title</a>
+            </div>
+        </div>
+
+        <div class="col-md-4 d-flex">
+            <div class="card flex-fill">
+                <a href="#"><img class="card-img-top" src="https://placeholdit.imgix.net/~text?txtsize=38&txt=400%C3%97400&w=400&h=400" alt="Card image"></a>
+                <a href="#" class="btn btn-dark card-title h5 text-center m-0 p-100" style="height:50px;">Card title</a>
+            </div>
+        </div>
+
+        <div class="col-md-4 d-flex">
+            <div class="card flex-fill">
+                <a href="#"><img class="card-img-top" src="https://placeholdit.imgix.net/~text?txtsize=38&txt=400%C3%97400&w=400&h=400" alt="Card image"></a>
+                <a href="#" class="btn btn-dark card-title h5 text-center m-0 p-100" style="height:50px;">Card title</a>
+            </div>
+        </div>
+    </div>
+
+    <!--row 4-->
+    <h2 class="text-with-line text-primary">Điểm đến ưa thích</h2>
+
+    <div class="row mb-3">
+        <div class="col-md-4 d-flex">
+            <div class="card flex-fill">
+                <a href="#"><img class="card-img-top" src="https://placeholdit.imgix.net/~text?txtsize=38&txt=400%C3%97400&w=400&h=400" alt="Card image"></a>
+                <a href="#" class="btn btn-dark card-title h5 text-center m-0 p-100" style="height:50px;">Card title</a>
+            </div>
+        </div>
+
+        <div class="col-md-4 d-flex">
+            <div class="card flex-fill">
+                <a href="#"><img class="card-img-top" src="https://placeholdit.imgix.net/~text?txtsize=38&txt=400%C3%97400&w=400&h=400" alt="Card image"></a>
+                <a href="#" class="btn btn-dark card-title h5 text-center m-0 p-100" style="height:50px;">Card title</a>
+            </div>
+        </div>
+
+        <div class="col-md-4 d-flex">
+            <div class="card flex-fill">
+                <a href="#"><img class="card-img-top" src="https://placeholdit.imgix.net/~text?txtsize=38&txt=400%C3%97400&w=400&h=400" alt="Card image"></a>
+                <a href="#" class="btn btn-dark card-title h5 text-center m-0 p-100" style="height:50px;">Card title</a>
+            </div>
+        </div>
+    </div>
+</div>
+	</div>
+	</div>
+
+<!-- Footer -->
+<footer class="page-footer font-small bg-primary pt-4">
+    <!-- Footer Links -->
+    <div class="container-fluid text-center text-md-left text-white">
+        <!-- Grid row -->
+        <div class="row">
+            <!-- Grid column -->
+            <div class="col-md-6 mt-md-0 mt-3">
+                <!-- Content -->
+                <h5 class="text-uppercase">Footer Content</h5>
+                <p>Here you can use rows and columns here to organize your footer content.</p>
+            </div>
+            <!-- Grid column -->
+            <hr class="clearfix w-100 d-md-none pb-3">
+            <!-- Grid column -->
+            <div class="col-md-3 mb-md-0 mb-3">
+                <!-- Links -->
+                <h5 class="text-uppercase">Links</h5>
+                <ul class="text-white footer-list">
+                    <li>
+                        <a href="#!">Link 1</a>
+                    </li>
+                    <li>
+                        <a href="#!">Link 2</a>
+                    </li>
+                    <li>
+                        <a href="#!">Link 3</a>
+                    </li>
+                    <li>
+                        <a href="#!">Link 4</a>
+                    </li>
+                </ul>
+
+            </div>
+            <!-- Grid column -->
+            <!-- Grid column -->
+            <div class="col-md-3 mb-md-0 mb-3">
+                <!-- Links -->
+                <h5 class="text-uppercase">Links</h5>
+                <ul class="text-white footer-list">
+                    <li>
+                        <a href="#!">Link 1</a>
+                    </li>
+                    <li>
+                        <a href="#!">Link 2</a>
+                    </li>
+                    <li>
+                        <a href="#!">Link 3</a>
+                    </li>
+                    <li>
+                        <a href="#!">Link 4</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+    </div>
+    <!-- Footer Links -->
+    <!-- Copyright -->
+    <div class="text-center py-3" style="background-color:#0A5083">
+        © 2018 Product by:
+        <a href="#">(^..^)</a>
+    </div>
+    <!-- Copyright -->
+
+</footer>
+<!-- Footer -->

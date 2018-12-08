@@ -1,0 +1,211 @@
+﻿@model Model.Model.TravelModel
+
+<style>
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+    }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+    input:checked + .slider {
+        background-color: #2196F3;
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+</style>
+<br />
+@Session["InternalTourPR"].ToString()
+@Session["ExternalTourPR"].ToString()
+
+<br />
+<table border="1" style="width:100%" width="100%" class="table table-striped">
+    <thead>
+        <tr>
+            <th>Mã Tour</th>
+            <th>Tên Tour</th>
+            <th>Địa danh</th>
+            <th>Hướng dẫn viên</th>
+            <th>Ngày khởi hành</th>
+            <th>Ngày kết thúc</th>
+            <th>Số chỗ còn lại</th>
+            <th>Tour nội địa PR</th>
+            <th>Tour ngoại địa PR</th>
+            <th>Giá</th>
+            <th>Giá tiền đã giảm</th>
+            <th>Giảm giá</th>
+            <th>Chi tiết</th>
+            <th></th>
+        </tr>
+    </thead>
+    @{
+        foreach (var item in Model.tour.danhSach)
+        {
+            string colorClass = "info";
+            if (item.isInternal != true)
+            {
+                colorClass = "success";
+            }
+
+            <tr class=@colorClass>
+                <td>@item.MaTour</td>
+                <td>@item.MoTaTour</td>
+                <td>@item.MaDiaDanh</td>
+                <td>@item.MaHuongDanVien</td>
+                <td>@item.NgayKhoiHanh.ToShortDateString()</td>
+                <td>@item.NgayTroVe.ToShortDateString()</td>
+                <td>@item.SoChoConLai</td>
+
+                @if (item.MaTour == Session["InternalTourPR"].ToString())
+                {
+                    <td>
+                        <label class="switch">
+                            <input type="radio" checked name="internal" id=@item.MaTour />
+                            <span class="slider"></span>
+                        </label>
+                    </td>
+                    <td>
+                        <label class="switch">
+                            <input type="radio" disabled>
+                            <span class="slider"></span>
+                        </label>
+                    </td>
+                }
+                else if (@item.MaTour == Session["ExternalTourPR"].ToString())
+                {
+                    <td>
+                        <label class="switch">
+                            <input type="radio" disabled>
+                            <span class="slider"></span>
+                        </label>
+                    </td>
+                    <td>
+                        <label class="switch">
+                            <input type="radio" checked name="external" id=@item.MaTour>
+                            <span class="slider"></span>
+                        </label>
+                    </td>
+                }
+                else
+                {
+                    if (item.isInternal == true)
+                    {
+                        <td>
+                            <label class="switch">
+                                <input type="radio" name="internal" id=@item.MaTour>
+                                <span class="slider"></span>
+                            </label>
+                        </td>
+                        <td>
+                            <label class="switch">
+                                <input type="radio" disabled>
+                                <span class="slider"></span>
+                            </label>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <label class="switch">
+                                <input type="radio" disabled>
+                                <span class="slider"></span>
+                            </label>
+                        </td>
+                        <td>
+                            <label class="switch">
+                                <input type="radio" name="external" id=@item.MaTour>
+                                <span class="slider"></span>
+                            </label>
+                        </td>
+                    }
+                }
+                <td>@item.GiaTien</td>
+                <td>@item.GiaTienTreEm</td>
+                <td>@item.GiamGia</td>
+                <td><a href="#">Link</a></td>
+                <td>
+                    @using (Html.BeginForm("EditTour", "Edit", FormMethod.Post))
+                    {
+                        <input type="hidden" value="@item.MaTour" name="ma" />
+                        <input type="submit" id="@item.MaTour+edit" class="btn-link" value="Sửa" />
+                    }
+                    @using (Html.BeginForm("Delete", "Edit", FormMethod.Post))
+                    {
+                        <input type="hidden" value=@item.MaTour name="ma" />
+                        <input type="submit" id="@item.MaTour+del" class="btn-link " value="Xóa" />
+                    }
+                </td>
+            </tr>
+        }
+    }
+</table>
+
+<script type="text/javascript">
+
+
+    $('input[type="radio"]').on('change', function () {
+        $('input[name="' + this.name + '"]').not(this).prop('checked', false);
+        alert("Tour " + this.id + "has been promoted!");
+        save(this.id, this.name);
+
+    });
+
+    function save(id, type) {
+        var form = document.createElement("form");
+        var element_id = document.createElement("input");
+        var element_type = document.createElement("input");
+
+        form.method = "POST";
+        form.action = "/Admin/Edit/editPR";
+
+        element_id.value = id;
+        element_id.name = "value";
+        form.appendChild(element_id);
+
+        element_type.value = type;
+        element_type.name = "type";
+        form.appendChild(element_type);
+
+        document.body.appendChild(form);
+
+        form.submit();
+    }
+</script>

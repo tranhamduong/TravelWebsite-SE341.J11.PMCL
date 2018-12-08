@@ -1,0 +1,93 @@
+.custom-carousel-indicator {
+  position: absolute;
+  z-index: 15;
+  right: 0;
+  bottom: 0%;
+  left: 0;
+  display: flex;
+  justify-content: flex-start;
+  /*neu thich o giua thi sua cho nay*/
+  margin-right: 15%;
+  margin-left: 0%;
+  padding-left: 0;
+  list-style: none;
+}
+
+.custom-carousel-indicator li {
+  width: 30%;
+  height: 3%;
+  margin-right: 3px;
+  margin-left: 3px;
+}
+
+.custom-carousel-indicator li img {
+  border: 1px solid black;
+}
+
+.white-border-row {
+  padding: 5px;
+  border: 7px white;
+  border-style: solid double;
+  background-color: #F7F7F3;
+}
+
+.set-tour-card {
+  border: 2px solid orange;
+  border-radius: 7px;
+  background-color: #fff;
+}
+
+.set-tour-card-title {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-transform: uppercase;
+  color: blue;
+  font-weight: bold;
+}
+
+.price-box-mini{
+  border: 2px #F7F7F3;
+  border-style: solid double;
+  background-color: #F7F7F3;
+}
+
+.price-box-mini .price-box-mini-item{
+  width: 150px;
+  border: 1px solid white;
+  height: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+
+.round-and-long{
+  border-radius: 20px;
+  width: 200px;
+}
+
+.btn-orange{
+  background-color: #F68520;
+  border-color: #F68520;
+}
+
+.btn-blue{
+  background-color: #116BA7;
+  border-color: #116BA7;
+}
+
+.text-orange{
+  color: #F68520;
+}
+
+.no-underline{
+  text-decoration: none !important
+}
+
+.table-no-border td, .table-no-border th{
+  border-top: 0px; !important
+}
+
+.vertical-line {
+  border-left: thick solid #F68520;
+  padding-left: 5px;
+}

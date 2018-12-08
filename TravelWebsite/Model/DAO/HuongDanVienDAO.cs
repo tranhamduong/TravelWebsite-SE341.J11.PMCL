@@ -34,6 +34,18 @@ namespace Model.DAO
             }
         }
 
+        public static HuongDanVien getByName(string tenHDV)
+        {
+            db = new TravelDatabase();
+            HuongDanVien hdv = db.HuongDanViens.Where(x => x.HoTenHDV == tenHDV).FirstOrDefault();
+            string code = "";
+            if (hdv != null)
+                code = hdv.MaHuongDanVien;
+            if (code != "")
+                return db.HuongDanViens.Where(x => x.MaHuongDanVien == code).FirstOrDefault();
+            return null;
+        }
+
         public static bool delete(string key)
         {
             db = new TravelDatabase();
@@ -60,8 +72,9 @@ namespace Model.DAO
             return db.HuongDanViens.Count();
         }
 
-        public List<string> ListNameAll()
+        public static List<string> ListNameAll()
         {
+            db = new TravelDatabase();
             return db.HuongDanViens.Where(x => x.isDeleted == null).Select(x => x.HoTenHDV).ToList();
         }
 

@@ -34,5 +34,26 @@ namespace Model.DAO
         {
             return db.ThongTinChiTietTours.Count();
         }
+
+        public static ThongTinChiTietTour getByCode(string code)
+        {
+            db = new TravelDatabase();
+            return db.ThongTinChiTietTours.Where(x => x.MaChiTietTour == code).FirstOrDefault();
+        }
+
+        public void EditTourDone(ThongTinChiTietTour ctt)
+        {
+            db = new TravelDatabase();
+
+            ThongTinChiTietTour chiTietTour = db.ThongTinChiTietTours.FirstOrDefault(x => x.MaChiTietTour == ctt.MaChiTietTour);
+            chiTietTour.NgayGioTapTrung = ctt.NgayGioTapTrung;
+            chiTietTour.NoiTapTrung = ctt.NoiTapTrung;
+            chiTietTour.CoBaoHiem = ctt.CoBaoHiem;
+            chiTietTour.QuaTang = ctt.QuaTang;
+            chiTietTour.LichTrinh = ctt.LichTrinh;
+            chiTietTour.MaPhuongTien = ctt.MaPhuongTien;
+            
+            db.SaveChanges();
+        }
     }
 }

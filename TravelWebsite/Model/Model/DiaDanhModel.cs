@@ -19,7 +19,7 @@ namespace Model.Model
             diaDanhModel = new DiaDanh();
             DiaDanhDAO dao = new DiaDanhDAO();
             danhSach = dao.ListAll(1, 10);
-            dsDiaDanh = dao.ListNameAll();
+            dsDiaDanh = DiaDanhDAO.ListNameAll();
         }
     }
 }

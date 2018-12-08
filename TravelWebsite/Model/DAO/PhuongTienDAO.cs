@@ -45,8 +45,9 @@ namespace Model.DAO
             return model;
         }
 
-        public List<string> ListNameAll()
+        public static List<string> ListNameAll()
         {
+            db = new TravelDatabase();
             List<string> temp = db.PhuongTiens.Where(x => x.isDeleted == null).Select(x => x.MaPhuongTien).ToList();
             for (int i = 0;i < temp.Count(); i++)
             {

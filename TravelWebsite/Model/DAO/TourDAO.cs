@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PagedList.Mvc;
 using PagedList;
+using Model.Model;
 
 namespace Model.DAO
 {
@@ -31,6 +32,13 @@ namespace Model.DAO
             return CommonConstants.error_code.default_error;
         }
 
+        public static Tour getByCode(string code)
+        {
+            db = new TravelDatabase();
+            var tour = db.Tours.Where(x => x.MaTour == code).FirstOrDefault();
+            return tour;
+        }
+
         public override bool Delete(string key)
         {
             return base.Delete(key);
@@ -54,6 +62,33 @@ namespace Model.DAO
             tour.isDeleted = true;
             db.SaveChanges();
             return false;
+        }
+
+        public bool EditTourDone(Tour _tour)
+        {
+            var tour = db.Tours.Where(x => x.MaTour.Trim() == _tour.MaTour).FirstOrDefault();
+            if (tour != null)
+            {
+                tour.MaTour = _tour.MaTour;
+                tour.MoTaTour = _tour.MoTaTour;
+                tour.NgayKhoiHanh = _tour.NgayKhoiHanh;
+                tour.NgayTroVe = _tour.NgayTroVe;
+                tour.SoNgay = _tour.SoNgay;
+                tour.SoChoConLai = _tour.SoChoConLai;
+                tour.TinhTrang = _tour.TinhTrang;
+                tour.GiaTien = _tour.GiaTien;
+                tour.GiaTienTreEm = _tour.GiaTienTreEm;
+                tour.GiamGia = _tour.GiamGia;
+                tour.MaChiTietTour = _tour.MaChiTietTour.Trim();
+                tour.MaDiaDanh = _tour.MaDiaDanh;
+                tour.PhuongTien = _tour.PhuongTien;
+                tour.NoiKhoiHanh = _tour.NoiKhoiHanh;
+                db.SaveChanges();
+                return true;
+            }
+            else
+                return false;
+            
         }
     }
 }

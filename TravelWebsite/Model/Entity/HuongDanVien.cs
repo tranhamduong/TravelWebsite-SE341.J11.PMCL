@@ -10,17 +10,17 @@
     public partial class HuongDanVien
     {
         [Key]
-        [StringLength(10)]
+        [StringLength(50)]
         public string MaHuongDanVien { get; set; }
 
-        [StringLength(50)]
+        [StringLength(100)]
         [Required]
-        [Display (Name = "Họ tên Hướng dẫn viên: ")]
+        [Display(Name = "Họ tên Hướng dẫn viên: ")]
         public string HoTenHDV { get; set; }
 
+        [StringLength(50)]
         [Display(Name = "Số điện thoại Hướng dẫn viên: ")]
         [Required]
-        [StringLength(12)]
         public string SoDienThoaiHDV { get; set; }
 
         public bool? isDeleted { get; set; }

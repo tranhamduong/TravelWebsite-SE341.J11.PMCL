@@ -19,7 +19,7 @@ namespace Model.Model
             huongDanVienModel = new HuongDanVien();
             HuongDanVienDAO dao = new HuongDanVienDAO();
             danhSach = dao.ListAll(1, 10);
-            dsHuongDanVien = dao.ListNameAll();
+            dsHuongDanVien = HuongDanVienDAO.ListNameAll();
         }
     }
 }

@@ -14,7 +14,19 @@ namespace TravelWebsite.Controllers
         public ActionResult Index()
         {
             TourModel model = new TourModel();
-            return View(model);
+            TravelModel travel = new TravelModel();
+            if (Session["InternalTourPR"] == null || Session["ExternalTourPR"] == null)
+            {
+                Session.Add("InternalTourPR", ThamSoDAO.getInternalPR());
+                Session.Add("ExternalTourPR", ThamSoDAO.getExternalPR());
+            }
+            else
+            {
+                Session["InternalTourPR"] = ThamSoDAO.getInternalPR();
+                Session["ExternalTourPR"] = ThamSoDAO.getExternalPR();
+            }
+                
+            return View(travel);
         }
 
         public ActionResult Login()

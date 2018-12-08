@@ -102,7 +102,7 @@ namespace TravelWebsite.Areas.Admin
             dto1.MaHuongDanVien = Convert.ToString(form["tour.tour.MaHuongDanVien"]);
             dto1.MaDiaDanh = Convert.ToString(form["tour.tour.MaDiaDanh"]);
 
-            //dto2
+            //dto2 binding
             dto2.MaPhuongTien = Convert.ToString(form["tour.chiTietTour.MaPhuongTien"]);
             dto2.NgayGioTapTrung = DateTime.Parse(Convert.ToString(form["ngaygiotaptrung"]));
             if (Convert.ToString(form["baohiem"]) == "Có")

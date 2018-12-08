@@ -33,6 +33,13 @@ namespace Model.DAO
             }
         }
 
+        public static KhachHang getByCode(string maKhachHang)
+        {
+            db = new TravelDatabase();
+            KhachHang kh = db.KhachHangs.FirstOrDefault(x=>x.MaKhachHang == maKhachHang);
+            return kh;
+        }
+
         public static KhachHang checkLogin(string email, string password)
         {
             db = new TravelDatabase();
@@ -95,9 +102,8 @@ namespace Model.DAO
 
         public static bool delete(string key)
         {
-            string temp = "PTN" + key;
             db = new TravelDatabase();
-            var kh = db.KhachHangs.Where(x => x.MaKhachHang.Trim() == temp).FirstOrDefault();
+            var kh = db.KhachHangs.Where(x => x.MaKhachHang.Trim() == key).FirstOrDefault();
             kh.isDeleted = true;
             db.SaveChanges();
             return false;

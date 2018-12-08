@@ -18,5 +18,11 @@ namespace TravelWebsite.Areas.User.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Register(FormCollection form)
+        {
+            return View("Register");
+        }
     }
 }

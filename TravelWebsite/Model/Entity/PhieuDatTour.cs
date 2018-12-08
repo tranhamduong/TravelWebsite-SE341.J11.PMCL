@@ -26,6 +26,5 @@ namespace Model.Entity
         public double? DanhGia { get; set; }
 
         public bool? isDeleted { get; set; }
-
     }
 }

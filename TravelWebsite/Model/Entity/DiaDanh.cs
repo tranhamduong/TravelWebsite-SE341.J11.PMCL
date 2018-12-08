@@ -11,14 +11,14 @@
     {
         [Key]
         [Column(Order = 0)]
-        [StringLength(10)]
+        [StringLength(50)]
         public string MaDiaDanh { get; set; }
 
         [Display(Name = "Mô tả địa danh: ")]
         public string MoTaDiaDanh { get; set; }
 
-        [Display(Name = "Các nơi nên ghé thăm: ")]
         [StringLength(100)]
+        [Display(Name = "Các nơi nên ghé thăm: ")]
         public string DiaDanhConTieuBieu { get; set; }
 
         [Display(Name = "Thuộc miền: ")]
@@ -33,9 +33,11 @@
         [Display(Name = "Số khách đến tham quan: ")]
         public int? SoKhachDaThamQuan { get; set; }
 
-        [Display(Name = "Hình ảnh")]
         [Column(TypeName = "image")]
+        [Display(Name = "Hình ảnh")]
         public byte[] Anh { get; set; }
+
+        public bool? isDeleted { get; set; }
 
         public enum Vung_Mien
         {
@@ -44,7 +46,5 @@
             Miền_Nam,
             Nước_Ngoài
         }
-
-        public bool? isDeleted { get; set; }
     }
 }

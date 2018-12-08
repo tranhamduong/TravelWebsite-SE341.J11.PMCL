@@ -17,27 +17,12 @@ namespace Model.Entity
         public virtual DbSet<KhachHang> KhachHangs { get; set; }
         public virtual DbSet<PhieuDatTour> PhieuDatTours { get; set; }
         public virtual DbSet<PhuongTien> PhuongTiens { get; set; }
+        public virtual DbSet<ThamSo> ThamSoes { get; set; }
         public virtual DbSet<ThongTinChiTietTour> ThongTinChiTietTours { get; set; }
         public virtual DbSet<Tour> Tours { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<DiaDanh>()
-                .Property(e => e.MaDiaDanh)
-                .IsFixedLength();
-
-            modelBuilder.Entity<HuongDanVien>()
-                .Property(e => e.MaHuongDanVien)
-                .IsFixedLength();
-
-            modelBuilder.Entity<HuongDanVien>()
-                .Property(e => e.SoDienThoaiHDV)
-                .IsFixedLength();
-
-            modelBuilder.Entity<KhachHang>()
-                .Property(e => e.MaKhachHang)
-                .IsFixedLength();
-
             modelBuilder.Entity<KhachHang>()
                 .Property(e => e.SoDienThoaiKH)
                 .IsFixedLength();
@@ -66,8 +51,20 @@ namespace Model.Entity
                 .Property(e => e.MaKhachHang)
                 .IsFixedLength();
 
-            modelBuilder.Entity<PhuongTien>()
-                .Property(e => e.MaPhuongTien)
+            modelBuilder.Entity<ThamSo>()
+                .Property(e => e.InternalTourPR)
+                .IsFixedLength();
+
+            modelBuilder.Entity<ThamSo>()
+                .Property(e => e.ExternalTourPR)
+                .IsFixedLength();
+
+            modelBuilder.Entity<ThamSo>()
+                .Property(e => e.VISAcharge)
+                .IsFixedLength();
+
+            modelBuilder.Entity<ThamSo>()
+                .Property(e => e.key)
                 .IsFixedLength();
 
             modelBuilder.Entity<ThongTinChiTietTour>()
@@ -80,10 +77,6 @@ namespace Model.Entity
 
             modelBuilder.Entity<ThongTinChiTietTour>()
                 .Property(e => e.MaLuuY)
-                .IsFixedLength();
-
-            modelBuilder.Entity<Tour>()
-                .Property(e => e.MaTour)
                 .IsFixedLength();
 
             modelBuilder.Entity<Tour>()

@@ -34,7 +34,7 @@
         </ul>
         <div class="tab-content">
             <div id="home" class="tab-pane fade in active">
-                THIS IS ADMIN SECTION
+                @Html.Partial("~/Areas/Admin/Views/Tab/Dashboard.cshtml", Model)
             </div>
             <div class="tab-pane fade" id="ThemTour">
 
@@ -62,6 +62,9 @@
                 </div>
             </div>
         </div>
+
+            @Html.ActionLink("Back to Homepage", "Index", new { area = "", controller = "Home" })
+
         </div>
     <script type="text/javascript">
         $(function () {
