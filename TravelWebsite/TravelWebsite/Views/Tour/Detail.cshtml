@@ -89,7 +89,11 @@
 
                     <div class="col-md-3 d-flex justify-content-center align-items-baseline">
                         @*@Html.Action("","Business")*@
-                        <button type="button" class="btn btn-orange font-weight-bold text-white round-and-long" name="button">Đặt tour</button>
+                        @using (Html.BeginForm("ExportCheckout","Business",FormMethod.Get))
+                        {
+                            <input type="hidden" name="tourID" value="@Model.tour.MaTour"/>
+                            <input type="submit" class="btn btn-orange font-weight-bold text-white round-and-long" value="Đặt tour"/> 
+                        }
                     </div>
                 </div>
             </div>

@@ -2,10 +2,11 @@
 
 @model Model.Model.TravelModel
 
+@{ string clickedTour = "";}
+
 <nav class="navbar navbar-expand-md bg-primary navbar-dark">
     <!-- Brand -->
-    <a class="navbar-brand" href="#">Website du lịch</a>
-
+    @Html.ActionLink("Website du lịch", "Index", "Home", new { @class= "navbar-brand" })
     <!-- Toggler/collapsibe Button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
@@ -18,7 +19,7 @@
                 @Html.ActionLink("Đăng nhập","Login","Home", new {@class="nav-link"})
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Dương 2</a>
+                @Html.ActionLink("Đăng ký", "Register", "Home", new {@class="nav-link" })
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Dương 3</a>
@@ -30,34 +31,32 @@
 <div class="my-banner img-fluid">
     <img src="~/Content/img/nhatrang.jpg" alt="">
     <div class="search-bar">
-        <div class="search-item">
-            <div class="search-item-header">
-                Bạn đi đến đâu ?
+        @using (Html.BeginForm("Search", "Home", FormMethod.Post))
+        {
+            <div class="search-item">
+                <div class="search-item-header">
+                    Bạn đi đến đâu ?
+                    <input class="search-item-input" type="text" style="width:500px;" name="searchName"/>
+                </div>
             </div>
-            <input class="search-item-input" type="text" style="width:500px;"></input>
-        </div>
-
-        <div class="search-item">
-            <div class="search-item-header">
-                Ngày khởi hành ?
+            <div class="search-item">
+                <div class="search-item-header">
+                    Ngày khởi hành ?
+                    <input class="search-item-input" type="date" name="searchDate" /> </div>
             </div>
-            <input class="search-item-input" type="date"></input>
-        </div>
-
-        <div class="search-item">
-            <div class="search-item-header">
-                Số khách ?
+            <div class="search-item">
+                <div class="search-item-header">
+                    Số khách?
+                    <input class="search-item-input" type="number" name="searchNumber"/>
+                </div>
             </div>
-            <input class="search-item-input" type="number"></input>
-        </div>
-
-        <div class="search-item" style="position: absolute; bottom:0px;">
-            <input type="button" value="Tìm kiếm">
-            <div class="search-item-bottom">
-                <a href="#">Tìm kếm nâng cao</a>
+            <div class="search-item" style="position: absolute; bottom: 0px;">
+                <input type="submit"  value="Tìm kiếm"/>
+                <div class="search-item-bottom">
+                    <a href="#">Tìm kiếm nâng cao</a>
+                </div>
             </div>
-        </div>
-    </div>
+        }
 </div>
 	</div>
 
@@ -104,7 +103,7 @@
                             }
                             @using (Html.BeginForm("Detail", "Tour", FormMethod.Get))
                             {
-                                <input type="hidden" value="ABC" />
+                                <input type="hidden" value=@internalTourPR.MaTour name="tourID" />
                                 <input type="submit" class="btn btn-primary" value="Xem thêm" />
                             }
                         </div>
@@ -189,6 +188,11 @@
                                 <p class="card-text">Khởi hành ngày: @ngayKhoiHanhExternalTourPR </p>
                                 <p class="card-text">Số chỗ: @externalTourPR.SoChoConLai </p>
                                 <p class="card-text">Số ngày: @externalTourPR.SoNgay </p>
+                            }
+                            @using (Html.BeginForm("Detail", "Tour", FormMethod.Get))
+                            {
+                                <input type="hidden" value=@externalTourPR.MaTour name="tourID" />
+                                <input type="submit" class="btn btn-primary" value="Xem thêm" />
                             }
                         </div>
                     </div>

@@ -9,8 +9,8 @@ namespace Model.Model
 {
     public class ExportModel
     {
-        KhachHang khachHang;
-        Tour tour;
+        public KhachHang khachHang;
+        public Tour tour;
 
         public ExportModel(KhachHang khachHang, Tour tour)
         {

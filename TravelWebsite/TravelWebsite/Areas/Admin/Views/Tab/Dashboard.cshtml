@@ -94,7 +94,7 @@
                 <td>@item.NgayTroVe.ToShortDateString()</td>
                 <td>@item.SoChoConLai</td>
 
-                @if (item.MaTour == Session["InternalTourPR"].ToString())
+                @if (item.MaTour == Session["InternalTourPR"].ToString().Trim())
                 {
                     <td>
                         <label class="switch">
@@ -109,7 +109,7 @@
                         </label>
                     </td>
                 }
-                else if (@item.MaTour == Session["ExternalTourPR"].ToString())
+                else if (@item.MaTour == Session["ExternalTourPR"].ToString().Trim())
                 {
                     <td>
                         <label class="switch">
@@ -160,7 +160,13 @@
                 <td>@item.GiaTien</td>
                 <td>@item.GiaTienTreEm</td>
                 <td>@item.GiamGia</td>
-                <td><a href="#">Link</a></td>
+                <td>
+                    @using (Html.BeginForm("Detail", "Tour", new { area=""} ,FormMethod.Get))
+                    {
+                        <input type="hidden" name="tourID" value=@item.MaTour />
+                        <input type="submit" value="Link" class="btn-link" />
+                    }
+                </td>
                 <td>
                     @using (Html.BeginForm("EditTour", "Edit", FormMethod.Post))
                     {

@@ -81,6 +81,7 @@
     <Compile Include="Model\HuongDanVienModel.cs" />
     <Compile Include="Model\KhachHangModel.cs" />
     <Compile Include="Model\PhuongTienModel.cs" />
+    <Compile Include="Model\TourListModel.cs" />
     <Compile Include="Model\TourModel.cs" />
     <Compile Include="Model\TravelModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

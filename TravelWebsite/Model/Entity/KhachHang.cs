@@ -22,7 +22,7 @@
         public string SoDienThoaiKH { get; set; }
 
         [StringLength(15)]
-        [Display(Name = "Số CMND/Hộ chiếu khách hàng: ")]
+        [Display(Name = "Số CMND/Hộ chiếu: ")]
         public string SoHoChieuCMND { get; set; }
 
         [EmailAddress]

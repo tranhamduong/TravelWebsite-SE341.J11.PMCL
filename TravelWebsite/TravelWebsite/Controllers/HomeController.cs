@@ -17,8 +17,8 @@ namespace TravelWebsite.Controllers
             TravelModel travel = new TravelModel();
             if (Session["InternalTourPR"] == null || Session["ExternalTourPR"] == null)
             {
-                Session.Add("InternalTourPR", ThamSoDAO.getInternalPR());
-                Session.Add("ExternalTourPR", ThamSoDAO.getExternalPR());
+                Session.Add("InternalTourPR", ThamSoDAO.getInternalPR().Trim());
+                Session.Add("ExternalTourPR", ThamSoDAO.getExternalPR().Trim());
             }
             else
             {
@@ -38,15 +38,22 @@ namespace TravelWebsite.Controllers
         public ActionResult Login(FormCollection form)
         {
             KhachHang entity = new KhachHang();
-            //entity.Email = Convert.ToString(form["khachHangModel.Email"]);
-            //entity.Password = Convert.ToString(form["khachHangModel.Password"]);
-            //entity = KhachHangDAO.checkLogin(entity.Email, entity.Password);
-            if (Convert.ToString(form["khachHangModel.Email"]) == "admin" && Convert.ToString(form["khachHangModel.Password"]) == "admin") {
-                Session.Add(Model.CommonConstants.USER, entity);
+
+            entity.Email = Convert.ToString(form["khachHangModel.Email"]);
+            entity.Password = Convert.ToString(form["khachHangModel.Password"]);
+
+            var success = KhachHangDAO.checkLogin(entity.Email, entity.Password);
+
+            if (success != null) //login success
+            {
+                Session.Add(Model.CommonConstants.USER, success);
                 return RedirectToAction("Index", "Home");
+
             }
-            else
+            else //login failed
+            {
                 return View("Login");
+            }
         }
 
         public ActionResult Logout()
@@ -56,14 +63,28 @@ namespace TravelWebsite.Controllers
         }
 
         [HttpPost]
-        public ActionResult Search(string key)
+        public ActionResult Search(string searchName, string searchDate, string searchNumber)
         {
-            return RedirectToAction("Sear4ch");
+           TourListModel list = new TourListModel();
+            
+           list.danhSach = TourDAO.getSearchByName(searchName);
+
+            return View(list);
         }
 
-        public ActionResult Search()
+        [HttpGet]
+        public ActionResult Register()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Register(KhachHang khachHang)
+        {
+            KhachHangDAO dao = new KhachHangDAO();
+            dao.insert(khachHang);
+
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult About()

@@ -1,4 +1,5 @@
-﻿@Model Model.Model.ExportModel
+﻿@model Model.Model.ExportModel
+
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -89,17 +90,17 @@
                         <tr>
                             <td></td>
                             <td class="right" colspan="2">Họ tên Khách hàng:</td>
-                            <td class="border" style="width:300 px;" colspan="4">Trần Hàm Dương</td>
+                            <td class="border" style="width:300 px;" colspan="4">@Model.khachHang.HoTenKhachHang </td>
                             <td class="right">Giới tính:</td>
-                            <td class="border" class="right">Nam</td>
+                            <td class="border" class="right">Nam/Nữ</td>
                             <td class="right">SĐT:</td>
-                            <td class="border" class="right">0903845259</td>
+                            <td class="border" class="right">@Model.khachHang.SoDienThoaiKH</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td></td>
                             <td colspan="2" class="right">Email:</td>
-                            <td colspan="4" class="border">tranhamduong</td>
+                            <td colspan="4" class="border">@Model.khachHang.Email</td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -109,12 +110,12 @@
                         <tr>
                             <td></td>
                             <td colspan="2" class="right">Địa chỉ</td>
-                            <td class="border" colspan="8">123</td>
+                            <td class="border" colspan="8">NOT AVAILABLE</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td colspan="2" class="right">Số Hộ chiếu / CMND</td>
-                            <td class="border" colspan="4">123</td>
+                            <td class="border" colspan="4">@Model.khachHang.SoHoChieuCMND</td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -162,8 +163,8 @@
                         <tr>
                             <td></td>
                             <td class="tborder"></td>
-                            <td class="tborder" colspan="5"></td>
-                            <td class="tborder"></td>
+                            <td class="tborder" colspan="5">@Model.tour.MoTaTour</td>
+                            <td class="tborder">@Model.tour.GiaTien</td>
                             <td class="tborder"></td>
                             <td class="tborder"></td>
                             <td class="tborder"></td>

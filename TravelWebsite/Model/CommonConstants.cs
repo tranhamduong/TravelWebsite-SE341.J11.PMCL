@@ -21,5 +21,11 @@ namespace Model
         }
 
         public const string USER = "CURRENT_USER";
+
+        public const string adminUsername = "admin";
+
+        public const string adminPassword = "admin";
+
+        public const string defaultPassword = "Abc12345";
     }
 }

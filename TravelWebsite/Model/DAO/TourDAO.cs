@@ -32,6 +32,13 @@ namespace Model.DAO
             return CommonConstants.error_code.default_error;
         }
 
+        public static IPagedList<Tour> getSearchByName(string stringSearch)
+        {
+            var model = db.Tours.OrderBy(x => x.MoTaTour).Where(x => x.MoTaTour.Contains(stringSearch)).ToPagedList(1, 10);
+
+            return model;
+        }
+
         public static Tour getByCode(string code)
         {
             db = new TravelDatabase();

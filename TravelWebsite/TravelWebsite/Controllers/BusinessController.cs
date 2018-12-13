@@ -1,4 +1,5 @@
 ﻿using Model.DAO;
+using Model.Entity;
 using Model.Model;
 using Rotativa;
 using System;
@@ -12,17 +13,24 @@ namespace TravelWebsite.Controllers
     public class BusinessController : Controller
     {
         // GET: Business
-        public ActionResult ExportCheckout()
+        [HttpGet]
+        public ActionResult ExportCheckout(string tourID)
         {
-            return View();
-        }
+            KhachHang khachHang = new KhachHang();
+            khachHang = (KhachHang)Session[Model.CommonConstants.USER];
 
-        public ActionResult ExportCheckout(string maKhachHang, string maTour)
-        {
-            
-            ExportModel model = new ExportModel(KhachHangDAO.getByCode(maKhachHang), TourDAO.getByCode(maTour));
+            ExportModel model = new ExportModel(khachHang,TourDAO.getByCode(tourID));
+
             return View(model);
         }
+
+
+        //public ActionResult ExportCheckout(string maKhachHang, string maTour)
+        //{
+            
+        //    ExportModel model = new ExportModel(KhachHangDAO.getByCode(maKhachHang), TourDAO.getByCode(maTour));
+        //    return View(model);
+        //}
 
         [HttpPost]
         public ActionResult exportToPDF()

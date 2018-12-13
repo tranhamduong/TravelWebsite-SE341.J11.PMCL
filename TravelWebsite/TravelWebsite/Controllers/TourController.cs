@@ -16,10 +16,9 @@ namespace TravelWebsite.Controllers
         }
 
         [HttpGet]
-        public ActionResult Detail()
+        public ActionResult Detail(string tourID)
         {
-            string code = "TOR2";
-            DetailModel tour = new DetailModel(code);
+            DetailModel tour = new DetailModel(tourID);
             return View(tour);
         }
     }

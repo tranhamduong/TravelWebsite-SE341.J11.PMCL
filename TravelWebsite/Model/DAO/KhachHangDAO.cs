@@ -22,7 +22,9 @@ namespace Model.DAO
                     return CommonConstants.error_code.already_exists;
                 int code = generateCode() + 1;
                 entity.MaKhachHang = "KHG" + code.ToString();
-                entity.Password = "Abc12345";
+                if (entity.Password == null)
+                    entity.Password = CommonConstants.defaultPassword;
+                entity.isAdmin = false;
                 db.KhachHangs.Add(entity);
                 db.SaveChanges();
                 return CommonConstants.error_code.success;
@@ -77,6 +79,14 @@ namespace Model.DAO
             {
                 return CommonConstants.error_code.unknow_error;
             }
+        }
+
+        public static void register(KhachHang khachHang)
+        {
+            db = new TravelDatabase();
+            db.KhachHangs.Add(khachHang);
+
+
         }
 
         public bool update(KhachHang entity)
