@@ -59,6 +59,7 @@
     <Compile Include="DAO\BaseDAO.cs" />
     <Compile Include="DAO\DiaDanhDAO.cs" />
     <Compile Include="DAO\HuongDanVienDAO.cs" />
+    <Compile Include="DAO\ImageDAO.cs" />
     <Compile Include="DAO\KhachHangDAO.cs" />
     <Compile Include="DAO\PhieuDatTourDAO.cs" />
     <Compile Include="DAO\PhuongTienDAO.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="DAO\TourDAO.cs" />
     <Compile Include="Entity\DiaDanh.cs" />
     <Compile Include="Entity\HuongDanVien.cs" />
+    <Compile Include="Entity\ImageTour.cs" />
     <Compile Include="Entity\KhachHang.cs" />
     <Compile Include="Entity\PhieuDatTour.cs" />
     <Compile Include="Entity\PhuongTien.cs" />
@@ -79,6 +81,7 @@
     <Compile Include="Model\EditTourModel.cs" />
     <Compile Include="Model\ExportModel.cs" />
     <Compile Include="Model\HuongDanVienModel.cs" />
+    <Compile Include="Model\ImageTourModel.cs" />
     <Compile Include="Model\KhachHangModel.cs" />
     <Compile Include="Model\PhuongTienModel.cs" />
     <Compile Include="Model\TourListModel.cs" />

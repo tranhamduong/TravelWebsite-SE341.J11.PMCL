@@ -10,7 +10,7 @@
     public partial class ThongTinChiTietTour
     {
         [Key]
-        [StringLength(10)]
+        [StringLength(50)]
         public string MaChiTietTour { get; set; }
 
         [Display(Name = "Ngày giờ tập trung: ")]

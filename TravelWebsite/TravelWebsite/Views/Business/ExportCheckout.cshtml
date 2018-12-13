@@ -21,25 +21,48 @@
 <body>
     <div class="jumbotron" id="myDiv">
         @RenderPage("~/Views/Business/Checkout.cshtml", Model)
-        @using (Html.BeginForm("exportToPDF", "Business", FormMethod.Post))
-        {
+        @*@using (Html.BeginForm("exportToPDF", "Business", FormMethod.Post))
+            {*@
 
-            <div class="container">
-                <input type="submit" value="PRINT" class="btn-success form-control" />
-            </div>
-            <div class="container">
-                <input type="button" id="btn" name="test" value="key" />
-            </div>
-        }
+        @*}*@
     </div>
-    
+
+    <div class="container">
+        <input type="button" id="btn" name="test" value="In Phiếu đặt tour" onclick="PrintElem()"  class="btn-success form-control"/>
+    </div>
+
     <script type="text/javascript">
-        $(function () {
-            $('#btn').click(function () {
-                $("myDiv").printElement();
-            });
-        });
+        //$(function () {
+        //    $('#btn').click(function () {
+        //        $("myDiv").printElement();
+        //    });
+        //});
+
+        function PrintElem() {
+            var mywindow = window.open('', 'PRINT', 'height=400,width=600');
+
+            mywindow.document.write('<html><head><title>' + document.title + '</title>');
+            mywindow.document.write('');
+
+            mywindow.document.write("<link rel=\"stylesheet\" href=\"/Content/bootstrap.min.css\" type=\"text/css\" media=\"print\"/>");
+            mywindow.document.write("<link rel=\"stylesheet\" href=\"/Content/bill.css\" type=\"text/css\" media=\"print\"/>");
+            mywindow.document.write("<link rel=\"stylesheet\" src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\" type=\"text/css\" media=\"print\"/>");
+
+            mywindow.document.write('</head><body >');
+
+            mywindow.document.write(document.getElementById("myDiv").innerHTML);
+
+            mywindow.document.write('</body></html>');
+
+            mywindow.document.close(); // necessary for IE >= 10
+            mywindow.focus(); // necessary for IE >= 10*/
+
+            mywindow.print();
+            mywindow.close();
+
+            return true;
+        }
     </script>
-    
+
 </body>
 </html>

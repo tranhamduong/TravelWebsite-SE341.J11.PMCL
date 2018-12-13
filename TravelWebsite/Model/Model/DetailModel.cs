@@ -15,6 +15,7 @@ namespace Model.Model
         public ThongTinChiTietTour chiTietTour;
         public HuongDanVien hdv;
         public DiaDanh diadanh;
+        public ImageTour image;
 
         public DetailModel(string code)
         {
@@ -24,6 +25,7 @@ namespace Model.Model
                 chiTietTour = ThongTinChiTietDAO.getByCode(tour.MaChiTietTour);
                 hdv = HuongDanVienDAO.getByName(tour.MaHuongDanVien);
                 diadanh = DiaDanhDAO.getByName(tour.MaDiaDanh);
+                image = ImageDAO.getById(tour.MaTour);
             }
             catch(Exception e)
             {

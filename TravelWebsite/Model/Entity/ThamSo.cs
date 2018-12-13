@@ -9,8 +9,10 @@ namespace Model.Entity
     [Table("ThamSo")]
     public partial class ThamSo
     {
+        [StringLength(10)]
         public string InternalTourPR { get; set; }
 
+        [StringLength(10)]
         public string ExternalTourPR { get; set; }
 
         [StringLength(10)]

@@ -12,10 +12,13 @@ namespace Model.Model
         public HuongDanVienModel huongDanVien;
         public KhachHangModel khachHang;
         public TourModel tour;
+        public ImageTourModel image;
+
         public DiaDanhModel diadanh;
         public List<string> dsHuongDanVien;
         public List<string> dsDiaDanh;
         public List<string> dsPhuongTien;
+        
 
         public TravelModel()
         {
@@ -24,6 +27,8 @@ namespace Model.Model
             khachHang = new KhachHangModel();
             diadanh = new DiaDanhModel();
             tour = new TourModel();
+            image = new ImageTourModel();
+
             dsHuongDanVien = huongDanVien.dsHuongDanVien;
             dsDiaDanh = diadanh.dsDiaDanh;
             dsPhuongTien = phuongTien.dsPhuongTien;

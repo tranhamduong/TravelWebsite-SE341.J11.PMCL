@@ -1,20 +1,26 @@
 ﻿@model Model.Model.ExportModel
+<style>
+    .mid {
+        text-align: center;
+    }
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>ExportCheckout</title>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link href="~/Content/bill.css" rel="stylesheet" />
-</head>
-    <body>
+    .right {
+        text-align: right;
+    }
 
-    </body>
-</html>
+    .border {
+        border: 2px solid black;
+    }
+
+    .tborder {
+        border: 1px solid black;
+        border-top: 1px solid black;
+    }
+
+    p .note {
+        font-size: 8px;
+    }
+</style>
         <div class="container">
             <div class="table">
                 <table class="table">
@@ -92,9 +98,21 @@
                             <td class="right" colspan="2">Họ tên Khách hàng:</td>
                             <td class="border" style="width:300 px;" colspan="4">@Model.khachHang.HoTenKhachHang </td>
                             <td class="right">Giới tính:</td>
-                            <td class="border" class="right">Nam/Nữ</td>
+                            <td class="border" class="right">
+                                @{ 
+                                    bool isFemale = Model.khachHang.isFemale;
+                                    if (isFemale == true)
+                                    {
+                                        <strong>Nữ</strong>
+                                    }
+                                    else
+                                    {
+                                        <strong>Nam</strong>
+                                    }
+                                }
+                            </td>
                             <td class="right">SĐT:</td>
-                            <td class="border" class="right">@Model.khachHang.SoDienThoaiKH</td>
+                            <td class="border right" >@Model.khachHang.SoDienThoaiKH</td>
                             <td></td>
                         </tr>
                         <tr>
@@ -110,7 +128,7 @@
                         <tr>
                             <td></td>
                             <td colspan="2" class="right">Địa chỉ</td>
-                            <td class="border" colspan="8">NOT AVAILABLE</td>
+                            <td class="border" colspan="8">@Model.khachHang.DiaChi</td>
                         </tr>
                         <tr>
                             <td></td>

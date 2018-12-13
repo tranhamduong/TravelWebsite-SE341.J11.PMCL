@@ -178,6 +178,30 @@
                         <input type="hidden" value=@item.MaTour name="ma" />
                         <input type="submit" id="@item.MaTour+del" class="btn-link " value="Xóa" />
                     }
+                    <button type="button" class="btn-link" data-toggle="modal" data-target="#myModal">Thêm hình</button>
+                    <!--MODAL CONTENT-->
+                    <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    @using (Html.BeginForm("themAnhTour", "Insert", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                    {
+                                        <input type="hidden" value=@item.MaTour name="maTour" />
+                                        <input type="file" name="pictureOne" accept="image/*" required />
+                                        <input type="file" name="pictureTwo" accept="image/*" required/>
+                                        <input type="file" name="pictureThree" accept="image/*" required/>
+                                        <input type="submit" class="btn-success form-control" value="Thêm" />
+                                    }
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </td>
             </tr>
         }

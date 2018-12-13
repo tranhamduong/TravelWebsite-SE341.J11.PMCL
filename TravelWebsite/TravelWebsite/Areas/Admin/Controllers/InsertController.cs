@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Model.Model;
 using TravelWebsite.Areas.Admin.Controllers;
+using System.Drawing;
 
 namespace TravelWebsite.Areas.Admin
 {
@@ -147,5 +148,69 @@ namespace TravelWebsite.Areas.Admin
             }catch (Exception e) { }
             return RedirectToAction("InsertData");
         }
+
+        [HttpPost]
+        public ActionResult themAnhTour(HttpPostedFileBase pictureOne, HttpPostedFileBase pictureTwo, HttpPostedFileBase pictureThree, string maTour,  FormCollection form)
+        {
+            if (pictureOne == null || pictureTwo == null || pictureThree == null)
+            {
+                return RedirectToAction("InsertData");
+            }
+            else
+            {
+                //resize anh ve 1200x700
+                var rPictureOne = Image.FromStream(pictureOne.InputStream, true, true);
+                Image resizedPictureOne = ScaleImage(rPictureOne, Model.CommonConstants.tour_image_height);
+
+                var rPictureTwo = Image.FromStream(pictureTwo.InputStream, true, true);
+                Image resizedPictureTwo = ScaleImage(rPictureTwo, Model.CommonConstants.tour_image_height);
+
+                var rPictureThree = Image.FromStream(pictureThree.InputStream, true, true);
+                Image resizedPictureThree = ScaleImage(rPictureThree, Model.CommonConstants.tour_image_height);
+                //var rPictureTwo = Image.FromStream(pictureTwo.InputStream, true, true);
+                //Image resizedPictureTwo = ScaleImage(rPictureTwo, Model.CommonConstants.tour_image_width, Model.CommonConstants.tour_image_height);
+
+                //var rPictureThree = Image.FromStream(pictureThree.InputStream, true, true);
+                //Image resizedPictureThree = ScaleImage(rPictureThree, Model.CommonConstants.tour_image_width, Model.CommonConstants.tour_image_height);
+
+                //luu du lieu vao chuoi byte
+                ImageConverter converter = new ImageConverter();
+                byte[] arrayPictureOne = (byte[]) converter.ConvertTo(resizedPictureOne, typeof(byte[]));
+
+                byte[] arrayPictureTwo = (byte[])converter.ConvertTo(resizedPictureTwo, typeof(byte[]));
+
+                byte[] arrayPictureThree = (byte[])converter.ConvertTo(resizedPictureThree, typeof(byte[]));
+
+                //byte[] arrayPictureOne = new byte[.ContentLength];
+                //pictureOne.InputStream.Read(arrayPictureOne, 0, pictureOne.ContentLength);
+
+                //byte[] arrayPictureTwo = new byte[pictureTwo.ContentLength];
+                //pictureTwo.InputStream.Read(arrayPictureTwo, 0, pictureTwo.ContentLength);
+
+                //byte[] arrayPictureThree = new byte[pictureThree.ContentLength];
+                //pictureThree.InputStream.Read(arrayPictureThree, 0, pictureThree.ContentLength);
+
+                bool res = false;
+                res = ImageDAO.Insert(arrayPictureOne, arrayPictureTwo, arrayPictureThree, maTour);
+                //res = ImageDAO.InsertOne(arrayPictureOne, maTour);
+
+            }
+            return RedirectToAction("InsertData");
+        }
+
+        public static Image ScaleImage(Image image, int maxHeight)
+        {
+            var ratio = (double)maxHeight / image.Height;   
+
+            var newWidth = (int)(image.Width * ratio);
+            var newHeight = (int)(image.Height * ratio);
+
+            var newImage = new Bitmap(newWidth, newHeight);
+
+            using (var graphics = Graphics.FromImage(newImage))
+                graphics.DrawImage(image, 0, 0, newWidth, newHeight);
+
+            return newImage;
+        }        
     }
 }

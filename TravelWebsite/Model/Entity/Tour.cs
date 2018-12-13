@@ -29,8 +29,8 @@
         [Display(Name = "Số chỗ còn nhận khách: ")]
         public int? SoChoConLai { get; set; }
 
-        [Column(TypeName = "date")]
         [Display(Name = "Ngày khởi hành: ")]
+        [Column(TypeName = "date")]
         public DateTime NgayKhoiHanh { get; set; }
 
         [Column(TypeName = "date")]
@@ -51,7 +51,6 @@
         public double GiamGia { get; set; }
 
         [StringLength(10)]
-        [Display(Name = "Hướng dẫn viên là: ")]
         public string MaChiTietTour { get; set; }
 
         [StringLength(100)]
@@ -65,8 +64,8 @@
         [Display(Name = "Tình trạng: ")]
         public bool? TinhTrang { get; set; }
 
-        [StringLength(30)]
         [Display(Name = "Mã phương tiện: ")]
+        [StringLength(30)]
         public string PhuongTien { get; set; }
 
         public bool? isDeleted { get; set; }

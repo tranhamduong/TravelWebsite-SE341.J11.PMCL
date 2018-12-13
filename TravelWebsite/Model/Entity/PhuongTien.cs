@@ -20,10 +20,10 @@
         [Display(Name = "Thời gian đi: ")]
         public DateTime? ThoiGianDi { get; set; }
 
-        [Display(Name = "Tên bến/sân bay xuất phát: ")]
         [StringLength(50)]
         public string TenSanBay { get; set; }
 
+        [Display(Name = "Tên bến/sân bay xuất phát: ")]
         public bool? isDeleted { get; set; }
     }
 }

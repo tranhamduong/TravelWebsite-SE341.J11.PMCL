@@ -38,6 +38,11 @@ namespace TravelWebsite.Controllers
             string header = "";
             string footer = "";
 
+            KhachHang a = (KhachHang)Session[Model.CommonConstants.USER];
+            Tour b = new Tour();
+
+            ExportModel c = new ExportModel(a, b);
+
             string customSwitches = string.Format("--header-html  \"{0}\" " +
                                    "--header-spacing \"0\" " +
                                    "--footer-html \"{1}\" " +
@@ -55,8 +60,10 @@ namespace TravelWebsite.Controllers
             vap.PageMargins = new Rotativa.Options.Margins(0, 0, 0, 0);
             vap.PageSize = Rotativa.Options.Size.A4;
             vap.ViewName = "Checkout";
+            vap.Model = c;
             vap.PageOrientation = Rotativa.Options.Orientation.Portrait;
             vap.ContentDisposition = Rotativa.Options.ContentDisposition.Attachment;
+
             vap.FileName = "Report.pdf";
 
             return vap;

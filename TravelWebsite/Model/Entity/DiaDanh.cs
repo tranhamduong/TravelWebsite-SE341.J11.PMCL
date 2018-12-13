@@ -17,8 +17,8 @@
         [Display(Name = "Mô tả địa danh: ")]
         public string MoTaDiaDanh { get; set; }
 
-        [StringLength(100)]
         [Display(Name = "Các nơi nên ghé thăm: ")]
+        [StringLength(100)]
         public string DiaDanhConTieuBieu { get; set; }
 
         [Display(Name = "Thuộc miền: ")]

@@ -27,5 +27,9 @@ namespace Model
         public const string adminPassword = "admin";
 
         public const string defaultPassword = "Abc12345";
+
+        public const int tour_image_width = 1200;
+
+        public const int tour_image_height = 900;
     }
 }

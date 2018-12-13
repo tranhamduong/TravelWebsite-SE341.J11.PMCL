@@ -14,13 +14,11 @@
         public string MaHuongDanVien { get; set; }
 
         [StringLength(100)]
-        [Required]
         [Display(Name = "Họ tên Hướng dẫn viên: ")]
         public string HoTenHDV { get; set; }
 
         [StringLength(50)]
         [Display(Name = "Số điện thoại Hướng dẫn viên: ")]
-        [Required]
         public string SoDienThoaiHDV { get; set; }
 
         public bool? isDeleted { get; set; }
