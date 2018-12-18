@@ -31,5 +31,25 @@ namespace Model
         public const int tour_image_width = 1200;
 
         public const int tour_image_height = 900;
+
+        public enum type
+        {
+            dateZero,
+            dateTwo,
+            dateFour,
+            dateSix,
+            numZero,
+            numTwo,
+            numFour,
+            numSix,
+            dateNumZero,
+            dateNumTwo,
+            dateNumFour,
+            dateNumSix,
+            ZeroZero,
+            ZeroTwo,
+            ZeroFour,
+            ZeroSix
+        }
     }
 }

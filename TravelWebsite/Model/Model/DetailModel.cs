@@ -26,6 +26,8 @@ namespace Model.Model
                 hdv = HuongDanVienDAO.getByName(tour.MaHuongDanVien);
                 diadanh = DiaDanhDAO.getByName(tour.MaDiaDanh);
                 image = ImageDAO.getById(tour.MaTour);
+
+                
             }
             catch(Exception e)
             {

@@ -23,9 +23,13 @@ namespace TravelWebsite.Controllers
             else
             {
                 Session["InternalTourPR"] = ThamSoDAO.getInternalPR();
+
                 Session["ExternalTourPR"] = ThamSoDAO.getExternalPR();
             }
-                
+
+            travel.imageInternal = ImageDAO.getOneImage(ThamSoDAO.getInternalPR().Trim());
+            travel.imageExternal = ImageDAO.getOneImage(ThamSoDAO.getExternalPR().Trim());
+
             return View(travel);
         }
 
@@ -62,15 +66,6 @@ namespace TravelWebsite.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpPost]
-        public ActionResult Search(string searchName, string searchDate, string searchNumber)
-        {
-           TourListModel list = new TourListModel();
-            
-           list.danhSach = TourDAO.getSearchByName(searchName);
-
-            return View(list);
-        }
 
         [HttpGet]
         public ActionResult Register()

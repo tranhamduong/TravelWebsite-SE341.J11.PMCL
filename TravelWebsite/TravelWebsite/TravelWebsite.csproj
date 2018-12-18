@@ -175,6 +175,7 @@
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
     <Compile Include="Controllers\BusinessController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\TourController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -194,7 +195,9 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\home-page-travelwebsite.css" />
     <Content Include="Content\css\tour-detail-page-travelwebsite.css" />
+    <Content Include="Content\css\tour-list-travelwebsite.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\image-not-available.jpg" />
     <Content Include="Content\img\1.jpg" />
     <Content Include="Content\img\2.jpg" />
     <Content Include="Content\img\3.jpg" />
@@ -384,6 +387,9 @@
     <Content Include="Views\Tour\Detail.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\_SearchLayout.cshtml" />
+    <Content Include="Views\Search\View.cshtml" />
+    <Content Include="Views\Search\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

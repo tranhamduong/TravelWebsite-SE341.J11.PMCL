@@ -32,11 +32,33 @@ namespace Model.DAO
             return CommonConstants.error_code.default_error;
         }
 
-        public static IPagedList<Tour> getSearchByName(string stringSearch)
+        public static IPagedList<Tour> searchByName(string stringSearch)
         {
+            
             var model = db.Tours.OrderBy(x => x.MoTaTour).Where(x => x.MoTaTour.Contains(stringSearch)).ToPagedList(1, 10);
 
             return model;
+        }
+
+        public static IPagedList<Tour> searchByNamePrice(string stringSearch, int price)
+        {
+            if (price == 0)
+                return db.Tours.OrderBy(x => x.MoTaTour).Where(x => x.MoTaTour.Contains(stringSearch)).ToPagedList(1, 10);
+            else
+                return db.Tours.OrderBy(x => x.MoTaTour).Where(x => x.MoTaTour.Contains(stringSearch) && x.GiaTien < price).ToPagedList(1, 10);
+        }
+
+        public static IPagedList<Tour> searchByNameDateNumberPrice(string searchName, string searchDate, string searchNumber, int price)
+        {
+            DateTime date = new DateTime();
+            date = DateTime.Parse(searchDate);
+            DateTime fromDate = date.AddDays(-3);
+            DateTime toDate = date.AddDays(3);
+            int count = Int32.Parse(searchNumber);
+            if (price == 0)
+                return db.Tours.OrderBy(x => x.MaTour).Where(x => x.MoTaTour.Contains(searchName) && x.SoChoConLai >= count && (x.NgayKhoiHanh >= fromDate && x.NgayKhoiHanh <= toDate)).ToPagedList(1, 10);
+            else
+                return db.Tours.OrderBy(x => x.MaTour).Where(x => x.MoTaTour.Contains(searchName) && x.SoChoConLai >= count && (x.NgayKhoiHanh >= fromDate && x.NgayKhoiHanh <= toDate) && x.GiaTien < price).ToPagedList(1, 10);
         }
 
         public static Tour getByCode(string code)
@@ -44,6 +66,28 @@ namespace Model.DAO
             db = new TravelDatabase();
             var tour = db.Tours.Where(x => x.MaTour == code).FirstOrDefault();
             return tour;
+        }
+
+        public static IPagedList<Tour> searchByNameDatePrice(string searchName, string searchString, int price)
+        {
+            DateTime date = new DateTime();
+            date = DateTime.Parse(searchString);
+            DateTime fromDate = date.AddDays(-3);
+            DateTime toDate = date.AddDays(3);
+            if (price == 0)
+                return db.Tours.OrderBy(x => x.MaTour).Where(x => x.MoTaTour.Contains(searchName) && (x.NgayKhoiHanh >= fromDate && x.NgayKhoiHanh <= toDate)).ToPagedList(1,10);
+            else
+                return db.Tours.OrderBy(x => x.MaTour).Where(x => x.MoTaTour.Contains(searchName) && (x.NgayKhoiHanh >= fromDate && x.NgayKhoiHanh <= toDate) && x.GiaTien < price).ToPagedList(1, 10);
+        }
+
+        public static IPagedList<Tour> searchByNameNumberPrice(string searchName, string searchString, int price)
+        {
+            int count = Int32.Parse(searchString);
+
+            if (price == 0)
+                return db.Tours.OrderBy(x => x.MaTour).Where(x => x.MoTaTour.Contains(searchName) && x.SoChoConLai >= count).ToPagedList(1,10);
+            else
+                return db.Tours.OrderBy(x => x.MaTour).Where(x => x.MoTaTour.Contains(searchName) && x.SoChoConLai >= count && x.GiaTien < price).ToPagedList(1, 10);
         }
 
         public override bool Delete(string key)
@@ -54,6 +98,12 @@ namespace Model.DAO
         public IPagedList<Tour> ListAll(int page = 1, int pageSize = 10)
         {
             var model = db.Tours.OrderBy(x => x.MaTour).ToPagedList(page, pageSize);
+            return model;
+        }
+
+        public IPagedList<Tour> ListAllGiamGia(int page = 1, int pageSize = 10)
+        {
+            var model = db.Tours.OrderBy(x => x.GiamGia).ToPagedList(page, pageSize);
             return model;
         }
 
@@ -96,6 +146,18 @@ namespace Model.DAO
             else
                 return false;
             
+        }
+
+        public static IPagedList<Tour> getExternalTourList()
+        {
+            db = new TravelDatabase();
+            return db.Tours.OrderBy(x => x.MaTour).Where(x => x.isInternal == false).ToPagedList(1, 10);
+        }
+
+        public static IPagedList<Tour> getInternalTourList()
+        {
+            db = new TravelDatabase();
+            return db.Tours.OrderBy(x => x.MaTour).Where(x => x.isInternal == true).ToPagedList(1, 10);
         }
     }
 }

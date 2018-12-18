@@ -1,0 +1,218 @@
+﻿@model Model.Model.TourListModel
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/_SearchLayout.cshtml";
+}
+<!-- Bat dau trang -->
+<div class="container">
+    <div class="row mt-3">
+        <!--Thanh tim kiem ben trai-->
+        <div class="col-md-3">
+            <!--Thanh tim kiem-->
+            @using (@Html.BeginForm("DetailSearch", "Search", FormMethod.Get))
+            {
+                <div class="box border-primary">
+                    <div class="box-header bg-primary border-primary">
+                        <h3 class="box-title">Tìm kiếm Tour</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="search-form">
+                            <div class="form-row">
+                                <input type="text" name="searchName" class="form-control" placeholder="Bạn muốn du lịch nơi nào ?" required />
+                            </div>
+                            <div class="form-row">
+                                <div class="p mb-1">
+                                    Ngày khởi hành
+                                </div>
+                                <input type="date" class="form-control" name="searchDate" />
+                            </div>
+
+                            <div class="form-row">
+                                <input type="number" class="form-control" placeholder="Số khách ?" name="searchNumber" />
+                            </div>
+                            @*<div class="form-row">
+                                @Html.DropDownList("chonDiaDanh", new SelectList(Model.listDiaDanh), "Chọn điểm đến", new { @class = "form-control" })
+                            </div>*@
+
+                            <div class="form-row row">
+                                <div class="col-md-12 align-items-center justify-content-center">
+                                    <button type="submit" class="btn btn-block btn-search">Tìm</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Bo loc-->
+                <div class="box box-collapse border-primary">
+                    <div class="box-header bg-primary border-primary" style="cursor: pointer;">
+                        <h3 id="boxHeadingOne" class="box-title" data-toggle="collapse" data-target="#boxCollapseOne" aria-expanded="true" aria-controls="boxCollapseOne">
+                            Bộ lọc tìm kiếm
+                            <i class="fa fa-caret-down" style="float: right"></i>
+                        </h3>
+                    </div>
+                    <div id="boxCollapseOne" class="box-body collapse show" aria-labelledby="boxHeadingOne" data-parent="#box-collapse">
+                        <div class="toggle">
+                            <div id="headingOne" class="toggle-title white-text mb-3" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Theo mức giá
+                                <i class="fa" aria-hidden="true" style="float: right"></i>
+                            </div>
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#toggle">
+                                <div class="toggle-body">
+                                    <label class="custome-checkbox-container">
+                                        Dưới 2.000.000
+                                        <input type="radio" name="price" value="2trieu"/>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="custome-checkbox-container">
+                                        2.000.000 - 4.000.000
+                                        <input type="radio" name="price" value="4trieu"/>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="custome-checkbox-container">
+                                        4.000.000 - 6.000.000
+                                        <input type="radio" name="price" value="6trieu"/>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="toggle">
+                            <div id="headingTwo" class="toggle-title white-text mb-3" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                Theo loại tour
+                                <i class="fa" aria-hidden="true" style="float: right"></i>
+                            </div>
+                            <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#toggle">
+                                <div class="toggle-body">
+                                    <label class="custome-checkbox-container">
+                                        Tour du lịch cho cá nhân
+                                        <input type="checkbox" name="tourType" />
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="custome-checkbox-container">
+                                        Tour du lịch cho cặp đôi
+                                        <input type="checkbox" name="tourType" />
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="custome-checkbox-container">
+                                        Tour du lịch cho gia đình
+                                        <input type="checkbox" name="tourType" />
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="custome-checkbox-container">
+                                        Tour du lịch cho gia doanh nghiệp
+                                        <input type="checkbox" name="tourType" />
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+
+        <!--Phan hien thi ben phai-->
+        <div class="col-md-9">
+            <div class="page-header">
+                <h1 class="title-lg" title="">Kết quả tìm kiếm cho từ khóa: @Model.searchName</h1>
+            </div>
+
+            <div class="group-filter">
+                <!--Cac option cho viec sort ket qua tim kiem-->
+                <ul class="nav nav-border-bottom">
+                    <li class="active"><a href="#" class="">Phổ biến nhất</a></li>
+                    <li><a href="#">Sắp khởi hành</a></li>
+                    <li><a href="#">Đánh giá cao</a></li>
+                    <li><a href="#">Khuyến mãi</a></li>
+                </ul>
+            </div>
+            <!--Danh sach tour-->
+            <div class="product-tour">
+                <div class="item-tour">
+                    <div class="row">
+                        @{
+                            foreach (var item in Model.danhSach)
+                            {
+                                <!--item-->
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        <h3 class="title-sm">
+                                            <a href="#">@item.MoTaTour</a>
+                                        </h3>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-9 left-content">
+                                                <div class="product-info">
+                                                    <div class="product-image">
+                                                        @{
+                                                            foreach (var image in Model.imageList)
+                                                            {
+                                                                if (image.MaTour.Trim() == item.MaTour.Trim())
+                                                                {
+                                                                    var pictureOne = Convert.ToBase64String(image.PictureOne);
+                                                                    var imgsrcOne = string.Format("data:image/gif;base64,{0}", pictureOne);
+                                                                    <img src=@imgsrcOne />
+                                                                    break;
+                                                                }
+                                                            }
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div class="product-content">
+                                                    <ul class="nav list-unstyled" style="display: block;">
+                                                        <li><strong>Ngày khởi hành:</strong>@item.NgayKhoiHanh</li>
+                                                        <li><strong>Thời gian:</strong> @item.SoNgay</li>
+                                                        <li><strong>Địa điểm khởi hành:</strong> @item.NoiKhoiHanh</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 right-content">
+                                                <div class="box-review">4.5 <i class="fa fa-star"></i></div>
+                                                <div class="box-price">
+                                                    <strong class="price">@item.GiaTien<small>đ</small></strong>
+                                                    <br />
+                                                    <strong class="price">Hoặc miễn phí</strong>
+                                                    <br />
+                                                    @using (Html.BeginForm("Detail", "Tour", FormMethod.Get))
+                                                    {
+                                                        <input type="hidden" value="@item.MaTour" name="tourID" />
+                                                        <input type="submit" class=" text-warning font-weight-bold mt-3" value="Xem Chi Tiết" />
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--item-->
+                            }
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+            <!--Phan pagination-->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+
+</div>

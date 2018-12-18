@@ -6,9 +6,9 @@
 }
 
 <!--Header-->
-<nav class="navbar navbar-expand-md bg-primary navbar-dark">
+<nav class="navbar navbar-expand-md bg-primary navbar-dark  sticky-top">
     <!-- Brand -->
-    <a class="navbar-brand" href="#">Website du lịch</a>
+    @Html.ActionLink("Website du lịch", "Index", "Home", null, new { @class = "navbar-brand" })
 
     <!-- Toggler/collapsibe Button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -144,12 +144,12 @@
                     <table class="table table-bordered">
                         <tbody>
                             <tr>
-                                <td>Ngày đi: <span>@Model.tour.NgayKhoiHanh</span></td>
+                                <td>Ngày đi: <span>@Model.tour.NgayKhoiHanh.ToShortDateString()</span></td>
                                 @*<td>Đến: <span>11/11/2018 16:00</span></td>*@
                                 <td>Chuyến bay: <span>Đang cập nhật</span></td>
                             </tr>
                             <tr>
-                                <td>Ngày về: <span>@Model.tour.NgayTroVe</span></td>
+                                <td>Ngày về: <span>@Model.tour.NgayTroVe.ToShortDateString()</span></td>
                                 @*<td>Đến: <span>18/11/2018 16:00</span></td>*@
                                 <td>Chuyến bay: <span>Đang cập nhật</span></td>
                             </tr>

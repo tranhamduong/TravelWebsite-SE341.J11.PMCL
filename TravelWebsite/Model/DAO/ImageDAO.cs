@@ -32,7 +32,14 @@ namespace Model.DAO
 
         public static ImageTour getById(string maTour)
         {
+            db = new TravelDatabase();
             return db.ImageTours.FirstOrDefault(x => x.MaTour == maTour);
+        }
+
+        public static byte[] getOneImage(string maTour)
+        {
+            db = new TravelDatabase();
+            return db.ImageTours.FirstOrDefault(x => x.MaTour == maTour).PictureOne;
         }
 
         //use this method in testing only
@@ -53,6 +60,19 @@ namespace Model.DAO
         {
             var model = db.ImageTours.OrderBy(x => x.MaTour).ToPagedList(page, pageSize);
             return model;
+        }
+
+        public static void Delete(string maTour)
+        {
+            var model = db.ImageTours.FirstOrDefault(x => x.MaTour == maTour);
+            if (model == null)
+            {
+                //empty so we just left it there
+            }
+            else {
+                db.ImageTours.Remove(model);
+                db.SaveChanges();
+            }
         }
     }
 }

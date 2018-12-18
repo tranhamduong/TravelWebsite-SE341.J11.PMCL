@@ -38,11 +38,11 @@
                     <td>
                         <p>
 
-                            @using (Html.BeginForm("EditDD", "Edit", FormMethod.Post, new { @name = "myForm", @id="myForm"}))
+                            @using (Html.BeginForm("EditDD", "Edit", FormMethod.Post, new { @name = "myForm", @id = "myForm" }))
                             {
                                 <input type="hidden" name="ma" value="@item.MaDiaDanh" />
                                 <input type="hidden" name="tenEdited" value="" />
-                                <input type="hidden" name="soKhachEdited" value=""/>
+                                <input type="hidden" name="soKhachEdited" value="" />
                                 <input type="button" id="@item.MaDiaDanh+edit" class="btn-link hihi" value="Sửa" onclick="editFunc3('@item.MaDiaDanh')" />
                             }
                             @using (Html.BeginForm("Delete", "Edit", FormMethod.Post))
@@ -50,6 +50,32 @@
                                 <input type="hidden" name="ma" value="@item.MaDiaDanh" />
                                 <input type="submit" id="@item.MaDiaDanh+del" class="btn-link hihi" value="Xóa" />
                             }
+                            @{
+                                string idModal = item.MaDiaDanh + "myModal";
+                                string idModal2 = "#" + idModal;
+                            }
+                            <button type="button" class="btn-link" data-toggle="modal" data-target="@idModal2">Thêm Hình</button>
+                            <div class="modal fade" id=@idModal role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            @using (Html.BeginForm("themAnhDiaDanh", "Insert", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                            {
+                                                <input type="hidden" name="maDiaDanh" value=@item.MaDiaDanh />
+                                                <label>Ảnh: </label>
+                                                <input type="file" name="picture" accept="image/*" required />
+                                                <input type="submit" class="btn-success form-control" value="Thêm" />
+                                            }
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </p>
                     </td>
                 </tr>

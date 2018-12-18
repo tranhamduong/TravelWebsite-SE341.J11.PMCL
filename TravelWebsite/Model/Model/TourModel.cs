@@ -14,12 +14,15 @@ namespace Model.Model
         public Tour tour;
         public ThongTinChiTietTour chiTietTour;
 
+        public PagedList.IPagedList<Tour> dsGiamGia { get; set; }
+
         public TourModel()
         {
             tour = new Tour();
             chiTietTour = new ThongTinChiTietTour();
             TourDAO dao = new TourDAO();
             danhSach = dao.ListAll(1, 10);
+            dsGiamGia = dao.ListAllGiamGia(1, 5);
         }
     }
 }

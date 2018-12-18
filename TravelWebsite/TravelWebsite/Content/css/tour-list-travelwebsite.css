@@ -1,0 +1,254 @@
+.footer-list a {
+  color: #fff;
+}
+
+/* Ben trai*/
+.box {
+    border: 1.5px solid;
+    display: inline-block;
+    border-radius: 4px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.box .box-header {
+    border-bottom: 1px solid;
+    padding: 13px 15px;
+}
+
+.box .box-body {
+    padding: 13px 15px;
+
+}
+
+.box .box-title {
+    margin: 0;
+    color: #FFF;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.search-form {
+    float: left;
+    width: 100%;
+    position: relative;
+}
+
+.btn-search {
+    color: #FFF;
+    background: #409CFF;
+}
+
+.form-row {
+    margin-bottom: 15px;
+}
+
+.toggle-title {
+    cursor: pointer;
+    margin: 0 -15px 5px;
+    padding: 8px 15px 8px 10px;
+    background: #80BDFF;
+    border-left: 4px solid #005CBF;
+}
+
+.box-collapse .box-header .box-title .fa:before {
+  content: "\f0de" !important;
+}
+
+.box-collapse .box-header .collapsed .fa:before {
+  content: "\f0dd" !important;
+}
+
+/* [data-toggle="collapse"] .fa:before {
+  content: "\f077";
+}
+
+[data-toggle="collapse"].collapsed .fa:before {
+  content: "\f078";
+} */
+
+.toggle .toggle-title .fa:before {
+  content: "\f077";
+}
+
+.toggle .collapsed .fa:before {
+  content: "\f078";
+}
+
+.custome-checkbox-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-weight: 100;
+    font-size: 16px;
+    color: #5f5531;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.custome-checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #BFDEFF;
+    border: 1px solid #007BFF;
+}
+
+/* On mouse-over, add a grey background color */
+.custome-checkbox-container:hover input ~ .checkmark {
+    background-color: #80BDFF;
+}
+
+/* When the checkbox is checked, add a blue background */
+.custome-checkbox-container input:checked ~ .checkmark {
+    background-color: #005CBF;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.custome-checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.custome-checkbox-container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+/*Ben phai*/
+.title-lg {
+    margin: 5px 0 0;
+    padding-bottom: 10px;
+    border-bottom: none;
+    text-transform: capitalize;
+    font-size: 24px;
+    color: #007BFF;
+}
+
+.title-sm {
+    border-bottom: none;
+    margin: 0 0 5px;
+    padding: 0;
+    font-weight: 700;
+    text-transform: capitalize;
+    font-size: 18px;
+}
+
+.title-sm a {
+    color: #007BFF;
+}
+
+.page-header .title-lg {
+    padding-bottom: 10px;
+    border-bottom: none;
+    text-transform: capitalize;
+}
+
+.nav-border-bottom {
+    border-bottom: 1px solid #BFDEFF;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.nav-border-bottom li {
+    float: left;
+    margin-left: 5px;
+}
+
+.nav-border-bottom li.active a {
+    border-bottom-color: #005CBF;
+}
+
+.nav-border-bottom li a {
+    margin: 0 2px;
+    display: inline-block;
+    border-bottom: 3px solid #ffffff;
+    color: #007BFF;
+}
+
+.left-content {
+    padding-left: 10px;
+    padding-right: 10px;
+    min-height: 230px;
+}
+
+.product-image {
+    float: left;
+    margin-right: 10px;
+    max-width: 240px;
+    position: relative;
+}
+
+.product-image img {
+    border-radius: 6px;
+    border: 2px solid #005CBF;
+    margin-bottom: 5px;
+    display: block;
+    height: auto;
+    max-width: 100%;
+    vertical-align: middle;
+}
+
+.product-content {
+    margin-left: 250px;
+}
+
+.product-content nav li {
+    margin: 4px 0;
+}
+
+.product-tour .right-content {
+    position: absolute;
+    right: 0;
+}
+
+.product-tour .box-review {
+    background: #005CBF;
+    border-radius: 4px 4px 0 0;
+    padding: 10px;
+    text-align: right;
+    color: #ffffff;
+}
+
+.product-tour .box-price {
+    background: #007BFF;
+    border-radius: 0 0 4px 4px;
+    padding: 9px;
+    text-align: right;
+    overflow: hidden;
+    color: #ffffff;
+}
+
+.box-price .btn{
+  background-color: #EEECE8;
+  border-color: #EEECE8;
+}

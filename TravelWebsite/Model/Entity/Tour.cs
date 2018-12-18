@@ -70,7 +70,7 @@
 
         public bool? isDeleted { get; set; }
 
-        public bool? isInternal { get; set; }
+        public bool isInternal { get; set; }
 
         public enum Tinh_Trang
         {

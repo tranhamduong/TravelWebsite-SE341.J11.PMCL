@@ -89,5 +89,29 @@ namespace Model.DAO
                 return db.DiaDanhs.Where(x => x.MaDiaDanh == code).FirstOrDefault();
             return null;
         }
+
+        public static void DeleteAnh(string maDiaDanh)
+        {
+            db = new TravelDatabase();
+            var model = db.DiaDanhs.FirstOrDefault(x => x.MaDiaDanh == maDiaDanh);
+            if (model != null)
+            {
+                model.Anh = null;
+                db.SaveChanges();
+            }
+        }
+
+        public static bool InsertAnh(byte[] arrayPictureOne, string maDiaDanh)
+        {
+            db = new TravelDatabase();
+            var model = db.DiaDanhs.FirstOrDefault(x => x.MaDiaDanh == maDiaDanh);
+            if (model != null)
+            {
+                model.Anh = arrayPictureOne;
+                db.SaveChanges();
+                return true;
+            }
+            return false;
+        }
     }
 }

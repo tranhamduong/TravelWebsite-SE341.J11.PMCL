@@ -3,8 +3,16 @@
 @model Model.Model.TravelModel
 
 @{ string clickedTour = "";}
-
-<nav class="navbar navbar-expand-md bg-primary navbar-dark">
+<style>
+    .containerIMG {
+        width: 300px;
+        height: 200px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+    }
+</style>
+<nav class="navbar navbar-expand-md bg-primary navbar-dark sticky-top">
     <!-- Brand -->
     @Html.ActionLink("Website du lịch", "Index", "Home", new { @class= "navbar-brand" })
     <!-- Toggler/collapsibe Button -->
@@ -31,12 +39,12 @@
 <div class="my-banner img-fluid">
     <img src="~/Content/img/nhatrang.jpg" alt="">
     <div class="search-bar">
-        @using (Html.BeginForm("Search", "Home", FormMethod.Post))
+        @using (Html.BeginForm("Search", "Search", FormMethod.Get))
         {
             <div class="search-item">
                 <div class="search-item-header">
                     Bạn đi đến đâu ?
-                    <input class="search-item-input" type="text" style="width:500px;" name="searchName"/>
+                    <input class="search-item-input" type="text" style="width:500px;" name="searchName" required/>
                 </div>
             </div>
             <div class="search-item">
@@ -53,7 +61,7 @@
             <div class="search-item" style="position: absolute; bottom: 0px;">
                 <input type="submit"  value="Tìm kiếm"/>
                 <div class="search-item-bottom">
-                    <a href="#">Tìm kiếm nâng cao</a>
+                    @Html.ActionLink("Tìm kiếm nâng cao","Search","Search", new { searchName = " ", searchDate ="", searchNumber = ""},null)
                 </div>
             </div>
         }
@@ -80,7 +88,14 @@
             <div class="card my-card flex-fill">
                 <div class="row">
                     <div class="col-md-4">
-                        <a href="#"><img class="card-img-top" src="https://placeholdit.imgix.net/~text?txtsize=38&txt=400%C3%97400&w=400&h=400" alt="Card image"></a>
+                        @{
+                            var pictureInternal = Convert.ToBase64String(Model.imageInternal);
+                            var imgsrcInternal = string.Format("data:image/gif;base64,{0}", pictureInternal);
+                        <div class="containerIMG">
+                            <img class="card-img-top" src=@imgsrcInternal alt="Card image">
+                        </div>
+                            @*<a href="#"><img class="card-img-top" src="https://placeholdit.imgix.net/~text?txtsize=38&txt=400%C3%97400&w=400&h=400" alt="Card image"></a>*@
+                        }
                     </div>
                     <div class="col-md-8 px-3">
                         <div class="card-block px-3">
@@ -121,13 +136,15 @@
                             <p class="card-text">Khám phá ngay những tour du lịch trong nước hấp dẫn</p>
                             <div class="row">
                                 <div class="col-md-6 d-flex">
-                                    <a href="#" class="btn btn-block flex-fill" style="padding: 10% 0;">
+                                @*@Html.ActionLink("Tâm điểm tuần", "InternalSearch", "Search",null, new { @class= "btn btn-block flex-fill", @style= "padding: 10% 0;" })
+                                <span class="h1"><<</span>*@
+                                    <a href="~/Search/Search?searchName=Internal" class="btn btn-block flex-fill" style="padding: 10% 0;">
                                         Tâm điểm tuần <br><span class="h1">
                                             <<
                                         </span>
                                     </a>
                                 </div> <div class="col-md-6 d-flex">
-                                    <a href="#" class="btn btn-block flex-fill" style="padding: 10% 0;">Có <span class="h5">82</span> tour nội địa <br>chờ bạn tại đây</a>
+                                    <a href="~/Search/Search?searchName=Internal" class="btn btn-block flex-fill" style="padding: 10% 0;">Có <span class="h5">@Model.internalTourCount</span> tour nội địa <br>chờ bạn tại đây</a>
                                 </div>
                             </div>
                         </div>
@@ -148,10 +165,10 @@
                             <p class="card-text">Thức dậy ở một đất nước xa xôi với tour quốc tế</p>
                             <div class="row">
                                 <div class="col-md-6 d-flex">
-                                    <a href="#" class="btn btn-block flex-fill" style="padding: 10% 0;">Có <span class="h5">19</span> tour quốc tế <br>chờ bạn tại đây</a>
+                                    <a href="~/Search/Search?searchName=External" class="btn btn-block flex-fill" style="padding: 10% 0;">Có <span class="h5">@Model.externalTourCount</span> tour quốc tế <br>chờ bạn tại đây</a>
                                 </div>
                                 <div class="col-md-6 d-flex">
-                                    <a href="#" class="btn btn-block flex-fill" style="padding: 10% 0;">
+                                    <a href="~/Search/Search?searchName=External" class="btn btn-block flex-fill" style="padding: 10% 0;">
                                         Tâm điểm tuần <br><span class="h1">
                                             >>
                                         </span>
@@ -168,7 +185,12 @@
             <div class="card my-card flex-fill">
                 <div class="row">
                     <div class="col-md-4">
-                        <a href="#"><img class="card-img-top" src="https://placeholdit.imgix.net/~text?txtsize=38&txt=400%C3%97400&w=400&h=400" alt="Card image"></a>
+                        @{
+                            var pictureExternal = Convert.ToBase64String(Model.imageExternal);
+                            var imgsrcExternal = string.Format("data:image/gif;base64,{0}", pictureExternal);
+                            <a href="#"><img class="card-img-top" src=@imgsrcExternal alt="Card image"></a>
+                            @*<a href="#"><img class="card-img-top" src="https://placeholdit.imgix.net/~text?txtsize=38&txt=400%C3%97400&w=400&h=400" alt="Card image"></a>*@
+                        }
                     </div>
                     <div class="col-md-8 px-3">
                         <div class="card-block px-3">
@@ -207,22 +229,55 @@
     <div class="row mb-3">
         <div class="col-md-4 d-flex">
             <div class="card flex-fill">
-                <a href="#"><img class="card-img-top" src="https://placeholdit.imgix.net/~text?txtsize=38&txt=400%C3%97400&w=400&h=400" alt="Card image"></a>
-                <a href="#" class="btn btn-dark card-title h5 text-center m-0 p-100" style="height:50px;">Card title</a>
+                @{
+                    foreach (var item in Model.image.danhSach)
+                    {
+                        if (item.MaTour == Model.tour.dsGiamGia[0].MaTour)
+                        {
+                            var pictureGG1 = Convert.ToBase64String(item.PictureOne);
+                            var imgsrcGG1 = string.Format("data:image/gif;base64,{0}", pictureGG1);
+                            <a href="#"><img class="card-img-top" src=@imgsrcGG1 alt="Card image"></a>
+                            break;
+                        }
+                    }
+                }
+                @Html.ActionLink(Model.tour.dsGiamGia[0].MoTaTour + " - Giảm ngay " + Model.tour.dsGiamGia[0].GiamGia + "%", "Detail", "Tour", new { tourId = Model.tour.dsGiamGia[0].MaTour}, new {@class= "btn btn-dark card-title h5 text-center m-0 p-100", @style= "height:50px;" })
             </div>
         </div>
 
         <div class="col-md-4 d-flex">
             <div class="card flex-fill">
-                <a href="#"><img class="card-img-top" src="https://placeholdit.imgix.net/~text?txtsize=38&txt=400%C3%97400&w=400&h=400" alt="Card image"></a>
-                <a href="#" class="btn btn-dark card-title h5 text-center m-0 p-100" style="height:50px;">Card title</a>
+                @{
+                    foreach (var item in Model.image.danhSach)
+                    {
+                        if (item.MaTour == Model.tour.dsGiamGia[1].MaTour)
+                        {
+                            var pictureGG2 = Convert.ToBase64String(item.PictureOne);
+                            var imgsrcGG2 = string.Format("data:image/gif;base64,{0}", pictureGG2);
+                            <a href="#"><img class="card-img-top" src=@imgsrcGG2 alt="Card image"></a>
+                            break;
+                        }
+                    }
+                }
+                @Html.ActionLink(Model.tour.dsGiamGia[1].MoTaTour + " - Giảm ngay " + Model.tour.dsGiamGia[1].GiamGia + "%", "Detail", "Tour", new { tourId = Model.tour.dsGiamGia[1].MaTour }, new { @class = "btn btn-dark card-title h5 text-center m-0 p-100", @style = "height:50px;" })
             </div>
         </div>
 
         <div class="col-md-4 d-flex">
             <div class="card flex-fill">
-                <a href="#"><img class="card-img-top" src="https://placeholdit.imgix.net/~text?txtsize=38&txt=400%C3%97400&w=400&h=400" alt="Card image"></a>
-                <a href="#" class="btn btn-dark card-title h5 text-center m-0 p-100" style="height:50px;">Card title</a>
+                @{
+                    foreach (var item in Model.image.danhSach)
+                    {
+                        if (item.MaTour == Model.tour.dsGiamGia[2].MaTour)
+                        {
+                            var pictureGG3 = Convert.ToBase64String(item.PictureOne);
+                            var imgsrcGG3 = string.Format("data:image/gif;base64,{0}", pictureGG3);
+                            <a href="#"><img class="card-img-top" src=@imgsrcGG3 alt="Card image"></a>
+                            break;
+                        }
+                    }
+                }
+                @Html.ActionLink(Model.tour.dsGiamGia[2].MoTaTour + " - Giảm ngay " + Model.tour.dsGiamGia[2].GiamGia + "%", "Detail", "Tour", new { tourId = Model.tour.dsGiamGia[2].MaTour }, new { @class = "btn btn-dark card-title h5 text-center m-0 p-100", @style = "height:50px;" })
             </div>
         </div>
     </div>
@@ -233,22 +288,34 @@
     <div class="row mb-3">
         <div class="col-md-4 d-flex">
             <div class="card flex-fill">
-                <a href="#"><img class="card-img-top" src="https://placeholdit.imgix.net/~text?txtsize=38&txt=400%C3%97400&w=400&h=400" alt="Card image"></a>
-                <a href="#" class="btn btn-dark card-title h5 text-center m-0 p-100" style="height:50px;">Card title</a>
+                @{ 
+                    var pictureDD1 = Convert.ToBase64String(Model.diadanh.danhSach[0].Anh);
+                    var imgsrcDD1 = string.Format("data:image/gif;base64,{0}", pictureDD1);
+                }
+                <a href="#"><img class="card-img-top" src=@imgsrcDD1 alt="Card image"></a>
+                @Html.ActionLink(Model.diadanh.danhSach[0].TenDiaDanh,"Search","Search",new { searchName = Model.diadanh.danhSach[0].TenDiaDanh}, new { @class= "btn btn-dark card-title h5 text-center m-0 p-100", @style= "height:50px;" })
             </div>
         </div>
 
         <div class="col-md-4 d-flex">
             <div class="card flex-fill">
-                <a href="#"><img class="card-img-top" src="https://placeholdit.imgix.net/~text?txtsize=38&txt=400%C3%97400&w=400&h=400" alt="Card image"></a>
-                <a href="#" class="btn btn-dark card-title h5 text-center m-0 p-100" style="height:50px;">Card title</a>
+                @{
+                    var pictureDD2 = Convert.ToBase64String(Model.diadanh.danhSach[1].Anh);
+                    var imgsrcDD2 = string.Format("data:image/gif;base64,{0}", pictureDD2);
+                }
+                <a href="#"><img class="card-img-top" src=@imgsrcDD2 alt="Card image"></a>
+                @Html.ActionLink(Model.diadanh.danhSach[1].TenDiaDanh, "Search", "Search", new { searchName = Model.diadanh.danhSach[1].TenDiaDanh }, new { @class = "btn btn-dark card-title h5 text-center m-0 p-100", @style = "height:50px;" })
             </div>
         </div>
 
         <div class="col-md-4 d-flex">
             <div class="card flex-fill">
-                <a href="#"><img class="card-img-top" src="https://placeholdit.imgix.net/~text?txtsize=38&txt=400%C3%97400&w=400&h=400" alt="Card image"></a>
-                <a href="#" class="btn btn-dark card-title h5 text-center m-0 p-100" style="height:50px;">Card title</a>
+                @{
+                    var pictureDD3 = Convert.ToBase64String(Model.diadanh.danhSach[2].Anh);
+                    var imgsrcDD3 = string.Format("data:image/gif;base64,{0}", pictureDD3);
+                }
+                <a href="#"><img class="card-img-top" src=@imgsrcDD3 alt="Card image"></a>
+                @Html.ActionLink(Model.diadanh.danhSach[2].TenDiaDanh, "Search", "Search", new { searchName = Model.diadanh.danhSach[2].TenDiaDanh }, new { @class = "btn btn-dark card-title h5 text-center m-0 p-100", @style = "height:50px;" })
             </div>
         </div>
     </div>

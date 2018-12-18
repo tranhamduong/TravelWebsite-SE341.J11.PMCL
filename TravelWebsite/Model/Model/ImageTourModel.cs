@@ -11,6 +11,8 @@ namespace Model.Model
     public class ImageTourModel
     {
         public PagedList.IPagedList<ImageTour> danhSach { get; set; }
+        public byte[] internalImage;
+        public byte[] externalImage;
 
         public ImageTourModel()
         {

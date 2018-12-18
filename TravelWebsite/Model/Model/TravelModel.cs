@@ -13,12 +13,17 @@ namespace Model.Model
         public KhachHangModel khachHang;
         public TourModel tour;
         public ImageTourModel image;
-
         public DiaDanhModel diadanh;
+
         public List<string> dsHuongDanVien;
         public List<string> dsDiaDanh;
         public List<string> dsPhuongTien;
-        
+
+        public byte[] imageInternal;
+        public byte[] imageExternal;
+
+        public int internalTourCount = 0;
+        public int externalTourCount = 0;
 
         public TravelModel()
         {
@@ -36,6 +41,14 @@ namespace Model.Model
             foreach (var item in phuongTien.danhSach)
             {
                 item.MaPhuongTien = item.MaPhuongTien.Remove(0, 3);
+            }
+
+            foreach(var item in tour.danhSach)
+            {
+                if (item.isInternal == true)
+                    internalTourCount++;
+                else
+                    externalTourCount++;
             }
         }
     }

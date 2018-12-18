@@ -167,11 +167,6 @@ namespace TravelWebsite.Areas.Admin
 
                 var rPictureThree = Image.FromStream(pictureThree.InputStream, true, true);
                 Image resizedPictureThree = ScaleImage(rPictureThree, Model.CommonConstants.tour_image_height);
-                //var rPictureTwo = Image.FromStream(pictureTwo.InputStream, true, true);
-                //Image resizedPictureTwo = ScaleImage(rPictureTwo, Model.CommonConstants.tour_image_width, Model.CommonConstants.tour_image_height);
-
-                //var rPictureThree = Image.FromStream(pictureThree.InputStream, true, true);
-                //Image resizedPictureThree = ScaleImage(rPictureThree, Model.CommonConstants.tour_image_width, Model.CommonConstants.tour_image_height);
 
                 //luu du lieu vao chuoi byte
                 ImageConverter converter = new ImageConverter();
@@ -181,19 +176,28 @@ namespace TravelWebsite.Areas.Admin
 
                 byte[] arrayPictureThree = (byte[])converter.ConvertTo(resizedPictureThree, typeof(byte[]));
 
-                //byte[] arrayPictureOne = new byte[.ContentLength];
-                //pictureOne.InputStream.Read(arrayPictureOne, 0, pictureOne.ContentLength);
-
-                //byte[] arrayPictureTwo = new byte[pictureTwo.ContentLength];
-                //pictureTwo.InputStream.Read(arrayPictureTwo, 0, pictureTwo.ContentLength);
-
-                //byte[] arrayPictureThree = new byte[pictureThree.ContentLength];
-                //pictureThree.InputStream.Read(arrayPictureThree, 0, pictureThree.ContentLength);
-
                 bool res = false;
+                ImageDAO.Delete(maTour);
                 res = ImageDAO.Insert(arrayPictureOne, arrayPictureTwo, arrayPictureThree, maTour);
                 //res = ImageDAO.InsertOne(arrayPictureOne, maTour);
+            }
+            return RedirectToAction("InsertData");
+        }
 
+        [HttpPost]
+        public ActionResult themAnhDiaDanh(HttpPostedFileBase picture, string maDiaDanh) 
+        {
+            if (picture != null)
+            {
+                var rPictureOne = Image.FromStream(picture.InputStream, true, true);
+                Image resizedPictureOne = ScaleImage(rPictureOne, Model.CommonConstants.tour_image_height);
+
+                ImageConverter converter = new ImageConverter();
+                byte[] arrayPictureOne = (byte[])converter.ConvertTo(resizedPictureOne, typeof(byte[]));
+
+                bool res = false;
+                DiaDanhDAO.DeleteAnh(maDiaDanh);
+                res = DiaDanhDAO.InsertAnh(arrayPictureOne, maDiaDanh);
             }
             return RedirectToAction("InsertData");
         }
