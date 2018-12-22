@@ -17,7 +17,7 @@ namespace Model.DAO
         {
             try
             {
-                var result = db.KhachHangs.SingleOrDefault(x => x.SoHoChieuCMND == entity.SoHoChieuCMND);
+                var result = db.KhachHangs.SingleOrDefault(x => x.Email == entity.Email);
                 if (result != null)
                     return CommonConstants.error_code.already_exists;
                 int code = generateCode() + 1;
@@ -81,6 +81,11 @@ namespace Model.DAO
             }
         }
 
+        public string getCodeByEmail(string email)
+        {
+            return db.KhachHangs.Where(x => x.Email == email).FirstOrDefault().MaKhachHang;
+        }
+
         public static void register(KhachHang khachHang)
         {
             db = new TravelDatabase();
@@ -127,9 +132,24 @@ namespace Model.DAO
             kh.Email = entity.Email;
             kh.SoDienThoaiKH = entity.Email;
             kh.SoHoChieuCMND = entity.SoHoChieuCMND;
-            kh.TenDangNhap = entity.TenDangNhap;
+            kh.DiaChi = entity.DiaChi;
+            //kh.TenDangNhap = entity.TenDangNhap;
             db.SaveChanges();
             return false;
         }
+
+        public bool editByEmail(KhachHang entity)
+        {
+            var kh = db.KhachHangs.Where(x => x.Email == entity.Email).FirstOrDefault();
+            kh.HoTenKhachHang = entity.HoTenKhachHang;
+            kh.Email = entity.Email;
+            kh.SoDienThoaiKH = entity.Email;
+            kh.SoHoChieuCMND = entity.SoHoChieuCMND;
+            kh.DiaChi = entity.DiaChi;
+            //kh.TenDangNhap = entity.TenDangNhap;
+            db.SaveChanges();
+            return false;
+        }
+
     }
 }

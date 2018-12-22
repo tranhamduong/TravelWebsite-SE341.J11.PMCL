@@ -38,10 +38,10 @@
         public DateTime NgayTroVe { get; set; }
 
         [Display(Name = "Giá tiền: ")]
-        public int? GiaTien { get; set; }
+        public int GiaTien { get; set; }
 
         [Display(Name = "Giá tiền dành cho trẻ em: ")]
-        public int? GiaTienTreEm { get; set; }
+        public int GiaTienTreEm { get; set; }
 
         [StringLength(100)]
         [Display(Name = "Nơi khởi hành: ")]
@@ -70,6 +70,7 @@
 
         public bool? isDeleted { get; set; }
 
+        [Display(Name = "Tour nội / ngoại ?")]
         public bool isInternal { get; set; }
 
         public enum Tinh_Trang
@@ -85,6 +86,12 @@
                 double giaTien = (double)GiaTien;
                 return giaTien - giaTien / 100 * GiamGia;
             }
+        }
+
+        public enum isInternalExternal
+        {
+            Nội,
+            Ngoại
         }
     }
 }

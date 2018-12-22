@@ -20,6 +20,12 @@ namespace Model.DAO
             return db.ThamSoes.FirstOrDefault().ExternalTourPR;
         }
 
+        public static string getVISACharge()
+        {
+            db = new TravelDatabase();
+            return db.ThamSoes.FirstOrDefault().VISAcharge;
+        }
+
         public static void setInternalPR(string id)
         {
             db = new TravelDatabase();

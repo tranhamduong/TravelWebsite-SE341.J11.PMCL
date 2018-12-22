@@ -1,6 +1,6 @@
 ﻿
 @{
-    Layout = null;
+    Layout = "~/Views/_Layout.cshtml";
 }
 
 @model Model.Model.ExportModel
@@ -19,24 +19,148 @@
     <link href="~/Content/bill.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="jumbotron" id="myDiv">
-        @RenderPage("~/Views/Business/Checkout.cshtml", Model)
-        @*@using (Html.BeginForm("exportToPDF", "Business", FormMethod.Post))
-            {*@
+    <!--Phan head cua trang-->
+    <nav class="navbar navbar-expand-md bg-primary navbar-dark sticky-top">
+        <!-- Brand -->
+        @Html.ActionLink("Website du lịch", "Index", "Home", null, new { @class = "navbar-brand" })
 
-        @*}*@
-    </div>
+        <!-- Toggler/collapsibe Button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="~/Search/Search?searchName=Internal">Tour trong nước</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/Search/Search?searchName=External">Tour ngoài nước</a>
+                </li>
+                @{
+                    if (Session["CURRENT_USER"] == null)
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink("Đăng nhập", "Login", "Home", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Đăng ký", "Register", "Home", null, new { @class = "nav-link" })
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            @Html.ActionLink("Đăng xuất", "Logout", "Home", null, new { @class = "nav-link" })
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </nav>
+
+
+    <!-- Bat dau trang -->
     <div class="container">
-        <input type="button" id="btn" name="test" value="In Phiếu đặt tour" onclick="PrintElem()"  class="btn-success form-control"/>
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <img class="img-fluid" src="~/Content/img/process.png" alt="process">
+            </div>
+
+            <div class="col-md-12">
+                <div class="border-round-bold-primary p-1 d-flex justify-content-between">
+                    <h3 class="text-uppercase text-primary">@Model.tour.MoTaTour</h3>
+                    <button type="button" class="btn btn-round-long-orange font-weight-bold text-white" name="button">Số chỗ: @Model.tour.SoChoConLai</button>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="p-1 d-flex justify-content-end">
+                    <button type="button" class="btn btn-round-long-blue font-weight-bold text-white" name="button">Hotline</button>
+                </div>
+            </div>
+
+            <div class="col-md-12 mt-2 mb-2">
+                <!--Dat iframe cho nay nay Duong, trong the information-->
+                <div class="" id="myDiv">
+                    @RenderPage("~/Views/Business/Checkout.cshtml", Model)
+                </div>
+
+                <div class="container">
+                    <input type="button" id="btn" name="test" value="In Phiếu đặt tour" onclick="PrintElem()" class="btn-success form-control" />
+                    <br />
+                    @Html.ActionLink("Về trang chủ", "Index", "Home", null, new { @class = "btn-link btn-info" })
+                    <br />
+                </div>
+                <!--Dat iframe cho nay nay Duong, trong the information-->
+            </div>
+        </div>
     </div>
 
+
+    <!-- Footer -->
+    <footer class="page-footer font-small bg-primary pt-4">
+        <!-- Footer Links -->
+        <div class="container-fluid text-center text-md-left text-white">
+            <!-- Grid row -->
+            <div class="row">
+                <!-- Grid column -->
+                <div class="col-md-6 mt-md-0 mt-3">
+                    <!-- Content -->
+                    <h5 class="text-uppercase">Website Du Lịch</h5>
+                    <p>Đem lại trải nghiệm đặt tour tuyệt vời nhất</p>
+                </div>
+                <!-- Grid column -->
+                <hr class="clearfix w-100 d-md-none pb-3">
+                <!-- Grid column -->
+                <div class="col-md-3 mb-md-0 mb-3">
+                    <!-- Links -->
+                    <h5 class="text-uppercase">Liên hệ</h5>
+                    <p class="text-white">
+                        Khu phố 6, phường Linh Trung, quận Thủ Đức, Tp. Hồ Chí Minh
+                        <strong>Điện thoại:</strong> (84 028) 80 55 303
+                        <strong>Email: </strong> info@websitedulich.com
+                        <strong>Hotline: </strong> 1900 6969 (8h00-22h00 mỗi ngày)
+                    </p>
+                </div>
+                <!-- Grid column -->
+                <!-- Grid column -->
+                <div class="col-md-3 mb-md-0 mb-3">
+                    <!-- Links -->
+                    <ul class="text-white footer-list">
+                        <li>
+                            <a href="#!">Chính sách riêng tư</a>
+                        </li>
+                        <li>
+                            <a href="#!">Chính sách thanh toán</a>
+                        </li>
+                        <li>
+                            <a href="#!">Thỏa thuận sử dụng</a>
+                        </li>
+                        <li>
+                            <a href="#!">Chính sách riêng tư</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Grid column -->
+            </div>
+            <!-- Grid row -->
+        </div>
+        <!-- Footer Links -->
+        <!-- Copyright -->
+        <div class="text-center py-3" style="background-color:#0A5083">
+            © 2018 Product by:
+            <a href="#">Đồ án môn học Công nghệ Web và Ứng dụng sẽ được 10 điểm</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+    <input type="hidden" value=@Model.pdt.MaPDT id="maPDT"/>
     <script type="text/javascript">
-        //$(function () {
-        //    $('#btn').click(function () {
-        //        $("myDiv").printElement();
-        //    });
-        //});
+
+        var maPDT = document.getElementById("maPDT").value;
+
+        alert("Mã phiếu đặt tour của bạn là: " + maPDT + "\n Vui lòng ghi nhớ mã này cùng email đã dùng để kiểm tra lại phiếu đặt tour này." );
 
         function PrintElem() {
             var mywindow = window.open('', 'PRINT', 'height=400,width=600');

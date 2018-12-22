@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using Model.Model;
 using TravelWebsite.Areas.Admin.Controllers;
 using System.Drawing;
+using System.IO;
 
 namespace TravelWebsite.Areas.Admin
 {
@@ -28,9 +29,8 @@ namespace TravelWebsite.Areas.Admin
             dto.ThoiGianDi = time;
             time = DateTime.Parse(Convert.ToString(form["thoigianden"])) ;
             dto.ThoiGianDen = time;
-            dto.MaPhuongTien = Convert.ToString(form["phuongTien.phuongTienModel.MaPhusongTien"]);
+            dto.MaPhuongTien = Convert.ToString(form["phuongTien.phuongTienModel.MaPhuongTien"]);
             dto.TenSanBay = Convert.ToString(form["phuongTien.phuongTienModel.TenSanBay"]);
-
             try
             {
                 PhuongTienDAO dao = new PhuongTienDAO();
@@ -93,15 +93,20 @@ namespace TravelWebsite.Areas.Admin
             dto1.NgayTroVe = DateTime.Parse(Convert.ToString(form["thoigianden"]));
             dto1.GiaTien = Convert.ToInt32(form["tour.tour.GiaTien"]);
             dto1.GiaTienTreEm = Convert.ToInt32(form["tour.tour.GiaTienTreEm"]);
-            if (Convert.ToString(form["tour.tour.TinhTrang"]) == "Mở")
-                dto1.TinhTrang = true;
-            else dto1.TinhTrang = false;
+            dto1.TinhTrang = true;
             dto1.SoNgay = Convert.ToDouble(form["tour.tour.SoNgay"]);
             string temp = Convert.ToString(form["giamgia"]);
             temp = temp.Remove(temp.Length - 1);
             dto1.GiamGia = Convert.ToDouble(temp);
+            dto1.NoiKhoiHanh = Convert.ToString("tour.tour.NoiKhoiHanh");
             dto1.MaHuongDanVien = Convert.ToString(form["tour.tour.MaHuongDanVien"]);
             dto1.MaDiaDanh = Convert.ToString(form["tour.tour.MaDiaDanh"]);
+            temp = Convert.ToString(form["tour.tour.isInternal"]);
+            switch (temp)
+            {
+                case "Nội": { dto1.isInternal = true; break; }
+                case "Ngoại": { dto1.isInternal = false; break; }
+            }
 
             //dto2 binding
             dto2.MaPhuongTien = Convert.ToString(form["tour.chiTietTour.MaPhuongTien"]);
@@ -121,6 +126,9 @@ namespace TravelWebsite.Areas.Admin
                 dto1.MaChiTietTour = "CTT" + dao2.generateCode();
                 
                 dao1.insert(dto1);
+
+                byte[] _defaultPicture = ImageDAO.getOneImage("DEFAULT");
+                ImageDAO.Insert(_defaultPicture, _defaultPicture, _defaultPicture, dto1.MaTour);
                 
             }catch (Exception e) { }
             return RedirectToAction("InsertData");
@@ -144,8 +152,11 @@ namespace TravelWebsite.Areas.Admin
             try
             {
                 DiaDanhDAO dao = new DiaDanhDAO();
+
+                dto.Anh = ImageDAO.getOneImage("DEFAULT");
                 dao.Insert(dto);
-            }catch (Exception e) { }
+            }
+            catch (Exception e) { }
             return RedirectToAction("InsertData");
         }
 
@@ -170,7 +181,7 @@ namespace TravelWebsite.Areas.Admin
 
                 //luu du lieu vao chuoi byte
                 ImageConverter converter = new ImageConverter();
-                byte[] arrayPictureOne = (byte[]) converter.ConvertTo(resizedPictureOne, typeof(byte[]));
+                byte[] arrayPictureOne = (byte[])converter.ConvertTo(resizedPictureOne, typeof(byte[]));
 
                 byte[] arrayPictureTwo = (byte[])converter.ConvertTo(resizedPictureTwo, typeof(byte[]));
 
@@ -179,7 +190,7 @@ namespace TravelWebsite.Areas.Admin
                 bool res = false;
                 ImageDAO.Delete(maTour);
                 res = ImageDAO.Insert(arrayPictureOne, arrayPictureTwo, arrayPictureThree, maTour);
-                //res = ImageDAO.InsertOne(arrayPictureOne, maTour);
+
             }
             return RedirectToAction("InsertData");
         }

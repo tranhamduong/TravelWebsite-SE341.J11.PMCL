@@ -48,6 +48,17 @@ namespace Model.DAO
                 return db.Tours.OrderBy(x => x.MoTaTour).Where(x => x.MoTaTour.Contains(stringSearch) && x.GiaTien < price).ToPagedList(1, 10);
         }
 
+        public static void xepCho(string maTour, int soCho)
+        {
+            db = new TravelDatabase();
+            var tour = db.Tours.Where(x => x.MaTour == maTour).FirstOrDefault();
+            tour.SoChoConLai -= soCho;
+            if (tour.SoChoConLai <= 0)
+                tour.SoChoConLai = 0;
+            tour.TinhTrang = false;
+            db.SaveChanges();
+        }
+
         public static IPagedList<Tour> searchByNameDateNumberPrice(string searchName, string searchDate, string searchNumber, int price)
         {
             DateTime date = new DateTime();
@@ -97,13 +108,13 @@ namespace Model.DAO
 
         public IPagedList<Tour> ListAll(int page = 1, int pageSize = 10)
         {
-            var model = db.Tours.OrderBy(x => x.MaTour).ToPagedList(page, pageSize);
+            var model = db.Tours.OrderBy(x => x.MaTour).Where(x=>x.isDeleted == null).ToPagedList(page, pageSize);
             return model;
         }
 
         public IPagedList<Tour> ListAllGiamGia(int page = 1, int pageSize = 10)
         {
-            var model = db.Tours.OrderBy(x => x.GiamGia).ToPagedList(page, pageSize);
+            var model = db.Tours.OrderByDescending(x => x.GiamGia).Where(x=>x.isDeleted == null).ToPagedList(page, pageSize);
             return model;
         }
 
@@ -158,6 +169,22 @@ namespace Model.DAO
         {
             db = new TravelDatabase();
             return db.Tours.OrderBy(x => x.MaTour).Where(x => x.isInternal == true).ToPagedList(1, 10);
+        }
+
+        public static Tour getRandomTourBeside()
+        {
+            db = new TravelDatabase();
+            Random ran = new Random();
+            TourDAO dao = new TourDAO();
+            int count = dao.generateCode();
+            string maTour;
+            do
+            {
+                maTour = "TOR" + ran.Next(0, count);
+            } while (maTour == "TOR4");
+            var entity = db.Tours.Where(x => x.MaTour == maTour).FirstOrDefault();
+
+            return entity;
         }
     }
 }

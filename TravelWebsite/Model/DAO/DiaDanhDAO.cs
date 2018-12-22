@@ -41,6 +41,16 @@ namespace Model.DAO
 
             return base.Delete(key);
         }
+
+        public static void tangSoLuong(string tenDiaDanh, int count)
+        {
+            db = new TravelDatabase();
+            DiaDanh dd = new DiaDanh();
+            dd = db.DiaDanhs.Where(x => x.TenDiaDanh == tenDiaDanh).FirstOrDefault();
+            dd.SoKhachDaThamQuan += count;
+            db.SaveChanges();
+        }
+
         public IPagedList<DiaDanh> ListAll(int page = 1, int pageSize = 10)
         {
             var model = db.DiaDanhs.Where(x => x.isDeleted == null).OrderBy(x => x.TenDiaDanh).ToPagedList(page, pageSize);

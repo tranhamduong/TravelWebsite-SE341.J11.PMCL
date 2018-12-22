@@ -98,7 +98,7 @@
                             <td class="right" colspan="2">Họ tên Khách hàng:</td>
                             <td class="border" style="width:300 px;" colspan="4">@Model.khachHang.HoTenKhachHang </td>
                             <td class="right">Giới tính:</td>
-                            <td class="border" class="right">
+                            <td class="border right" >
                                 @{ 
                                     bool isFemale = Model.khachHang.isFemale;
                                     if (isFemale == true)
@@ -180,91 +180,84 @@
                         </tr>
                         <tr>
                             <td></td>
-                            <td class="tborder"></td>
-                            <td class="tborder" colspan="5">@Model.tour.MoTaTour</td>
-                            <td class="tborder">@Model.tour.GiaTien</td>
-                            <td class="tborder"></td>
-                            <td class="tborder"></td>
+                            <td class="tborder"><strong>1</strong></td>
+                            <td class="tborder" colspan="5">@Model.tour.MoTaTour (Nguời lớn)</td>
+                            <td class="tborder">@Model.tongTien</td>
+                            <td class="tborder">@Model.pdt.soGheNguoiLon</td>
+                            @{ int tt = Int32.Parse(Model.tongTien.ToString()) * Model.pdt.soGheNguoiLon;}
+                            <td class="tborder">@tt</td>
+                            <td class="tborder">Đã giảm @Model.tour.GiamGia %</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="tborder"><strong>2</strong></td>
+                            <td class="tborder" colspan="5">@Model.tour.MoTaTour (Trẻ em)</td>
+                            <td class="tborder">@Model.tongTienTreEm</td>
+                            <td class="tborder">@Model.pdt.soGheTreEm</td>
+                            @{ int ttte = Int32.Parse(Model.tongTienTreEm.ToString()) * Model.pdt.soGheTreEm;}
+                            <td class="tborder">@ttte</td>
+                            <td class="tborder">Đã giảm @Model.tour.GiamGia %</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="tborder"><strong>3</strong></td>
+                            <td class="tborder" colspan="5">Phụ thu Phòng đơn</td>
+                            <td class="tborder">500000</td>
+                            <td class="tborder">@Model.pdt.soPhongDon</td>
+                            @{ int pd = Int32.Parse(Model.pdt.soPhongDon.ToString()) * 500000;}
+                            <td class="tborder">@pd</td>
                             <td class="tborder"></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td class="tborder"></td>
-                            <td class="tborder" colspan="5"</td>
-                            <td class="tborder"></td>
-                            <td class="tborder"></td>
-                            <td class="tborder"></td>
-                            <td class="tborder"></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td class="tborder"></td>
-                            <td class="tborder" colspan="5"></td>
-                            <td class="tborder"></td>
-                            <td class="tborder"></td>
-                            <td class="tborder"></td>
-                            <td class="tborder"></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td class="tborder"></td>
-                            <td class="tborder" colspan="5"></td>
-                            <td class="tborder"></td>
-                            <td class="tborder"></td>
-                            <td class="tborder"></td>
+                            <td class="tborder"><strong>4</strong></td>
+                            <td class="tborder" colspan="5">Phí VISA</td>
+                            @{
+                                int visa = 0;
+                                int sl = Model.pdt.soGheNguoiLon + Model.pdt.soGheTreEm;
+                                if (Model.tour.isInternal == true)
+                                {
+                                    <td class="tborder">0</td>
+                                    visa = 0;
+                                }
+                                else
+                                {
+                                    <td class="tborder">@Model.VISACharge</td>
+                                    visa = Int32.Parse(Model.VISACharge.ToString()) * sl;
+                                }
+
+                            }
+                            <td class="tborder">@sl</td>
+                            <td class="tborder">@visa</td>
                             <td class="tborder"></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td class="tborder"></td>
-                            <td class="tborder" colspan="5"></td>
-                            <td class="tborder"></td>
-                            <td class="tborder"></td>
-                            <td class="tborder"></td>
-                            <td class="tborder"></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td class="tborder"></td>
-                            <td class="tborder" colspan="5"></td>
-                            <td class="tborder"></td>
-                            <td class="tborder"></td>
-                            <td class="tborder"></td>
+                            <td class="tborder"><strong>5</strong></td>
+                            <td class="tborder" colspan="5">Bảo hiểm</td>
+                            <td class="tborder"><i>Miễn phí</i></td>
+                            <td class="tborder">@sl</td>
+                            <td class="tborder">0</td>
                             <td class="tborder"></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td class="tborder"></td>
-                            <td class="tborder" colspan="5"></td>
-                            <td class="tborder"></td>
-                            <td class="tborder"></td>
-                            <td class="tborder"></td>
-                            <td class="tborder"></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td class="tborder"></td>
-                            <td class="tborder" colspan="5"></td>
-                            <td class="tborder"</td>
-                            <td class="tborder"></td>
-                            <td class="tborder"></td>
-                            <td class="tborder"></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td class="tborder"></td>
-                            <td class="tborder" colspan="5"></td>
-                            <td class="tborder"></td>
-                            <td class="tborder"></td>
-                            <td class="tborder"></td>
+                            <td class="tborder"><strong>6</strong></td>
+                            <td class="tborder" colspan="5">VAT</td>
+                            @{ 
+                                int tongTienTruocThue = 0;
+                                if (Model.tour.isInternal == true) { tongTienTruocThue = tt + ttte + pd; }
+                                else { tongTienTruocThue = tt + ttte + pd + visa; }
+                                int VAT = tongTienTruocThue / 100 * 10;
+                            }
+                            <td class="tborder">@VAT</td>
+                            <td class="tborder">1</td>
+                            <td class="tborder">@VAT</td>
                             <td class="tborder"></td>
                             <td></td>
                         </tr>
@@ -276,26 +269,13 @@
                             <td class="tborder"></td>
                             <td class="tborder"></td>
                             <td class="tborder"></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td></td>
                             <td class="right">Tổng tiền:</td>
-                            <td style="border-top: 1px solid black" colspan="3" class="tborder">123</td>
+                            @{ int tongTienSauThue = tongTienTruocThue + @VAT ;}
+                            <td style="border-top: 1px solid black" colspan="3" class="tborder">@tongTienSauThue</td>
                             <td>VNĐ</td>
                             <td></td>
                             <td></td>
@@ -306,12 +286,13 @@
                         </tr>
                         <tr>
                             <td></td>
+                            @{ int tienCoc = tongTienSauThue / 100 * 20 ; }
                             <td class="right">Tiền cọc:</td>
-                            <td style="border-top: 1px solid black" colspan="3" class="tborder">13</td>
+                            <td style="border-top: 1px solid black" colspan="3" class="tborder">@tienCoc</td>
                             <td>VNĐ</td>
                             <td></td>
                             <td class="right">Hạn thanh toán:</td>
-                            <td style="border-top: 1px solid black" class="tborder">123</td>
+                            <td style="border-top: 1px solid black" class="tborder">@Model.tour.NgayKhoiHanh.AddDays(-4).ToShortDateString()</td>
                             <td></td>
                             <td></td>
                             <td></td>

@@ -21,5 +21,6 @@ namespace TravelWebsite.Controllers
             DetailModel tour = new DetailModel(tourID);
             return View(tour);
         }
+
     }
 }

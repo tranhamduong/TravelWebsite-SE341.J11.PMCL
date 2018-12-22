@@ -50,7 +50,14 @@ namespace TravelWebsite.Controllers
 
             if (success != null) //login success
             {
-                Session.Add(Model.CommonConstants.USER, success);
+                if (success.isAdmin == true)
+                {
+
+                }
+                else
+                {
+                    Session.Add(Model.CommonConstants.USER, success);
+                }
                 return RedirectToAction("Index", "Home");
 
             }

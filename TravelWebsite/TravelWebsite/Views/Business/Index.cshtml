@@ -1,0 +1,347 @@
+﻿@model Model.Model.ExportModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+<!--Phan head cua trang-->
+<nav class="navbar navbar-expand-md bg-primary navbar-dark sticky-top">
+    <!-- Brand -->
+    @Html.ActionLink("Website du lịch", "Index", "Home", null, new { @class = "navbar-brand" })
+
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="~/Search/Search?searchName=Internal">Tour trong nước</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="~/Search/Search?searchName=External">Tour ngoài nước</a>
+            </li>
+            @{
+                if (Session["CURRENT_USER"] == null)
+                {
+                    <li class="nav-item">
+                        @Html.ActionLink("Đăng nhập", "Login", "Home", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Đăng ký", "Register", "Home", null, new { @class = "nav-link" })
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        @Html.ActionLink("Đăng xuất", "Logout", "Home", null, new { @class = "nav-link" })
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</nav>
+<input type="hidden" id="soLuongGhe" value=@Model.tour.SoChoConLai />
+<!-- Bat dau trang -->
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <img class="img-fluid" src="~/Content/img/process.png" alt="process">
+        </div>
+
+        <div class="col-md-12">
+            <div class="border-round-bold-primary p-1 d-flex justify-content-between">
+                <h3 class="text-uppercase text-primary">@Model.tour.MoTaTour</h3>
+                <button type="button" class="btn btn-round-long-orange font-weight-bold text-white" name="button">Số chỗ: @Model.tour.SoChoConLai</button>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="p-1 d-flex justify-content-end">
+                <button type="button" class="btn btn-round-long-blue font-weight-bold text-white" name="button">Hotline</button>
+            </div>
+        </div>
+
+        <div class="col-md-12 mt-2 mb-2">
+            <!--Dat iframe cho nay nay Duong, trong the information-->
+            <div class="p-1 information">
+                <table class="table table-borderless">
+                    <tbody>
+                        <tr>
+                            <td>Mã tour:</td>
+                            <td colspan="2">@Model.tour.MaTour</td>
+                        </tr>
+                        <tr>
+                            <td>Ngày khởi hành:</td>
+                            <td>@Model.tour.NgayKhoiHanh.ToShortDateString()</td>
+                            <td><a class="no-underline text-orange" href="#"><span><i class="fas fa-calendar-alt"></i></span> Ngày khác</a></td>
+                        </tr>
+                        <tr>
+                            <td>Nơi khởi hành:</td>
+                            <td>@Model.tour.NoiKhoiHanh</td>
+                            <td>Thời gian: <span>@Model.tour.SoNgay ngày</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="jumbotron jumbotron-fluid jumbotron-blue">
+                    <div class="container">
+                        <h4>Bảng Báo Giá</h4>
+                        <table class="table table-bordered table-hover table-blue-border">
+                            <tbody>
+                                <tr>
+                                    <td><h4>Chi phí</h4></td>
+                                    <td>Giá người lớn</td>
+                                    <td>Giá trẻ em</td>
+                                </tr>
+                                <tr>
+                                    <td>Giá tour cơ bản</td>
+                                    <td class="text-right">@Model.tour.GiaTien<span> đ</span></td>
+                                    <td class="text-right">@Model.tour.GiaTienTreEm<span> đ</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Bảo hiểm</td>
+                                    <td class="text-right"><span><i> Miễn phí, trị giá 10 000 000 đ</i></span></td>
+                                    <td class="text-right"><span><i> Miễn phí, trị giá 10 000 000 đ</i></span></td>
+                                </tr>
+                                <tr>
+                                    <td>Phụ thu Visa</td>
+                                    @{
+                                        if (Model.tour.isInternal == true)
+                                        {
+                                            <td class="text-right">0<span> đ</span></td>
+                                            <td class="text-right">0<span> đ</span></td>
+                                        }
+                                        else
+                                        {
+                                            <td class="text-right">@Model.VISACharge<span> đ</span></td>
+                                            <td class="text-right">@Model.VISACharge<span> đ</span></td>
+                                        }
+                                    }
+                                </tr>
+                                <tr>
+                                    <td>Phụ thu khác(*)</td>
+                                    <td class="text-center" colspan="2"><span><i>Phụ thu phòng đơn: 500 000 đ.</i></span></td>
+                                </tr>
+                                <tr>
+                                    <td>Thuế VAT: </td>
+                                    <td colspan="2" class="text-center"><strong>10% </strong>hóa đơn</td>
+                                </tr>
+                                <tr>
+                                    <td>Giảm Giá </td>
+                                    <td colspan="2" class="text-center"> Tour này đang được giảm giá <strong>@Model.tour.GiamGia </strong>% vào giá tour gốc</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right">Tổng cộng</td>
+                                    <td class="text-right">@Model.tongTien<span> đ</span></td>
+                                    <td class="text-right">@Model.tongTienTreEm<span> đ</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row d-flex justify-content-center">
+                    <h3 class="text-warning text-uppercase mb-4">Thông tin liên lạc</h3>
+                    <div class="col-md-12">
+                        @{if (Session["CURRENT_USER"] == null) // chua dang nhap
+                            {
+                                using (Html.BeginForm("Confirm", "Business", FormMethod.Post, new { @class = "d-flex flex-wrap" , @onsubmit = "return myJsFunction()" }))
+                                {
+                                    <div class="col-md-6 form-group">
+                                        <label for="inputHoTen">Họ và tên<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="inputHoTen" placeholder="Nguyễn Văn A" required>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="inputEmail">Email<span class="text-danger">*</span></label>
+                                        <input type="email" class="form-control" name="inputEmail" placeholder="name@email.com" required>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="inputMobileNumber">Di động<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="inputMobileNumber" placeholder="090 9009009" required>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="inputPhoneNumber">CMND/Số Hộ chiếu: </label>
+                                        <input type="text" class="form-control" name="inputCMND" placeholder="XXXX XXXX" required>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="inputAddress">Địa chỉ</label>
+                                        <input type="text" class="form-control" name="inputAddress" placeholder="Võ Văn Tần ..." required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-3 form-group">
+                                                <label for="inputNumberOfOlder">Người lớn</label>
+                                                <input type="number" class="form-control" name="inputNumberOfOlder" id="inputNumberOfOlder" placeholder="0" min="0" value="0">
+                                            </div>
+                                            <div class="col-md-3 form-group">
+                                                <label for="inputNumberOfYounger">Trẻ em</label>
+                                                <input type="number" class="form-control" name="inputNumberOfYounger" id="inputNumberOfYounger" placeholder="0" min="0" value="0">
+                                            </div>
+                                            <div class="col-md-3 form-group">
+                                                <label for="inputNumberOfSingleRoom">Phòng đơn: </label>
+                                                <input type="number" class="form-control" name="inputNumberOfSingleRoom" id="inputNumberOfSingleRoom" placeholder="0" min="0" value="0">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 form-group">
+                                        <label for="inputNote">Tên các hành khách (cách nhau bằng dấu phẩy (",")</label>
+                                        <textarea type="text" class="form-control" name="customerNameArray"></textarea>
+                                    </div>
+                                    <input type="hidden" value=@Model.tour.MaTour name="tourID"  />
+                                    var tongTienGiaTri = Model.tongTien + Model.tongTienTreEm;
+                                    <input type="hidden" value=@tongTienGiaTri name="tongTienGiaTri" />
+                                    <div class="d-flex justify-content-center">
+                                        <button type="submit" class="btn btn-round-long-orange font-weight-bold text-white m-5" name="button">Đặt tour</button>
+                                        <button type="button" class="btn btn-round-long-blue font-weight-bold text-white m-5" name="button">Hotline</button>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                using (Html.BeginForm("Confirm", "Business", FormMethod.Post, new { @class = "d-flex flex-wrap", onsubmit = "return myJsFunction()" })) //da dang nhap
+                                {
+                                    <div class="col-md-6 form-group">
+                                        <label for="inputHoTen">Họ và tên<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="inputHoTen" placeholder="Nguyễn Văn A" value="@Model.khachHang.HoTenKhachHang" required>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="inputEmail">Email<span class="text-danger">*</span></label>
+                                        <input type="email" class="form-control" name="inputEmail" placeholder="name@email.com" value="@Model.khachHang.Email" required>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="inputMobileNumber">Di động<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="inputMobileNumber" placeholder="090 9009009" value="@Model.khachHang.SoDienThoaiKH" required>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="inputPhoneNumber">CMND/Số Hộ chiếu: </label>
+                                        <input type="text" class="form-control" name="inputCMND" placeholder="XXXX XXXX" value="@Model.khachHang.SoHoChieuCMND" required>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="inputAddress">Địa chỉ</label>
+                                        <input type="text" class="form-control" name="inputAddress" placeholder="Võ Văn Tần ..." value="@Model.khachHang.DiaChi" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-3 form-group">
+                                                <label for="inputNumberOfOlder">Người lớn</label>
+                                                <input type="number" class="form-control" name="inputNumberOfOlder"  id="inputNumberOfOlder" placeholder="0" min="0" value="0">
+                                            </div>
+                                            <div class="col-md-3 form-group">
+                                                <label for="inputNumberOfYounger">Trẻ em</label>
+                                                <input type="number" class="form-control" name="inputNumberOfYounger" id="inputNumberOfYounger" placeholder="0" min="0" value="0">
+                                            </div>
+                                            <div class="col-md-3 form-group">
+                                                <label for="inputNumberOfSingleRoom">Phòng đơn: </label>
+                                                <input type="number" class="form-control" name="inputNumberOfSingleRoom" id="inputNumberOfSingleRoom" placeholder="0" min="0" value="0">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 form-group">
+                                        <label for="inputNote">Tên các hành khách (cách nhau bằng dấu phẩy (",")</label>
+                                        <textarea type="text" class="form-control" name="customerNameArray"></textarea>
+                                    </div>
+                                    <input type="hidden" value=@Model.khachHang.MaKhachHang name="khachHangID" />
+                                    <input type="hidden" value=@Model.tour.MaTour name="tourID" />
+                                    var tongTienGiaTri = Model.tongTien + Model.tongTienTreEm;
+                                    <input type="hidden" value=@tongTienGiaTri name="tongTienGiaTri" />
+                                    <div class="d-flex justify-content-center">
+                                        <button type="submit" class="btn btn-round-long-orange font-weight-bold text-white m-5" name="button">Đặt tour</button>
+                                        <button type="button" class="btn btn-round-long-blue font-weight-bold text-white m-5" name="button">Hotline</button>
+                                    </div>
+                                }
+                            }
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <!--Dat iframe cho nay nay Duong, trong the information-->
+
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="page-footer font-small bg-primary pt-4">
+    <!-- Footer Links -->
+    <div class="container-fluid text-center text-md-left text-white">
+        <!-- Grid row -->
+        <div class="row">
+            <!-- Grid column -->
+            <div class="col-md-6 mt-md-0 mt-3">
+                <!-- Content -->
+                <h5 class="text-uppercase">Website Du Lịch</h5>
+                <p>Đem lại trải nghiệm đặt tour tuyệt vời nhất</p>
+            </div>
+            <!-- Grid column -->
+            <hr class="clearfix w-100 d-md-none pb-3">
+            <!-- Grid column -->
+            <div class="col-md-3 mb-md-0 mb-3">
+                <!-- Links -->
+                <h5 class="text-uppercase">Liên hệ</h5>
+                <p class="text-white">
+                    Khu phố 6, phường Linh Trung, quận Thủ Đức, Tp. Hồ Chí Minh <br />
+                    <strong>Điện thoại:</strong> (84 028) 80 55 303 <br />
+                    <strong>Email: </strong> info@websitedulich.com <br />
+                    <strong>Hotline: </strong> 1900 6969 (8h00-22h00 mỗi ngày)
+                </p>
+            </div>
+            <!-- Grid column -->
+            <!-- Grid column -->
+            <div class="col-md-3 mb-md-0 mb-3">
+                <!-- Links -->
+                <ul class="text-white footer-list">
+                    <li>
+                        <a href="#!">Chính sách riêng tư</a>
+                    </li>
+                    <li>
+                        <a href="#!">Chính sách thanh toán</a>
+                    </li>
+                    <li>
+                        <a href="#!">Thỏa thuận sử dụng</a>
+                    </li>
+                    <li>
+                        <a href="#!">Chính sách riêng tư</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+    </div>
+    <!-- Footer Links -->
+    <!-- Copyright -->
+    <div class="text-center py-3" style="background-color:#0A5083">
+        © 2018 Product by:
+        <a href="#">Đồ án môn học Công nghệ Web và Ứng dụng sẽ được 10 điểm</a>
+    </div>
+    <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
+<script type="text/javascript">
+    var soLuongGhe = document.getElementById("soLuongGhe").value;
+
+    function myJsFunction() {
+        var soGheNguoiLon = document.getElementById("inputNumberOfOlder").value;
+        var soGheTreEm = document.getElementById("inputNumberOfYounger").value;
+        var soGhe = parseInt(soGheNguoiLon) + parseInt(soGheTreEm);
+
+        if (soGhe > soLuongGhe) {
+            alert("Bạn đã đặt " + soGhe + " chỗ. Tour này chỉ còn " + soLuongGhe + " chỗ. Vui lòng đặt lại hoặc chọn tour khác.");
+            return false;
+        }
+
+        var soPhongDon = document.getElementById("inputNumberOfSingleRoom").value;
+        if (soGhe < soPhongDon) {
+            alert("Bạn đã đặt " + soGhe + " chỗ với " + soPhongDon + " phòng đơn. Số phòng đơn nhiều hơn số khách. Bạn vui lòng điều chỉnh phù hợp.")
+            return false;
+        }
+        alert("Đăng ký thành công!");
+        return true;
+    }
+</script>

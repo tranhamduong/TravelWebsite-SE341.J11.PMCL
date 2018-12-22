@@ -196,6 +196,7 @@
     <Content Include="Content\css\home-page-travelwebsite.css" />
     <Content Include="Content\css\tour-detail-page-travelwebsite.css" />
     <Content Include="Content\css\tour-list-travelwebsite.css" />
+    <Content Include="Content\css\tour-purchase-travelwebsite.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\image-not-available.jpg" />
     <Content Include="Content\img\1.jpg" />
@@ -203,6 +204,7 @@
     <Content Include="Content\img\3.jpg" />
     <Content Include="Content\img\dalat.jpg" />
     <Content Include="Content\img\nhatrang.jpg" />
+    <Content Include="Content\img\process.png" />
     <Content Include="Content\img\sondoong.jpg" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
@@ -390,6 +392,8 @@
     <Content Include="Views\_SearchLayout.cshtml" />
     <Content Include="Views\Search\View.cshtml" />
     <Content Include="Views\Search\Search.cshtml" />
+    <Content Include="Views\Business\Index.cshtml" />
+    <Content Include="Views\Business\NotExistingTour.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -398,6 +402,7 @@
     <Folder Include="Areas\User\Models\" />
     <Folder Include="Areas\User\Views\Shared\" />
     <Folder Include="Models\" />
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

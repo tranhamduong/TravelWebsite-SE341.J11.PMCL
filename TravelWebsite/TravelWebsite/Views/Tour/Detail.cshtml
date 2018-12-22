@@ -19,14 +19,28 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="#">Dương 1</a>
+                <a class="nav-link" href="~/Search/Search?searchName=Internal">Tour trong nước</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Dương 2</a>
+                <a class="nav-link" href="~/Search/Search?searchName=External">Tour ngoài nước</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Dương 3</a>
-            </li>
+            @{
+                if (Session["CURRENT_USER"] == null)
+                {
+                    <li class="nav-item">
+                        @Html.ActionLink("Đăng nhập", "Login", "Home", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Đăng ký", "Register", "Home", null, new { @class = "nav-link" })
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        @Html.ActionLink("Đăng xuất", "Logout", "Home", null, new { @class = "nav-link" })
+                    </li>
+                }
+            }
         </ul>
     </div>
 </nav>
@@ -35,7 +49,7 @@
     <!--Slides-->
     <div class="carousel-inner" role="listbox">
         <div class="carousel-item active">
-            @{ 
+            @{
                 var pictureOne = Convert.ToBase64String(Model.image.PictureOne);
                 var pictureTwo = Convert.ToBase64String(Model.image.PictureTwo);
                 var pictureThree = Convert.ToBase64String(Model.image.PictureThree);
@@ -65,9 +79,9 @@
     </a>
     <!--/.Controls-->
     <ol class="carousel-indicators custom-carousel-indicator">
-        <li data-target="#carousel-thumb" data-slide-to="0" class="active"> <img class="d-block w-100" src=@imgsrcOne ></li>
-        <li data-target="#carousel-thumb" data-slide-to="1"><img class="d-block w-100 img-fluid" src=@imgsrcTwo ></li>
-        <li data-target="#carousel-thumb" data-slide-to="2"><img class="d-block w-100 img-fluid" src=@imgsrcThree ></li>
+        <li data-target="#carousel-thumb" data-slide-to="0" class="active"> <img class="d-block w-100" src=@imgsrcOne></li>
+        <li data-target="#carousel-thumb" data-slide-to="1"><img class="d-block w-100 img-fluid" src=@imgsrcTwo></li>
+        <li data-target="#carousel-thumb" data-slide-to="2"><img class="d-block w-100 img-fluid" src=@imgsrcThree></li>
     </ol>
 </div>
 <!--/.Carousel Wrapper-->
@@ -97,12 +111,21 @@
                     </div>
 
                     <div class="col-md-3 d-flex justify-content-center align-items-baseline">
-                        @*@Html.Action("","Business")*@
-                        @using (Html.BeginForm("ExportCheckout","Business",FormMethod.Get))
-                        {
-                            <input type="hidden" name="tourID" value="@Model.tour.MaTour"/>
-                            <input type="submit" class="btn btn-orange font-weight-bold text-white round-and-long" value="Đặt tour"/> 
+                        @{
+                            if (Model.tour.TinhTrang == true)
+                            {
+                                @Html.ActionLink("Đặt Tour", "Index", "Business", new { tourID = Model.tour.MaTour }, new { @class = "btn btn-orange font-weight-bold text-white round-and-long" })
+                                <div class="price-box-mini-item text-center">
+                                    <h6>Giảm ngay @Model.tour.GiamGia % khi đặt tour ngay bây giờ!</h6>
+                                </div>
+                            }
+                            else
+                            {
+                                <span class="text-danger">Tour đã hết chỗ!</span>
+                                @Html.ActionLink("Đặt Tour", "Index", "Business", new { tourID = Model.tour.MaTour }, new { @class = "btn btn-orange font-weight-bold text-white round-and-long", @disabled = "disabled" })
+                            }
                         }
+
                     </div>
                 </div>
             </div>
@@ -140,18 +163,16 @@
                 <h6 class="vertical-line text-orange text-uppercase font-weight-bold">Chi tiết tour</h6>
                 <!--Plane-->
                 <div class="mt-3 ml-3">
-                    <h6 class="small font-weight-bold text-uppercase"><span><i class="fas fa-plane"></i></span> Thông tin chuyến bay</h6>
+                    <h6 class="small font-weight-bold text-uppercase"><span><i class="fas fa-plane"></i></span> Thông tin thời gian</h6>
                     <table class="table table-bordered">
                         <tbody>
                             <tr>
                                 <td>Ngày đi: <span>@Model.tour.NgayKhoiHanh.ToShortDateString()</span></td>
-                                @*<td>Đến: <span>11/11/2018 16:00</span></td>*@
-                                <td>Chuyến bay: <span>Đang cập nhật</span></td>
+                                <td>Chuyến bay: <span>@Model.chiTietTour.MaPhuongTien</span></td>
                             </tr>
                             <tr>
-                                <td>Ngày về: <span>@Model.tour.NgayTroVe.ToShortDateString()</span></td>
-                                @*<td>Đến: <span>18/11/2018 16:00</span></td>*@
-                                <td>Chuyến bay: <span>Đang cập nhật</span></td>
+                                <td>Ngày về: <span>@Model.tour.PhuongTien</span></td>
+                                <td>Chuyến bay: <span>@Model.chiTietTour.MaPhuongTien</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -174,14 +195,12 @@
                         <thead>
                             <tr>
                                 <th>Họ tên</th>
-                                <th>Địa chỉ</th>
                                 <th>Điện thoại</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>@Model.hdv.HoTenHDV</td>
-                                <td>Đang cập nhật</td>
                                 <td>@Model.hdv.SoDienThoaiHDV</td>
                             </tr>
                         </tbody>
@@ -207,45 +226,78 @@
             <!--Tour warning-->
             <div class="col-md-12 mt-5">
                 <h6 class="vertical-line text-orange text-uppercase font-weight-bold">Lưu ý</h6>
-                <h6 class="small font-weight-bold text-uppercase">Giá tour bao gồm:</h6>
                 <ul class="small">
-                    <li>Visa nhập cảnh</li>
-                    <li>Vé máy bay khứ hồi</li>
-                    <li>Thuế các khoản phụ thu của hàng không</li>
+                    @{
+                        if (Model.chiTietTour.CoBaoHiem == true)
+                        {
+                            <li>Tour bao gồm bảo hiểm tai nạn.</li>
+                        }
+                        else
+                        {
+                            <li>Tour không bao gồm bảo hiểm tai nạn.</li>
+                        }
+                        string[] stringSplit = Model.chiTietTour.QuaTang.Split('|');
+                        if (stringSplit[0] != "false")
+                        {
+                            <li>Nước suối</li>}
+                        if (stringSplit[1] != "false")
+                        {
+                            <li>Nón</li>}
+                        if (stringSplit[2] != "false")
+                        {
+                            <li>Áo thun</li>}
+                        if (stringSplit[3] != "false")
+                        {
+                            <li>Dù</li>}
+                    }
                 </ul>
+            </div>
+
+            <div class="col-md-12 mt-5">
+                <h6 class="vertical-line text-orange text-uppercase font-weight-bold">Lịch trình</h6>
+                <p>@Model.chiTietTour.LichTrinh</p>
+
             </div>
         </div>
         <!--Similar tour-->
         <div class="col-md-4">
             <h4 class="font-weight-bold text-uppercase text-monospace mb-3"> Các tour tương tự</h4>
-            <h6 class="text-orange mb-2">Theo giá</h6>
 
             <!--Card 1-->
             <div class="card mb-2" style="width: 18rem;">
-                <img class="card-img-top" src="~/Content/img/dalat.jpg" alt="Da Lat">
+                @{ 
+                    var relativeTourImage1 = Convert.ToBase64String(Model.relativeTourImage1);
+                    var relativeTourImageSrc1 = string.Format("data:image/gif;base64,{0}", relativeTourImage1);
+                }
+                <img class="card-img-top" src=@relativeTourImageSrc1 alt="Da Lat">
                 <div class="card-body">
-                    <p class="card-text"><a class="no-underline" href="#">Đà Lạt - Lạt Đà - Là Đạt</a></p>
+                    <p class="card-text">@Html.ActionLink(Model.relativeTour1.MoTaTour,"Detail","Tour", new { @tourID = Model.relativeTour1.MaTour }, new { @class="no-underline"})</p>
                 </div>
             </div>
             <!--Card 2-->
             <div class="card mb-2" style="width: 18rem;">
-                <img class="card-img-top" src="~/Content/img/nhatrang.jpg" alt="Da Lat">
-                <div class="card-body">
-                    <p class="card-text"><a class="no-underline" href="#">Nha Trang - Trang Nha - Nhang Tra</a></p>
+                @{
+                    var relativeTourImage2 = Convert.ToBase64String(Model.relativeTourImage2);
+                    var relativeTourImageSrc2 = string.Format("data:image/gif;base64,{0}", relativeTourImage2);
+                }
+                <img class="card-img-top" src=@relativeTourImageSrc2 alt="Da Lat">                <div class="card-body">
+                    <p class="card-text">@Html.ActionLink(Model.relativeTour2.MoTaTour, "Detail", "Tour", new { @tourID = Model.relativeTour2.MaTour }, new { @class = "no-underline" })</p>
                 </div>
             </div>
             <!--Card 3-->
             <div class="card mb-2" style="width: 18rem;">
-                <img class="card-img-top" src="~/Content/img/sondoong.jpg" alt="Da Lat">
-                <div class="card-body">
-                    <p class="card-text"><a class="no-underline" href="#">Son Doong - Doong Son - Soong Don</a></p>
-                </div>
+                @{
+                    var relativeTourImage3 = Convert.ToBase64String(Model.relativeTourImage3);
+                    var relativeTourImageSrc3 = string.Format("data:image/gif;base64,{0}", relativeTourImage3);
+                }
+                <img class="card-img-top" src=@relativeTourImageSrc3 alt="Da Lat">                <div class="card-body">
+    <p class="card-text">@Html.ActionLink(Model.relativeTour3.MoTaTour, "Detail", "Tour", new { @tourID = Model.relativeTour3.MaTour }, new { @class = "no-underline" })</p>
+</div>
             </div>
         </div>
     </div>
     <!--row 2-->
 </div>
-
 <!-- Footer -->
 <footer class="page-footer font-small bg-primary pt-4">
     <!-- Footer Links -->
@@ -255,48 +307,38 @@
             <!-- Grid column -->
             <div class="col-md-6 mt-md-0 mt-3">
                 <!-- Content -->
-                <h5 class="text-uppercase">Footer Content</h5>
-                <p>Here you can use rows and columns here to organize your footer content.</p>
+                <h5 class="text-uppercase">Website Du Lịch</h5>
+                <p>Đem lại trải nghiệm đặt tour tuyệt vời nhất</p>
             </div>
             <!-- Grid column -->
             <hr class="clearfix w-100 d-md-none pb-3">
             <!-- Grid column -->
             <div class="col-md-3 mb-md-0 mb-3">
                 <!-- Links -->
-                <h5 class="text-uppercase">Links</h5>
-                <ul class="text-white footer-list">
-                    <li>
-                        <a href="#!">Link 1</a>
-                    </li>
-                    <li>
-                        <a href="#!">Link 2</a>
-                    </li>
-                    <li>
-                        <a href="#!">Link 3</a>
-                    </li>
-                    <li>
-                        <a href="#!">Link 4</a>
-                    </li>
-                </ul>
-
+                <h5 class="text-uppercase">Liên hệ</h5>
+                <p class="text-white">
+                    Khu phố 6, phường Linh Trung, quận Thủ Đức, Tp. Hồ Chí Minh <br />
+                    <strong>Điện thoại:</strong> (84 028) 80 55 303 <br />
+                    <strong>Email: </strong> info@websitedulich.com <br />
+                    <strong>Hotline: </strong> 1900 6969 (8h00-22h00 mỗi ngày)
+                </p>
             </div>
             <!-- Grid column -->
             <!-- Grid column -->
             <div class="col-md-3 mb-md-0 mb-3">
                 <!-- Links -->
-                <h5 class="text-uppercase">Links</h5>
                 <ul class="text-white footer-list">
                     <li>
-                        <a href="#!">Link 1</a>
+                        <a href="#!">Chính sách riêng tư</a>
                     </li>
                     <li>
-                        <a href="#!">Link 2</a>
+                        <a href="#!">Chính sách thanh toán</a>
                     </li>
                     <li>
-                        <a href="#!">Link 3</a>
+                        <a href="#!">Thỏa thuận sử dụng</a>
                     </li>
                     <li>
-                        <a href="#!">Link 4</a>
+                        <a href="#!">Chính sách riêng tư</a>
                     </li>
                 </ul>
             </div>
@@ -308,9 +350,8 @@
     <!-- Copyright -->
     <div class="text-center py-3" style="background-color:#0A5083">
         © 2018 Product by:
-        <a href="#">(^..^)</a>
+        <a href="#">Đồ án môn học Công nghệ Web và Ứng dụng sẽ được 10 điểm</a>
     </div>
     <!-- Copyright -->
-
 </footer>
 <!-- Footer -->

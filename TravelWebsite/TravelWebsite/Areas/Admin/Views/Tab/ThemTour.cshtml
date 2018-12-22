@@ -1,4 +1,4 @@
-﻿ @model Model.Model.TravelModel
+﻿@model Model.Model.TravelModel
 
 @using (Html.BeginForm("themTour", "Insert", FormMethod.Post))
 {
@@ -28,7 +28,7 @@
             <script type="text/javascript">
                 $(function () {
                     $('#datetimepicker3').datetimepicker({
-                        format: 'L'
+                        //format: 'L'
                     });
                 });
             </script>
@@ -51,7 +51,7 @@
             <script type="text/javascript">
                 $(function () {
                     $('#datetimepicker2').datetimepicker({
-                        format: 'L'
+                        //format: 'L'
                     });
                 });
             </script>
@@ -75,7 +75,7 @@
     </select>
     <br />
     @Html.DisplayNameFor(model => model.tour.tour.NoiKhoiHanh)
-    @Html.DropDownListFor(model => model.tour.tour.NoiKhoiHanh, new SelectList(Model.diadanh.dsDiaDanh), "Chọn điểm đi", new { @class = "form-control", @name = "diadanh" })
+    @Html.TextBoxFor(model => model.tour.tour.NoiKhoiHanh, new { @class = "form-control"})
     <br />
     @Html.DisplayNameFor(model => model.tour.tour.TinhTrang)
     @Html.DropDownListFor(model => model.tour.tour.TinhTrang, new SelectList(Enum.GetValues(typeof(Model.Entity.Tour.Tinh_Trang))), "Chọn tình trạng", new { @class = "form-control" })
@@ -90,6 +90,10 @@
     @Html.DropDownListFor(model => model.tour.tour.MaDiaDanh, new SelectList(Model.diadanh.dsDiaDanh), "Chọn điểm đến", new { @class = "form-control", @name = "diadanh" })
     <br />
 
+    @Html.DisplayNameFor(model => model.tour.tour.isInternal)
+    @Html.DropDownListFor(model => model.tour.tour.isInternal, new SelectList(Enum.GetValues(typeof(Model.Entity.Tour.isInternalExternal))),"Tour nội hay ngoại", new {@class= "form-control" })
+
+
     @Html.Partial("~/Areas/Admin/Views/Tab/ThemThongTinChiTietTour.cshtml", Model)
 
     <input type="submit" class="form-control btn-success" value="Thêm" />
@@ -99,11 +103,11 @@
 <script type="text/javascript">
     $(function () {
         $('#datetimepicker3').datetimepicker({
-            format: 'DD/MM/YYYY'
+            //format: 'DD/MM/YYYY'
         });
     });
     $("#datetimepicker2").datetimepicker({
-        format: 'DD/MM/YYYY'
+        //format: 'DD/MM/YYYY'
     });
 
 </script>

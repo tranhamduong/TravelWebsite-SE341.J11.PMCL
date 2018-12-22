@@ -18,15 +18,30 @@
     <!-- Navbar links -->
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
+            @{
+                if (Session["CURRENT_USER"] == null)
+                {
+                    <li class="nav-item">
+                        @Html.ActionLink("Đăng nhập", "Login", "Home", new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Đăng ký", "Register", "Home", new { @class = "nav-link" })
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        @Html.ActionLink("Đăng xuất", "Logout", "Home", new { @class = "nav-link"})
+                    </li>
+                }
+            }
             <li class="nav-item">
-                @Html.ActionLink("Đăng nhập", "Login", "Home", new { @class = "nav-link" })
+                <a class="nav-link" href="~/Search/Search?searchName=Internal">Tour trong nước</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Dương 2</a>
+                <a class="nav-link" href="~/Search/Search?searchName=External">Tour ngoài nước</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Dương 3</a>
-            </li>
+            }
         </ul>
     </div>
 </nav>

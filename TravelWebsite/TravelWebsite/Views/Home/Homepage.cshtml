@@ -2,7 +2,6 @@
 
 @model Model.Model.TravelModel
 
-@{ string clickedTour = "";}
 <style>
     .containerIMG {
         width: 300px;
@@ -11,10 +10,14 @@
         background-repeat: no-repeat;
         background-position: 50% 50%;
     }
+
+    .modal-backdrop {
+        z-index: -1;
+    }
 </style>
 <nav class="navbar navbar-expand-md bg-primary navbar-dark sticky-top">
     <!-- Brand -->
-    @Html.ActionLink("Website du lịch", "Index", "Home", new { @class= "navbar-brand" })
+    @Html.ActionLink("Website du lịch", "Index", "Home", new { @class = "navbar-brand" })
     <!-- Toggler/collapsibe Button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
@@ -24,15 +27,57 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                @Html.ActionLink("Đăng nhập","Login","Home", new {@class="nav-link"})
+                <a class="nav-link" href="~/Search/Search?searchName=Internal">Tour trong nước</a>
             </li>
             <li class="nav-item">
-                @Html.ActionLink("Đăng ký", "Register", "Home", new {@class="nav-link" })
+                <a class="nav-link" href="~/Search/Search?searchName=External">Tour ngoài nước</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Dương 3</a>
+            @{
+                if (Session["CURRENT_USER"] == null)
+                {
+                    <li class="nav-item">
+                        @Html.ActionLink("Đăng nhập", "Login", "Home", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Đăng ký", "Register", "Home", null, new { @class = "nav-link" })
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        @Html.ActionLink("Đăng xuất", "Logout", "Home", null, new { @class = "nav-link" })
+                    </li>
+                }
+            }
+            <li>
+                <a class="nav-link" data-toggle="modal" data-target="#myModal">Tra cứu Tour </a>
             </li>
         </ul>
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        TRA CỨU TOUR
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        @using (Html.BeginForm("checkBookedTour","Business",FormMethod.Post))
+                        {
+                            <label>Email khách hàng đã đặt tour: </label>
+                            <input type="text" name="emailKH" class="form-control"/>
+                            <br/>
+                            <label>Mã phiếu đặt tour: </label>
+                            <input type="text" name="maPDT" class="form-control"/>
+
+                            <input type="submit" class="btn-success form-control" value="Kiểm tra" />
+                        }
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </nav>
 <!--banner-->
@@ -44,29 +89,30 @@
             <div class="search-item">
                 <div class="search-item-header">
                     Bạn đi đến đâu ?
-                    <input class="search-item-input" type="text" style="width:500px;" name="searchName" required/>
+                    <input class="search-item-input" type="text" style="width:500px;" name="searchName" required />
                 </div>
             </div>
             <div class="search-item">
                 <div class="search-item-header">
                     Ngày khởi hành ?
-                    <input class="search-item-input" type="date" name="searchDate" /> </div>
+                    <input class="search-item-input" type="date" name="searchDate" />
+                </div>
             </div>
             <div class="search-item">
                 <div class="search-item-header">
                     Số khách?
-                    <input class="search-item-input" type="number" name="searchNumber"/>
+                    <input class="search-item-input" type="number" name="searchNumber" />
                 </div>
             </div>
             <div class="search-item" style="position: absolute; bottom: 0px;">
-                <input type="submit"  value="Tìm kiếm"/>
+                <input type="submit" value="Tìm kiếm" />
                 <div class="search-item-bottom">
-                    @Html.ActionLink("Tìm kiếm nâng cao","Search","Search", new { searchName = " ", searchDate ="", searchNumber = ""},null)
+                    @Html.ActionLink("Tìm kiếm nâng cao", "Search", "Search", new { searchName = " ", searchDate = "", searchNumber = "" }, null)
                 </div>
             </div>
         }
+    </div>
 </div>
-	</div>
 
 <!--jumbotron-->
 <div class="jumbotron myjumbotron">
@@ -78,7 +124,6 @@
         <input class="btn btn-outline-primary" type="button" name="" value="Đội ngũ nhiệt tình & thấu hiểu">
     </div>
 </div>
-	</div>
 
 <!--main-->
 <div class="container">
@@ -91,16 +136,15 @@
                         @{
                             var pictureInternal = Convert.ToBase64String(Model.imageInternal);
                             var imgsrcInternal = string.Format("data:image/gif;base64,{0}", pictureInternal);
-                        <div class="containerIMG">
-                            <img class="card-img-top" src=@imgsrcInternal alt="Card image">
-                        </div>
-                            @*<a href="#"><img class="card-img-top" src="https://placeholdit.imgix.net/~text?txtsize=38&txt=400%C3%97400&w=400&h=400" alt="Card image"></a>*@
+                            <div class="containerIMG">
+                                <img class="card-img-top" src=@imgsrcInternal alt="Card image">
+                            </div>
                         }
                     </div>
                     <div class="col-md-8 px-3">
                         <div class="card-block px-3">
                             @{
-                                string internalTourCode = Session["InternalTourPR"].ToString();
+                                string internalTourCode = Session["InternalTourPR"].ToString().Trim();
                                 Model.Entity.Tour internalTourPR = null;
                                 foreach (var item in Model.tour.danhSach)
                                 {
@@ -113,7 +157,14 @@
 
                                 <h4 class="card-title"> @internalTourPR.MoTaTour </h4>
                                 <p class="card-text">Khởi hành ngày: @ngayKhoiHanhInternalTourPR </p>
-                                <p class="card-text">Số chỗ: @internalTourPR.SoChoConLai </p>
+                                if (internalTourPR.TinhTrang == true)
+                                {
+                                    <p class="card-text">Số chỗ: @internalTourPR.SoChoConLai </p>
+                                }
+                                else
+                                {
+                                    <p class="card-text">Số chỗ: @internalTourPR.SoChoConLai <span style="color:red">Tour đã hết chỗ!</span></p>
+                                }
                                 <p class="card-text">Số ngày: @internalTourPR.SoNgay </p>
                             }
                             @using (Html.BeginForm("Detail", "Tour", FormMethod.Get))
@@ -136,8 +187,6 @@
                             <p class="card-text">Khám phá ngay những tour du lịch trong nước hấp dẫn</p>
                             <div class="row">
                                 <div class="col-md-6 d-flex">
-                                @*@Html.ActionLink("Tâm điểm tuần", "InternalSearch", "Search",null, new { @class= "btn btn-block flex-fill", @style= "padding: 10% 0;" })
-                                <span class="h1"><<</span>*@
                                     <a href="~/Search/Search?searchName=Internal" class="btn btn-block flex-fill" style="padding: 10% 0;">
                                         Tâm điểm tuần <br><span class="h1">
                                             <<
@@ -189,7 +238,6 @@
                             var pictureExternal = Convert.ToBase64String(Model.imageExternal);
                             var imgsrcExternal = string.Format("data:image/gif;base64,{0}", pictureExternal);
                             <a href="#"><img class="card-img-top" src=@imgsrcExternal alt="Card image"></a>
-                            @*<a href="#"><img class="card-img-top" src="https://placeholdit.imgix.net/~text?txtsize=38&txt=400%C3%97400&w=400&h=400" alt="Card image"></a>*@
                         }
                     </div>
                     <div class="col-md-8 px-3">
@@ -208,7 +256,14 @@
 
                                 <h4 class="card-title"> @externalTourPR.MoTaTour </h4>
                                 <p class="card-text">Khởi hành ngày: @ngayKhoiHanhExternalTourPR </p>
-                                <p class="card-text">Số chỗ: @externalTourPR.SoChoConLai </p>
+                                if (externalTourPR.TinhTrang == true)
+                                {
+                                    <p class="card-text">Số chỗ: @externalTourPR.SoChoConLai </p>
+                                }
+                                else
+                                {
+                                    <p class="card-text">Số chỗ: @externalTourPR.SoChoConLai <span style="color:red">Tour đã hết chỗ!</span></p>
+                                }
                                 <p class="card-text">Số ngày: @externalTourPR.SoNgay </p>
                             }
                             @using (Html.BeginForm("Detail", "Tour", FormMethod.Get))
@@ -241,7 +296,7 @@
                         }
                     }
                 }
-                @Html.ActionLink(Model.tour.dsGiamGia[0].MoTaTour + " - Giảm ngay " + Model.tour.dsGiamGia[0].GiamGia + "%", "Detail", "Tour", new { tourId = Model.tour.dsGiamGia[0].MaTour}, new {@class= "btn btn-dark card-title h5 text-center m-0 p-100", @style= "height:50px;" })
+                @Html.ActionLink(Model.tour.dsGiamGia[0].MoTaTour + " - Giảm ngay " + Model.tour.dsGiamGia[0].GiamGia + "%", "Detail", "Tour", new { tourId = Model.tour.dsGiamGia[0].MaTour }, new { @class = "btn btn-dark card-title h5 text-center m-0 p-100", @style = "height:50px;" })
             </div>
         </div>
 
@@ -288,12 +343,12 @@
     <div class="row mb-3">
         <div class="col-md-4 d-flex">
             <div class="card flex-fill">
-                @{ 
+                @{
                     var pictureDD1 = Convert.ToBase64String(Model.diadanh.danhSach[0].Anh);
                     var imgsrcDD1 = string.Format("data:image/gif;base64,{0}", pictureDD1);
                 }
                 <a href="#"><img class="card-img-top" src=@imgsrcDD1 alt="Card image"></a>
-                @Html.ActionLink(Model.diadanh.danhSach[0].TenDiaDanh,"Search","Search",new { searchName = Model.diadanh.danhSach[0].TenDiaDanh}, new { @class= "btn btn-dark card-title h5 text-center m-0 p-100", @style= "height:50px;" })
+                @Html.ActionLink(Model.diadanh.danhSach[0].TenDiaDanh, "Search", "Search", new { searchName = Model.diadanh.danhSach[0].TenDiaDanh }, new { @class = "btn btn-dark card-title h5 text-center m-0 p-100", @style = "height:50px;" })
             </div>
         </div>
 
@@ -332,48 +387,38 @@
             <!-- Grid column -->
             <div class="col-md-6 mt-md-0 mt-3">
                 <!-- Content -->
-                <h5 class="text-uppercase">Footer Content</h5>
-                <p>Here you can use rows and columns here to organize your footer content.</p>
+                <h5 class="text-uppercase">Website Du Lịch</h5>
+                <p>Đem lại trải nghiệm đặt tour tuyệt vời nhất</p>
             </div>
             <!-- Grid column -->
             <hr class="clearfix w-100 d-md-none pb-3">
             <!-- Grid column -->
             <div class="col-md-3 mb-md-0 mb-3">
                 <!-- Links -->
-                <h5 class="text-uppercase">Links</h5>
-                <ul class="text-white footer-list">
-                    <li>
-                        <a href="#!">Link 1</a>
-                    </li>
-                    <li>
-                        <a href="#!">Link 2</a>
-                    </li>
-                    <li>
-                        <a href="#!">Link 3</a>
-                    </li>
-                    <li>
-                        <a href="#!">Link 4</a>
-                    </li>
-                </ul>
-
+                <h5 class="text-uppercase">Liên hệ</h5>
+                <p class="text-white">
+                    Khu phố 6, phường Linh Trung, quận Thủ Đức, Tp. Hồ Chí Minh <br />
+                    <strong>Điện thoại:</strong> (84 028) 80 55 303 <br />
+                    <strong>Email: </strong> info@websitedulich.com <br />
+                    <strong>Hotline: </strong> 1900 6969 (8h00-22h00 mỗi ngày)
+                </p>
             </div>
             <!-- Grid column -->
             <!-- Grid column -->
             <div class="col-md-3 mb-md-0 mb-3">
                 <!-- Links -->
-                <h5 class="text-uppercase">Links</h5>
                 <ul class="text-white footer-list">
                     <li>
-                        <a href="#!">Link 1</a>
+                        <a href="#!">Chính sách riêng tư</a>
                     </li>
                     <li>
-                        <a href="#!">Link 2</a>
+                        <a href="#!">Chính sách thanh toán</a>
                     </li>
                     <li>
-                        <a href="#!">Link 3</a>
+                        <a href="#!">Thỏa thuận sử dụng</a>
                     </li>
                     <li>
-                        <a href="#!">Link 4</a>
+                        <a href="#!">Chính sách riêng tư</a>
                     </li>
                 </ul>
             </div>
@@ -385,9 +430,24 @@
     <!-- Copyright -->
     <div class="text-center py-3" style="background-color:#0A5083">
         © 2018 Product by:
-        <a href="#">(^..^)</a>
+        <a href="#">Đồ án môn học Công nghệ Web và Ứng dụng sẽ được 10 điểm</a>
     </div>
     <!-- Copyright -->
-
 </footer>
 <!-- Footer -->
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

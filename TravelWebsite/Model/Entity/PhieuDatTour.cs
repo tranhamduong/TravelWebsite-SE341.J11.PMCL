@@ -19,12 +19,18 @@ namespace Model.Entity
         [StringLength(10)]
         public string MaKhachHang { get; set; }
 
-        public bool? TinhTranThanhToan { get; set; }
+        public string TongTien { get; set; }
 
-        public bool? XacNhanThamGia { get; set; }
+        public string MaPDT { get; set; }
 
-        public double? DanhGia { get; set; }
+        public string KhachThamGia { get; set; }
 
-        public bool? isDeleted { get; set; }
+        public bool isDeleted { get; set; }
+
+        public int soGheNguoiLon { get; set; }
+
+        public int soGheTreEm { get; set; }
+
+        public int soPhongDon { get; set; }
     }
 }

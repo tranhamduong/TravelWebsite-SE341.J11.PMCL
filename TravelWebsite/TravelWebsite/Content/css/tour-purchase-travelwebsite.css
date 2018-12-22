@@ -1,0 +1,31 @@
+.footer-list a {
+  color: #fff;
+}
+
+.border-round-bold-primary{
+  border: 5px solid #7678B7 !important;
+  border-radius: 10px;
+}
+
+.btn-round-long-orange{
+  background-color: #F68520;
+  border-color: #F68520;
+  border-radius: 15px;
+  width: 200px;
+}
+
+.btn-round-long-blue{
+  background-color: #116BA7;
+  border-color: #116BA7;
+  border-radius: 15px;
+  width: 200px;
+}
+
+.jumbotron-blue{
+  padding: 1rem 0.5rem;
+  background-color: #D8E8F2;
+}
+
+.table-blue-border td, .table-blue-border th{
+  border: 2px solid #7E86BF;
+}
