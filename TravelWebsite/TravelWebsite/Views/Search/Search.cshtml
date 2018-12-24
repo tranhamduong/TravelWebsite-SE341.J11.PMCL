@@ -162,7 +162,7 @@
                                                 </div>
                                                 <div class="product-content">
                                                     <ul class="nav list-unstyled" style="display: block;">
-                                                        <li><strong>Ngày khởi hành:</strong>@item.NgayKhoiHanh</li>
+                                                        <li><strong>Ngày khởi hành:</strong>@item.NgayKhoiHanh.ToShortDateString()</li>
                                                         <li><strong>Thời gian:</strong> @item.SoNgay</li>
                                                         <li><strong>Địa điểm khởi hành:</strong> @item.NoiKhoiHanh</li>
                                                     </ul>
@@ -173,7 +173,9 @@
                                                 <div class="box-price">
                                                     <strong class="price">@item.GiaTien<small>đ</small></strong>
                                                     <br />
-                                                    <strong class="price">Hoặc miễn phí</strong>
+                                                    @if (@item.GiamGia != 0){
+                                                        <strong class="price">Giảm giá @item.GiamGia %</strong>
+                                                    }
                                                     <br />
                                                     @using (Html.BeginForm("Detail", "Tour", FormMethod.Get))
                                                     {

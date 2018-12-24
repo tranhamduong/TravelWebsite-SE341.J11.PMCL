@@ -38,7 +38,7 @@
                     <td>
                         <p>
 
-                            @using (Html.BeginForm("EditDD", "Edit", FormMethod.Post, new { @name = "myForm", @id = "myForm" }))
+                            @using (Html.BeginForm("EditDD", "Edit", FormMethod.Post, new { @name = "myForm", @id = "myForm9" }))
                             {
                                 <input type="hidden" name="ma" value="@item.MaDiaDanh" />
                                 <input type="hidden" name="tenEdited" value="" />
@@ -87,7 +87,7 @@
 </div>
 
 <script type="text/javascript"> 
-    var form = document.getElementById("myForm");
+    var form = document.getElementById("myForm9");
     var func = "hihi";
     function editFunc3(id) {
         var ma = id;

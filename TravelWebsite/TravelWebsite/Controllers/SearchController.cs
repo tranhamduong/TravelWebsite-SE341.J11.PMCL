@@ -134,7 +134,8 @@ namespace TravelWebsite.Controllers
 
                 }
             }
-            return View(list);
+            
+            return View("Search", list);
         }
     }
 }

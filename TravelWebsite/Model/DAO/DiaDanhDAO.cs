@@ -51,9 +51,9 @@ namespace Model.DAO
             db.SaveChanges();
         }
 
-        public IPagedList<DiaDanh> ListAll(int page = 1, int pageSize = 10)
+        public IPagedList<DiaDanh> ListAll(int page = 1, int pageSize = 20)
         {
-            var model = db.DiaDanhs.Where(x => x.isDeleted == null).OrderBy(x => x.TenDiaDanh).ToPagedList(page, pageSize);
+            var model = db.DiaDanhs.Where(x => x.isDeleted == null).OrderBy(x => x.TenDiaDanh).ToPagedList(1, 20);
             return model;
         }
 

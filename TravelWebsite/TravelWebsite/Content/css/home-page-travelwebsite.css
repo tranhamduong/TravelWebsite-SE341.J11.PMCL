@@ -1,156 +1,209 @@
 .my-banner {
-  position: relative;
-  height: 36em;
+    position: relative;
+    height: 36em;
 }
 
-.my-banner img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  vertical-align: middle;
-}
+    .my-banner img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        vertical-align: middle;
+    }
 
-.my-banner .search-bar {
-  position: absolute;
-  top: 70%;
-  right: 0%;
-  bottom: 20%;
-  left: 0%;
-  display: block;
-  height: 15%;
-  margin: 0px 10px 0px 10px;
-  text-align: center;
-  opacity: 0.5;
-  border-radius: .5rem;
-  background-color: blue;
-}
+    .my-banner .search-bar {
+        position: absolute;
+        top: 70%;
+        right: 0%;
+        bottom: 20%;
+        left: 0%;
+        display: block;
+        height: 15%;
+        margin: 0px 10px 0px 10px;
+        text-align: center;
+        opacity: 0.5;
+        border-radius: .5rem;
+        background-color: blue;
+    }
 
-.my-banner .search-bar .search-item {
-  position: relative;
-  display: inline-block;
-  width: auto;
-  margin: 0px 10px;
-}
+        .my-banner .search-bar .search-item {
+            position: relative;
+        }
 
-.my-banner .search-bar .search-item .search-item-header {
-  position: relative;
-  top: 0%;
-  width: auto;
-  margin: 5px;
-  color: white;
-  font-weight: 500;
-  font-style: italic;
-}
+            .my-banner .search-bar .search-item .search-item-header {
+                position: relative;
+                top: 0%;
+                color: white;
+                font-weight: 500;
+                font-style: italic;
+            }
 
-.my-banner .search-bar .search-item .search-item-bottom {
-  position: relative;
-  bottom: 0%;
-  width: auto;
-  color: white;
-  font-weight: 500;
-  font-style: italic;
-}
+            .my-banner .search-bar .search-item .search-item-bottom {
+                position: relative;
+                color: white;
+                font-weight: 500;
+                font-style: italic;
+            }
 
-.my-banner .search-bar .search-item .search-item-bottom a {
-  position: absolute;
-  bottom: 0%;
-  width: 120px;
-  text-decoration: underline;
-  color: white;
-  font-size: 13px;
-}
+                .my-banner .search-bar .search-item .search-item-bottom a {
+                    width: 120px;
+                    text-decoration: underline;
+                    color: white;
+                    font-size: 13px;
+                }
 
-.my-banner .search-bar .search-item input {
-  position: relative;
-  bottom: 0%;
-  margin: 5px;
-  padding-left: 10px;
-  text-align: center;
-  opacity: 1.5;
-  color: blue;
-  border: 1 solid !important;
-  border-radius: 0.5rem;
-  background-color: rgba(255, 255, 255, 1) !important;
-  font-weight: bolder;
-}
+            .my-banner .search-bar .search-item input {
+                position: relative;
+                bottom: 0%;
+                margin: 5px;
+                padding-left: 10px;
+                text-align: center;
+                opacity: 1.5;
+                color: blue;
+                border: 1 solid !important;
+                border-radius: 0.5rem;
+                background-color: rgba(255, 255, 255, 1) !important;
+                font-weight: bolder;
+            }
 
-.my-banner .search-bar .search-item input[type="button"] {
-  position: absolute;
-  bottom: 17px;
-  left: 20px;
-  margin: 5px;
-  margin: 0;
-  opacity: 1.5;
-  color: white;
-  border-radius: 0.5rem;
-  background-color: orange !important;
-  font-weight: 500;
-}
+                .my-banner .search-bar .search-item input[type="button"] {
+                    opacity: 1.5;
+                    color: white;
+                    border-radius: 0.5rem;
+                    background-color: orange !important;
+                    font-weight: 500;
+                }
 
 .myjumbotron {
-  padding: 20px 100px 20px 100px;
-  text-align: center;
+    padding: 20px 100px 20px 100px;
+    text-align: center;
 }
 
-.myjumbotron jumbotron-input-box {
-  position: relative;
-  display: inline-block;
-}
+    .myjumbotron jumbotron-input-box {
+        position: relative;
+        display: inline-block;
+    }
 
-.myjumbotron .jumbotron-input-box input[type="button"] {
-  position: relative;
-  bottom: 0%;
-  width: 300px;
-  margin: 5px;
-  border-width: medium;
-  border-radius: 0.5rem;
-}
+    .myjumbotron .jumbotron-input-box input[type="button"] {
+        position: relative;
+        bottom: 0%;
+        width: 300px;
+        margin: 5px;
+        border-width: medium;
+        border-radius: 0.5rem;
+    }
 
 @media only screen and (max-width: 1000px) {
-  .my-banner {
-    height: 16em;
-  }
+    .my-banner {
+        height: 30em;
+    }
+
+        .my-banner .search-bar {
+            top: 30%;
+            height: 30%;
+        }
+}
+
+@media only screen and (max-width: 777px) {
+    .my-banner {
+        height: 30em;
+    }
+
+        .my-banner .search-bar {
+            top: 30%;
+            height: 51%;
+        }
+}
+
+@media only screen and (max-width: 680px) {
+    .my-banner {
+        height: 16em;
+    }
+
+        .my-banner .search-bar {
+            top: 0%;
+            height: 100%;
+        }
 }
 
 .my-card {
-  border-radius: 15px;
-  background-color: #EEEEEE;
+    border-radius: 15px;
+    background-color: #EEEEEE;
 }
 
-.my-card img {
-  border-radius: 15px;
-}
+    .my-card img {
+        border-radius: 15px;
+    }
 
 .my-card-orange {
-  color: white;
-  border-radius: 15px;
-  background-color: #F6851F;
+    color: white;
+    border-radius: 15px;
+    background-color: #F6851F;
 }
 
-.my-card-orange .btn {
-  color: blue;
-  background-color: #EEEEEE;
-}
+    .my-card-orange .btn {
+        color: blue;
+        background-color: #EEEEEE;
+    }
 
 .text-with-line {
-  position: relative;
-  overflow: hidden;
-  font-family: Arial;
-  font-size: 20px;
+    position: relative;
+    overflow: hidden;
+    font-family: Arial;
+    font-size: 20px;
 }
 
-.text-with-line:after {
-  position: absolute;
-  top: 50%;
-  display: inline-block;
-  width: 100%;
-  height: 4px;
-  margin-top: -2px;
-  margin-left: 5px;
-  content: "";
-  background: #007BFF;
-}
+    .text-with-line:after {
+        position: absolute;
+        top: 50%;
+        display: inline-block;
+        width: 100%;
+        height: 4px;
+        margin-top: -2px;
+        margin-left: 5px;
+        content: "";
+        background: #007BFF;
+    }
 
 .footer-list a {
-  color: #fff;
+    color: #fff;
+}
+
+.hidden-container {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-box-pack: center !important;
+    -ms-flex-pack: center !important;
+    justify-content: center !important;
+}
+
+    .hidden-container img {
+        display: block;
+        width: 100%;
+        min-height: 210px;
+    }
+
+.card-img-top {
+    min-height: 17em;
+    max-height: 17em;
+}
+
+.object-fit_fill {
+    object-fit: fill !important
+}
+
+.object-fit_contain {
+    object-fit: contain !important
+}
+
+.object-fit_cover {
+    object-fit: cover !important
+}
+
+.object-fit_none {
+    object-fit: none !important
+}
+
+.object-fit_scale-down {
+    object-fit: scale-down !important
 }

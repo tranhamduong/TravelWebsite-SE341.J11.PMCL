@@ -61,6 +61,7 @@ namespace Model.Model
             ImageDAO dao = new ImageDAO();
             imageList = dao.ListAll(1, 10);
             listDiaDanh = DiaDanhDAO.ListNameAll();
+
         }
 
         public TourListModel(string searchName, string searchDate, string searchNumber, int v)
@@ -155,8 +156,10 @@ namespace Model.Model
                         danhSach = TourDAO.searchByNameDateNumberPrice(searchName, searchDate, searchNumber, 6000000);
                         break;
                     }
-                    
             }
+            ImageDAO dao = new ImageDAO();
+            imageList = dao.ListAll(1, 10);
+
         }
     }
 }

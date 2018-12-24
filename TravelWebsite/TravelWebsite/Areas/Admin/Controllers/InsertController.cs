@@ -88,7 +88,10 @@ namespace TravelWebsite.Areas.Admin
 
             dto1.MoTaTour = Convert.ToString(form["tour.tour.MoTaTour"]);
             dto1.SoChoConLai = Convert.ToInt16(form["tour.tour.SoChoConLai"]);
-            
+
+            string a = Convert.ToString(form["thoigiandi"]);
+            string b = Convert.ToString(form["thoigianden"]);
+
             dto1.NgayKhoiHanh = DateTime.Parse(Convert.ToString(form["thoigiandi"])); 
             dto1.NgayTroVe = DateTime.Parse(Convert.ToString(form["thoigianden"]));
             dto1.GiaTien = Convert.ToInt32(form["tour.tour.GiaTien"]);
@@ -98,7 +101,7 @@ namespace TravelWebsite.Areas.Admin
             string temp = Convert.ToString(form["giamgia"]);
             temp = temp.Remove(temp.Length - 1);
             dto1.GiamGia = Convert.ToDouble(temp);
-            dto1.NoiKhoiHanh = Convert.ToString("tour.tour.NoiKhoiHanh");
+            dto1.NoiKhoiHanh = Convert.ToString(form["tour.tour.NoiKhoiHanh"]);
             dto1.MaHuongDanVien = Convert.ToString(form["tour.tour.MaHuongDanVien"]);
             dto1.MaDiaDanh = Convert.ToString(form["tour.tour.MaDiaDanh"]);
             temp = Convert.ToString(form["tour.tour.isInternal"]);

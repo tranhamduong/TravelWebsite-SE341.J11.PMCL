@@ -41,7 +41,7 @@ namespace Model.DAO
 
         public IPagedList<PhuongTien> ListAll(int page = 1, int pageSize = 10)
         {
-            var model = db.PhuongTiens.Where(x => x.isDeleted == null).OrderBy(x => x.MaPhuongTien).ToPagedList(page, pageSize);
+            var model = db.PhuongTiens.Where(x => x.isDeleted == null).OrderBy(x => x.MaPhuongTien).ToPagedList(1, 20);
             return model;
         }
 

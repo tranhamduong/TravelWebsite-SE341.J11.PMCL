@@ -52,7 +52,8 @@ namespace TravelWebsite.Controllers
             {
                 if (success.isAdmin == true)
                 {
-
+                    Session.Add(Model.CommonConstants.USER, success);
+                    Session.Add("isAdmin","true");
                 }
                 else
                 {
@@ -87,20 +88,6 @@ namespace TravelWebsite.Controllers
             dao.insert(khachHang);
 
             return RedirectToAction("Index", "Home");
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
         }
 
     }

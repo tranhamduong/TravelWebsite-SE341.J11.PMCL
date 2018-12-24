@@ -36,8 +36,8 @@
                                 <p>
                                     @using (Html.BeginForm("EditHDV", "Edit", FormMethod.Post, new { @name = "myForm", @id = "myForm2" }))
                                     {
-                                        <input type="hidden" name="ma" value="@item.MaHuongDanVien" />
-                                        <input type="hidden" name="tenEdited" value="" />
+                                        <input type="hidden" name="maHDV" value=@item.MaHuongDanVien />
+                                        <input type="hidden" id ="tenEdited"name="tenEdited" value="" />
                                         <input type="hidden" name="sdtEdited" value="" />
                                         <input type="button" id="@item.MaHuongDanVien+edit" class="btn-link hihi" value="Sửa" onclick="editFunc2('@item.MaHuongDanVien')" />
                                     }
@@ -70,8 +70,11 @@
             func = "false";
         }
         else {
-            document.getElementsByName("tenEdited")[0].value = document.getElementById(ma + "+ten").innerHTML;
+            var e = document.getElementById(ma + "+ten").innerHTML;
             document.getElementsByName("sdtEdited")[0].value = document.getElementById(ma + "+sdt").innerHTML;
+            document.getElementsByName("tenEdited")[0].value = e;
+            document.getElementById('tenEdited').value = e;
+            document.getElementsByName("maHDV")[0].value = ma;
             form2.submit();
         }
     }

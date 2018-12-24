@@ -64,7 +64,7 @@ namespace Model.DAO
 
         public IPagedList<HuongDanVien> ListAll(int page = 1, int pageSize = 10)
         {
-            var model = db.HuongDanViens.Where(x=>x.isDeleted == null).OrderBy(x => x.MaHuongDanVien).ToPagedList(page, pageSize);
+            var model = db.HuongDanViens.Where(x=>x.isDeleted == null).OrderBy(x => x.MaHuongDanVien).ToPagedList(1, 20);
             return model;
         }
 
@@ -85,6 +85,7 @@ namespace Model.DAO
             var hdv = db.HuongDanViens.Where(x => x.MaHuongDanVien == entity.MaHuongDanVien).FirstOrDefault();
             hdv.HoTenHDV = entity.HoTenHDV;
             hdv.SoDienThoaiHDV = entity.SoDienThoaiHDV;
+            db.SaveChanges();
             return false;
         }
     }

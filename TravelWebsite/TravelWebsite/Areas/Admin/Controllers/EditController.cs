@@ -116,21 +116,45 @@ namespace TravelWebsite.Areas.Admin.Controllers
             string a = Convert.ToString(form["ma"]);
             string b = Convert.ToString(form["tenEdited"]);
             string c = Convert.ToString(form["soKhachEdited"]);
+
             return RedirectToAction("InsertData", "Insert");
         }
 
-        public ActionResult EditHDV(FormCollection form)
+        public ActionResult EditHDV(FormCollection form, string maHDV, string tenEdited)
         {
+            HuongDanVien entity = new HuongDanVien();
+            entity.MaHuongDanVien = form["maHDV"];
+            entity.HoTenHDV = form["tenEdited"];
+            entity.SoDienThoaiHDV = form["sdtEdited"];
+            HuongDanVienDAO.edit(entity);
             return RedirectToAction("InsertData", "Insert");
         }
 
         public ActionResult EditPTN(FormCollection form)
         {
+            PhuongTien entity = new PhuongTien();
+            entity.MaPhuongTien = form["maPTN"];
+            entity.TenSanBay = form["tenSanBayEdited"];
+            entity.ThoiGianDi = DateTime.Parse(Convert.ToString(form["thoiGianDiEdited"]));
+            entity.ThoiGianDen = DateTime.Parse(Convert.ToString(form["thoiGianDenEdited"]));
+            entity.MaPhuongTien = "PTN" + entity.MaPhuongTien;
+
+            PhuongTienDAO.edit(entity);
             return RedirectToAction("InsertData", "Insert");
         }
 
         public ActionResult EditKHG(FormCollection form)
         {
+            KhachHang entity = new KhachHang();
+            entity.MaKhachHang = form["maKHG"];
+            entity.SoDienThoaiKH = form["sdtEdited"];
+            entity.SoHoChieuCMND = form["cmndEdited"];
+            entity.TenDangNhap = form["tendangnhapEdited"];
+            entity.Email = form["emailEdited"];
+            entity.HoTenKhachHang = form["tenEdited"];
+
+            KhachHangDAO.edit(entity);
+
             return RedirectToAction("InsertData", "Insert");
         }
 

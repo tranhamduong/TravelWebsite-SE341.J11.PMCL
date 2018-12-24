@@ -48,7 +48,18 @@
                         @Html.ActionLink("Đăng xuất", "Logout", "Home", null, new { @class = "nav-link" })
                     </li>
                 }
+
+                if (Session["isAdmin"] != null)
+                {
+                    if (Session["isAdmin"].ToString() == "true")
+                    {
+                        <li>
+                            @Html.ActionLink("Admin Panel", "InsertData", "Insert", new {@area="Admin" },new {@class="nav-link"})
+                        </li>
+                    }
+                }
             }
+
             <li>
                 <a class="nav-link" data-toggle="modal" data-target="#myModal">Tra cứu Tour </a>
             </li>
@@ -83,34 +94,56 @@
 <!--banner-->
 <div class="my-banner img-fluid">
     <img src="~/Content/img/nhatrang.jpg" alt="">
-    <div class="search-bar">
-        @using (Html.BeginForm("Search", "Search", FormMethod.Get))
-        {
-            <div class="search-item">
-                <div class="search-item-header">
-                    Bạn đi đến đâu ?
-                    <input class="search-item-input" type="text" style="width:500px;" name="searchName" required />
+    <div class="search-bar pl-2 pr-2">
+        <div class="row">
+                @using (Html.BeginForm("Search", "Search", FormMethod.Get, new { style ="width:100%;" }))
+                {
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="search-item p-2">
+                        <label for="inputNoiDi" class="search-item-header">
+                            Bạn đi đến đâu ?
+                        </label>
+                        <input id="inputNoiDi" class="search-item-input form-control" type="text" style="" name="searchName" required />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="search-item">
+                                <label for="inputNgayKhoiHanh" class="search-item-header">
+                                    Ngày khởi hành ?
+                                </label>
+                                <input id="inputNgayKhoiHanh" class="search-item-input form-control" type="date" name="searchDate" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="search-item">
+                                <label for="inputSoKhach" class="search-item-header">
+                                    Số khách?
+                                </label>
+                                <input id="inputSoKhach" class="search-item-input form-control" type="number" name="searchNumber" min="0"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-flex align-content-center flex-wrap justify-content-center">
+                            <div class="search-item d-flex align-content-center flex-wrap justify-content-center" style="position: absolute; bottom: 0px;">
+                                <div class="row p-4">
+                                    <div class="col-md-12">
+                                        <input type="submit" value="Tìm kiếm" />
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="search-item-bottom">
+                                            @Html.ActionLink("Tìm kiếm nâng cao", "Search", "Search", new { searchName = " ", searchDate = "", searchNumber = "" }, null)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="search-item">
-                <div class="search-item-header">
-                    Ngày khởi hành ?
-                    <input class="search-item-input" type="date" name="searchDate" />
-                </div>
+                }
             </div>
-            <div class="search-item">
-                <div class="search-item-header">
-                    Số khách?
-                    <input class="search-item-input" type="number" name="searchNumber" />
-                </div>
-            </div>
-            <div class="search-item" style="position: absolute; bottom: 0px;">
-                <input type="submit" value="Tìm kiếm" />
-                <div class="search-item-bottom">
-                    @Html.ActionLink("Tìm kiếm nâng cao", "Search", "Search", new { searchName = " ", searchDate = "", searchNumber = "" }, null)
-                </div>
-            </div>
-        }
     </div>
 </div>
 
@@ -128,50 +161,52 @@
 <!--main-->
 <div class="container">
     <!--row 1-->
-    <div class="row mb-3">
+    <div class="row mb-3 d-flex justify-content-center" >
         <div class="col-md-8 d-flex">
-            <div class="card my-card flex-fill">
-                <div class="row">
-                    <div class="col-md-4">
-                        @{
-                            var pictureInternal = Convert.ToBase64String(Model.imageInternal);
-                            var imgsrcInternal = string.Format("data:image/gif;base64,{0}", pictureInternal);
-                            <div class="containerIMG">
-                                <img class="card-img-top" src=@imgsrcInternal alt="Card image">
-                            </div>
-                        }
-                    </div>
-                    <div class="col-md-8 px-3">
-                        <div class="card-block px-3">
+            <div class="row">
+                <div class="card my-card flex-fill">
+                    <div class="row">
+                        <div class="col-md-4 d-flex hidden-container">
                             @{
-                                string internalTourCode = Session["InternalTourPR"].ToString().Trim();
-                                Model.Entity.Tour internalTourPR = null;
-                                foreach (var item in Model.tour.danhSach)
-                                {
-                                    if (item.MaTour == internalTourCode.Trim())
+                                var pictureInternal = Convert.ToBase64String(Model.imageInternal);
+                                var imgsrcInternal = string.Format("data:image/gif;base64,{0}", pictureInternal);
+                                <div class="containerIMG">
+                                    <a href="#" class="align-items-center d-flex align-content-center"><img class="card-img-top img-fluid" src=@imgsrcInternal alt="Card image"></a>
+                                </div>
+                            }
+                        </div>
+                        <div class="col-md-8 px-3">
+                            <div class="card-block px-3">
+                                @{
+                                    string internalTourCode = Session["InternalTourPR"].ToString().Trim();
+                                    Model.Entity.Tour internalTourPR = null;
+                                    foreach (var item in Model.tour.danhSach)
                                     {
-                                        internalTourPR = item;
+                                        if (item.MaTour == internalTourCode.Trim())
+                                        {
+                                            internalTourPR = item;
+                                        }
                                     }
-                                }
-                                string ngayKhoiHanhInternalTourPR = internalTourPR.NgayKhoiHanh.ToShortDateString();
+                                    string ngayKhoiHanhInternalTourPR = internalTourPR.NgayKhoiHanh.ToShortDateString();
 
-                                <h4 class="card-title"> @internalTourPR.MoTaTour </h4>
-                                <p class="card-text">Khởi hành ngày: @ngayKhoiHanhInternalTourPR </p>
-                                if (internalTourPR.TinhTrang == true)
-                                {
-                                    <p class="card-text">Số chỗ: @internalTourPR.SoChoConLai </p>
+                                    <h4 class="card-title"> @internalTourPR.MoTaTour </h4>
+                                    <p class="card-text">Khởi hành ngày: @ngayKhoiHanhInternalTourPR </p>
+                                    if (internalTourPR.TinhTrang == true)
+                                    {
+                                        <p class="card-text">Số chỗ: @internalTourPR.SoChoConLai </p>
+                                    }
+                                    else
+                                    {
+                                        <p class="card-text">Số chỗ: @internalTourPR.SoChoConLai <span style="color:red">Tour đã hết chỗ!</span></p>
+                                    }
+                                    <p class="card-text">Số ngày: @internalTourPR.SoNgay </p>
                                 }
-                                else
+                                @using (Html.BeginForm("Detail", "Tour", FormMethod.Get))
                                 {
-                                    <p class="card-text">Số chỗ: @internalTourPR.SoChoConLai <span style="color:red">Tour đã hết chỗ!</span></p>
+                                    <input type="hidden" value=@internalTourPR.MaTour name="tourID" />
+                                    <input type="submit" class="btn btn-primary" value="Xem thêm" />
                                 }
-                                <p class="card-text">Số ngày: @internalTourPR.SoNgay </p>
-                            }
-                            @using (Html.BeginForm("Detail", "Tour", FormMethod.Get))
-                            {
-                                <input type="hidden" value=@internalTourPR.MaTour name="tourID" />
-                                <input type="submit" class="btn btn-primary" value="Xem thêm" />
-                            }
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -204,77 +239,83 @@
     </div>
 
     <!--row 2-->
-    <div class="row mb-3">
-        <div class="col-md-4 d-flex">
-            <div class="card my-card-orange flex-fill">
-                <div class="row">
-                    <div class="col-md-12 px-3">
-                        <div class="card-block px-3">
-                            <h4 class="card-title text-center">Kháp phá 5 châu</h4>
-                            <p class="card-text">Thức dậy ở một đất nước xa xôi với tour quốc tế</p>
-                            <div class="row">
-                                <div class="col-md-6 d-flex">
-                                    <a href="~/Search/Search?searchName=External" class="btn btn-block flex-fill" style="padding: 10% 0;">Có <span class="h5">@Model.externalTourCount</span> tour quốc tế <br>chờ bạn tại đây</a>
-                                </div>
-                                <div class="col-md-6 d-flex">
-                                    <a href="~/Search/Search?searchName=External" class="btn btn-block flex-fill" style="padding: 10% 0;">
-                                        Tâm điểm tuần <br><span class="h1">
-                                            >>
-                                        </span>
-                                    </a>
+    <div class="row mb-3 d-flex justify-content-center">
+        <div class="col-md-4 d-flex justify-content-center">
+            <div class="row">
+                <div class="card my-card-orange flex-fill">
+                    <div class="row">
+                        <div class="col-md-12 px-3">
+                            <div class="card-block px-3">
+                                <h4 class="card-title text-center">Kháp phá 5 châu</h4>
+                                <p class="card-text">Thức dậy ở một đất nước xa xôi với tour quốc tế</p>
+                                <div class="row">
+                                    <div class="col-md-6 d-flex">
+                                        <a href="~/Search/Search?searchName=External" class="btn btn-block flex-fill" style="padding: 10% 0;">Có <span class="h5">@Model.externalTourCount</span> tour quốc tế <br>chờ bạn tại đây</a>
+                                    </div>
+                                    <div class="col-md-6 d-flex">
+                                        <a href="~/Search/Search?searchName=External" class="btn btn-block flex-fill" style="padding: 10% 0;">
+                                            Tâm điểm tuần <br><span class="h1">
+                                                >>
+                                            </span>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
 
         <div class="col-md-8 d-flex">
-            <div class="card my-card flex-fill">
-                <div class="row">
-                    <div class="col-md-4">
-                        @{
-                            var pictureExternal = Convert.ToBase64String(Model.imageExternal);
-                            var imgsrcExternal = string.Format("data:image/gif;base64,{0}", pictureExternal);
-                            <a href="#"><img class="card-img-top" src=@imgsrcExternal alt="Card image"></a>
-                        }
-                    </div>
-                    <div class="col-md-8 px-3">
-                        <div class="card-block px-3">
+            <div class="row">
+                <div class="card my-card flex-fill">
+                    <div class="row">
+                        <div class="col-md-4 d-flex hidden-container">
                             @{
-                                string externalTourCode = Session["ExternalTourPR"].ToString();
-                                Model.Entity.Tour externalTourPR = null;
-                                foreach (var item in Model.tour.danhSach)
-                                {
-                                    if (item.MaTour == externalTourCode.Trim())
+                                var pictureExternal = Convert.ToBase64String(Model.imageExternal);
+                                var imgsrcExternal = string.Format("data:image/gif;base64,{0}", pictureExternal);
+                                <a href="#" class="align-items-center d-flex align-content-center"><img class="card-img-top img-fluid" src=@imgsrcExternal alt="Card image"></a>
+                            }
+                        </div>
+                        <div class="col-md-8 px-3">
+                            <div class="card-block px-3">
+                                @{
+                                    string externalTourCode = Session["ExternalTourPR"].ToString();
+                                    Model.Entity.Tour externalTourPR = null;
+                                    foreach (var item in Model.tour.danhSach)
                                     {
-                                        externalTourPR = item;
+                                        if (item.MaTour == externalTourCode.Trim())
+                                        {
+                                            externalTourPR = item;
+                                        }
                                     }
-                                }
-                                string ngayKhoiHanhExternalTourPR = externalTourPR.NgayKhoiHanh.ToShortDateString();
+                                    string ngayKhoiHanhExternalTourPR = externalTourPR.NgayKhoiHanh.ToShortDateString();
 
-                                <h4 class="card-title"> @externalTourPR.MoTaTour </h4>
-                                <p class="card-text">Khởi hành ngày: @ngayKhoiHanhExternalTourPR </p>
-                                if (externalTourPR.TinhTrang == true)
-                                {
-                                    <p class="card-text">Số chỗ: @externalTourPR.SoChoConLai </p>
+                                    <h4 class="card-title"> @externalTourPR.MoTaTour </h4>
+                                    <p class="card-text">Khởi hành ngày: @ngayKhoiHanhExternalTourPR </p>
+                                    if (externalTourPR.TinhTrang == true)
+                                    {
+                                        <p class="card-text">Số chỗ: @externalTourPR.SoChoConLai </p>
+                                    }
+                                    else
+                                    {
+                                        <p class="card-text">Số chỗ: @externalTourPR.SoChoConLai <span style="color:red">Tour đã hết chỗ!</span></p>
+                                    }
+                                    <p class="card-text">Số ngày: @externalTourPR.SoNgay </p>
                                 }
-                                else
+                                @using (Html.BeginForm("Detail", "Tour", FormMethod.Get))
                                 {
-                                    <p class="card-text">Số chỗ: @externalTourPR.SoChoConLai <span style="color:red">Tour đã hết chỗ!</span></p>
+                                    <input type="hidden" value=@externalTourPR.MaTour name="tourID" />
+                                    <input type="submit" class="btn btn-primary" value="Xem thêm" />
                                 }
-                                <p class="card-text">Số ngày: @externalTourPR.SoNgay </p>
-                            }
-                            @using (Html.BeginForm("Detail", "Tour", FormMethod.Get))
-                            {
-                                <input type="hidden" value=@externalTourPR.MaTour name="tourID" />
-                                <input type="submit" class="btn btn-primary" value="Xem thêm" />
-                            }
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
 
@@ -282,7 +323,7 @@
     <h2 class="text-with-line text-primary">Ưu đãi</h2>
 
     <div class="row mb-3">
-        <div class="col-md-4 d-flex">
+        <div class="col-md-4 d-flex justify-content-center">
             <div class="card flex-fill">
                 @{
                     foreach (var item in Model.image.danhSach)
@@ -300,7 +341,7 @@
             </div>
         </div>
 
-        <div class="col-md-4 d-flex">
+        <div class="col-md-4 d-flex justify-content-center">
             <div class="card flex-fill">
                 @{
                     foreach (var item in Model.image.danhSach)
@@ -318,7 +359,7 @@
             </div>
         </div>
 
-        <div class="col-md-4 d-flex">
+        <div class="col-md-4 d-flex justify-content-center">
             <div class="card flex-fill">
                 @{
                     foreach (var item in Model.image.danhSach)
@@ -341,7 +382,7 @@
     <h2 class="text-with-line text-primary">Điểm đến ưa thích</h2>
 
     <div class="row mb-3">
-        <div class="col-md-4 d-flex">
+        <div class="col-md-4 d-flex justify-content-center">
             <div class="card flex-fill">
                 @{
                     var pictureDD1 = Convert.ToBase64String(Model.diadanh.danhSach[0].Anh);
@@ -352,7 +393,7 @@
             </div>
         </div>
 
-        <div class="col-md-4 d-flex">
+        <div class="col-md-4 d-flex justify-content-center">
             <div class="card flex-fill">
                 @{
                     var pictureDD2 = Convert.ToBase64String(Model.diadanh.danhSach[1].Anh);
@@ -363,7 +404,7 @@
             </div>
         </div>
 
-        <div class="col-md-4 d-flex">
+        <div class="col-md-4 d-flex justify-content-center">
             <div class="card flex-fill">
                 @{
                     var pictureDD3 = Convert.ToBase64String(Model.diadanh.danhSach[2].Anh);

@@ -20,7 +20,7 @@
         [Display(Name = "Nơi tập trung: ")]
         public string NoiTapTrung { get; set; }
 
-        [StringLength(10)]
+        [StringLength(50)]
         [Display(Name = "Mã Phương tiện")]
         public string MaPhuongTien { get; set; }
 

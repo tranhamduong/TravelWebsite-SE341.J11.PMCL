@@ -34,10 +34,10 @@ namespace TravelWebsite.Controllers
         {
             if (model.Filter == 0)
             {
-                int count = 0;
+                int count = model.pdt.soGheNguoiLon + model.pdt.soGheTreEm ;
                 DiaDanhDAO.tangSoLuong(model.tour.MaDiaDanh, count);
 
-                TourDAO.xepCho(model.tour.MaTour, model.pdt.soGheNguoiLon + model.pdt.soGheTreEm);
+                TourDAO.xepCho(model.tour.MaTour, count);
 
                 return View(model);
             }
@@ -83,9 +83,9 @@ namespace TravelWebsite.Controllers
                 flag = 0;
             }
 
-            ExportModel model; 
+            ExportModel model;
             PhieuDatTourDAO phieuDatTourDAO = new PhieuDatTourDAO();
-            string code = phieuDatTourDAO.Insert(tourID, khachHangNewId,form["customerNameArray"], Int32.Parse(form["inputNumberOfOlder"]), Int32.Parse(form["inputNumberOfYounger"]), Int32.Parse(form["inputNumberOfSingleRoom"]), tongTienGiaTri.ToString());
+            string code = phieuDatTourDAO.Insert(tourID, khachHangNewId, form["customerNameArray"], Int32.Parse(form["inputNumberOfOlder"]), Int32.Parse(form["inputNumberOfYounger"]), Int32.Parse(form["inputNumberOfSingleRoom"]), tongTienGiaTri.ToString());
             if (flag == 0)
             {
                 model = ExportModel.getModel(KhachHangDAO.getByCode(khachHangNewId), TourDAO.getByCode(tourID));
@@ -94,7 +94,14 @@ namespace TravelWebsite.Controllers
             {
                 model = ExportModel.getModelNew(KhachHangDAO.getByCode(khachHangNewId), TourDAO.getByCode(tourID), code);
             }
-            return View("ExportCheckout",model);
+
+            int count = model.pdt.soGheNguoiLon + model.pdt.soGheTreEm;
+            DiaDanhDAO.tangSoLuong(model.tour.MaDiaDanh, count);
+
+            TourDAO.xepCho(model.tour.MaTour, count);
+
+
+            return View("ExportCheckout", model);
         }
 
         [HttpPost]

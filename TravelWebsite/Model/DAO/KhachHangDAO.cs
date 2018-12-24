@@ -106,7 +106,7 @@ namespace Model.DAO
 
         public IPagedList<KhachHang> ListAll(int page = 1, int pageSize = 10)
         {
-            var model = db.KhachHangs.Where(x => x.isDeleted == null).OrderBy(x => x.MaKhachHang).ToPagedList(page, pageSize);
+            var model = db.KhachHangs.Where(x => x.isDeleted == null).OrderBy(x => x.MaKhachHang).ToPagedList(1, 20);
             return model;
         }
 
@@ -130,10 +130,10 @@ namespace Model.DAO
             var kh = db.KhachHangs.Where(x => x.MaKhachHang == entity.MaKhachHang).FirstOrDefault();
             kh.HoTenKhachHang = entity.HoTenKhachHang;
             kh.Email = entity.Email;
-            kh.SoDienThoaiKH = entity.Email;
+            kh.SoDienThoaiKH = entity.SoDienThoaiKH;
             kh.SoHoChieuCMND = entity.SoHoChieuCMND;
             kh.DiaChi = entity.DiaChi;
-            //kh.TenDangNhap = entity.TenDangNhap;
+            kh.TenDangNhap = entity.TenDangNhap;
             db.SaveChanges();
             return false;
         }
